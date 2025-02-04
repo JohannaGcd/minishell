@@ -51,6 +51,14 @@ typedef struct s_command
 // Lexical Analysis
 // -> Separates the input into tokens
 
+// lexer_list_utils.c
+t_token					*token_list_find_last(t_token *token_list_node);
+void					token_list_add_back(t_token **token_list_head,
+							t_token *new_token);
+t_token					*create_new_token(void);
+
+// lexer.c
+
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
 
