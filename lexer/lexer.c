@@ -3,7 +3,7 @@
 // To set the type of the token based on the first character.
 int	get_token_hint(char c)
 {
-	char	set_type[] = {'-', '|', '\'', '\"', '<', '>'};
+	char	set_type[] = {'~', '|', '\'', '\"', '<', '>'};
 	int		value;
 
 	value = 0;
@@ -13,6 +13,8 @@ int	get_token_hint(char c)
 			break ;
 		value++;
 	}
+	if (ft_isspace(c))
+		return (7);
 	return (value);
 }
 
@@ -67,7 +69,7 @@ int	main(void)
 
 	prompt = "minishell > ";
 	input_str = readline(prompt);
-	test = extract_token(input_str);
+	test = extract_tokens(input_str);
 
 	tmp = test;
 	i = 0;

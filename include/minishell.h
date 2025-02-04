@@ -68,7 +68,13 @@ void					quote_token(int *current_pos, char *input_str, char c);
 void					redirect_token(int *current_pos, char *input_str,
 							char c);
 void					word_token(int *current_pos, char *input_str, char c);
+int						ft_isspace(char c);
 
+// Libft functions --> THIS IS A TEMPORARY FILE (to be deleted once we include libft with our Makefile)
+char					*ft_strdup(const char *s);
+int						ft_strlen(const char *str);
+char					*ft_substr(const char *s, unsigned int start,
+							size_t len);
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
 
