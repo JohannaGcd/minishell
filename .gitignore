@@ -6,3 +6,6 @@
 # Ignore editor/OS_specific files
 .vscode/
 .DS_Store
+
+# Ignore temporary files
+lexer/temp_libft.c 

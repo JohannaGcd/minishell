@@ -1,7 +1,44 @@
 #include "../include/minishell.h"
 
-void	fill_token(void);
+// To set the type of the token based on the first character.
+int	get_token_hint(char c)
+{
+	char	set_type[] = {'-', '|', '\'', '\"', '<', '>'};
+	int		value;
 
+	value = 0;
+	while (value < 6)
+	{
+		if (c == set_type[value])
+			break ;
+		value++;
+	}
+	return (value);
+}
+
+// To fill the token node, with its type and the corresponding character string
+void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
+{
+	int	start_pos;
+
+	start_pos = *current_pos;
+	new_token->type = get_token_hint(input_str[*current_pos]);
+	void (*get_full_token[])(int *, char *, char) = {
+		[TOKEN] = NULL,
+		[PIPE] = pipe_token,
+		[S_QUOTE] = quote_token,
+		[D_QUOTE] = quote_token,
+		[REDIRECT_IN] = redirect_token,
+		[REDIRECT_OUT] = redirect_token,
+		[WORD] = word_token,
+	};
+	get_full_token[new_token->type](current_pos, input_str,
+		input_str[*current_pos]);
+	new_token->str = ft_substr(input_str, start_pos, ((*current_pos - start_pos)
+				+ 1));
+}
+
+// To extract the complete list of tokens from the input string
 t_token	*extract_tokens(char *input_str)
 {
 	t_token	*token_list_head;
