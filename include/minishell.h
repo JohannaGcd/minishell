@@ -11,6 +11,25 @@
 
 // Lexical Analyser (ie. Lexer)
 
+typedef enum s_token_type
+{
+	TOKEN,
+	PIPE,
+	IS_SPACE,
+	S_QUOTE,
+	D_QUOTE,
+	REDIRECT_IN,
+	REDIRECT_OUT,
+	WORD,
+}						t_token_type;
+
+typedef struct s_token
+{
+	t_token_type		type;
+	char				*str;
+	struct s_token		*next;
+}						t_token;
+
 // Parser
 
 typedef struct s_redirection
