@@ -16,7 +16,7 @@ int	main(void)
 	i = 0;
 	while (tmp != NULL)
 	{
-		printf("token %d: %s \n", i, tmp->str);
+		printf("token%d:<%s>\n", i, tmp->str);
 		i++;
 		tmp = tmp->next;
 	}
