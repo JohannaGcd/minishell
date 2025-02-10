@@ -4,17 +4,19 @@
 int	get_token_hint(char c)
 {
 	if (c == '|') 
-		return PIPE;
+		return (PIPE);
     if (c == '\'') 
-		return S_QUOTE;
+		return (S_QUOTE);
     if (c == '\"') 
-		return D_QUOTE;
+		return (D_QUOTE);
     if (c == '<') 
-		return REDIRECT_IN;
+		return (REDIRECT_IN);
     if (c == '>') 
-		return REDIRECT_OUT;
+		return (REDIRECT_OUT);
     if (c == ' ') 
-		return SPACE;
+		return (SPACE);
+	if (c == '$')
+		return (VARIABLE);
     return WORD;
 }
 
@@ -35,6 +37,7 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 		[REDIRECT_OUT] = redirect_token,
 		[WORD] = word_token,
 		[SPACE] = space_token,
+		[VARIABLE] = variable_token,
 	};
 	if (get_full_token[new_token->type] != NULL)
         get_full_token[new_token->type](current_pos, input_str, input_str[*current_pos]);

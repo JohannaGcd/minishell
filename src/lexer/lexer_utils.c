@@ -20,6 +20,20 @@ void	pipe_token(int *current_pos, char *input_str, char c)
 	}
 }
 
+void	variable_token(int *current_pos, char *input_str, char c)
+{
+	int	i;
+
+	if (input_str == NULL)
+		return ;
+	i = 0;
+	while (i < 2 && input_str[*current_pos] && input_str[*current_pos] == c)
+	{
+		(*current_pos)++;
+		i++;
+	}
+}
+
 // To extract a single or double quote token
 void	quote_token(int *current_pos, char *input_str, char c)
 {
