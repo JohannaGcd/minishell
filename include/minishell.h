@@ -6,6 +6,7 @@
 # include <stdio.h> // for testing!
 # include <stdlib.h>
 # include <unistd.h>
+# include "../libft/libft.h"
 
 // PART 1: DATA STRUCTURES
 
@@ -20,6 +21,7 @@ typedef enum s_token_type
 	REDIRECT_IN,
 	REDIRECT_OUT,
 	WORD,
+	SPACE,
 }						t_token_type;
 
 typedef struct s_token
@@ -64,6 +66,7 @@ t_token					*create_new_token(void);
 
 // lexer_utils.c
 void					pipe_token(int *current_pos, char *input_str, char c);
+void					space_token(int *current_pos, char *input_str, char c);
 void					quote_token(int *current_pos, char *input_str, char c);
 void					redirect_token(int *current_pos, char *input_str,
 							char c);
@@ -71,10 +74,10 @@ void					word_token(int *current_pos, char *input_str, char c);
 int						ft_isspace(char c);
 
 // Libft functions --> THIS IS A TEMPORARY FILE (to be deleted once we include libft with our Makefile)
-char					*ft_strdup(const char *s);
-int						ft_strlen(const char *str);
-char					*ft_substr(const char *s, unsigned int start,
-							size_t len);
+//char					*ft_strdup(const char *s);
+//int						ft_strlen(const char *str);
+//char					*ft_substr(const char *s, unsigned int start,
+//							size_t len);
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
 

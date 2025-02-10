@@ -52,5 +52,15 @@ void	word_token(int *current_pos, char *input_str, char c)
 {
 	while (input_str[*current_pos]
 		&& get_token_hint(input_str[*current_pos]) == get_token_hint(c))
+		{
 		(*current_pos)++;
+		}
+}
+
+void space_token(int *current_pos, char *input_str, char c)
+{
+	while (input_str[*current_pos] && ft_isspace(input_str[*current_pos]))
+    {
+        (*current_pos)++;
+    }
 }

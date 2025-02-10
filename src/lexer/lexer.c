@@ -3,25 +3,26 @@
 // To set the type of the token based on the first character.
 int	get_token_hint(char c)
 {
-	char	set_type[] = {'~', '|', '\'', '\"', '<', '>'};
-	int		value;
-
-	value = 0;
-	while (value < 6)
-	{
-		if (c == set_type[value])
-			break ;
-		value++;
-	}
-	if (ft_isspace(c))
-		return (7);
-	return (value);
+	if (c == '|') 
+		return PIPE;
+    if (c == '\'') 
+		return S_QUOTE;
+    if (c == '\"') 
+		return D_QUOTE;
+    if (c == '<') 
+		return REDIRECT_IN;
+    if (c == '>') 
+		return REDIRECT_OUT;
+    if (c == ' ') 
+		return SPACE;
+    return WORD;
 }
 
 // To fill the token node, with its type and the corresponding character string
 void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 {
 	int	start_pos;
+	int length;
 
 	start_pos = *current_pos;
 	new_token->type = get_token_hint(input_str[*current_pos]);
@@ -33,11 +34,12 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 		[REDIRECT_IN] = redirect_token,
 		[REDIRECT_OUT] = redirect_token,
 		[WORD] = word_token,
+		[SPACE] = space_token,
 	};
-	get_full_token[new_token->type](current_pos, input_str,
-		input_str[*current_pos]);
-	new_token->str = ft_substr(input_str, start_pos, ((*current_pos - start_pos)
-				+ 1));
+	if (get_full_token[new_token->type] != NULL)
+        get_full_token[new_token->type](current_pos, input_str, input_str[*current_pos]);
+	length = (*current_pos - start_pos);
+    new_token->str = ft_substr(input_str, start_pos, length);
 }
 
 // To extract the complete list of tokens from the input string
@@ -54,30 +56,6 @@ t_token	*extract_tokens(char *input_str)
 		new_token = create_new_token();
 		fill_token_info(&current_pos, input_str, new_token);
 		token_list_add_back(&token_list_head, new_token);
-		current_pos++;
 	}
 	return (token_list_head);
-}
-
-int	main(void)
-{
-	int i;
-	char *input_str;
-	char *prompt;
-	t_token *test;
-	t_token *tmp;
-
-	prompt = "minishell > ";
-	input_str = readline(prompt);
-	test = extract_tokens(input_str);
-
-	tmp = test;
-	i = 0;
-	while (tmp != NULL)
-	{
-		printf("token %d: %s \n", i, tmp->str);
-		i++;
-		tmp = tmp->next;
-	}
-	return (0);
 }
