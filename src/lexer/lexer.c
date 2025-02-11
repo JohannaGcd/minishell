@@ -3,26 +3,26 @@
 // To set the type of the token based on the first character.
 int	get_token_hint(char c)
 {
-	if (c == '|') 
-		return PIPE;
-    if (c == '\'') 
-		return S_QUOTE;
-    if (c == '\"') 
-		return D_QUOTE;
-    if (c == '<') 
-		return REDIRECT_IN;
-    if (c == '>') 
-		return REDIRECT_OUT;
-    if (c == ' ') 
-		return SPACE;
-    return WORD;
+	if (c == '|')
+		return (PIPE);
+	if (c == '\'')
+		return (S_QUOTE);
+	if (c == '\"')
+		return (D_QUOTE);
+	if (c == '<')
+		return (REDIRECT_IN);
+	if (c == '>')
+		return (REDIRECT_OUT);
+	if (c == ' ')
+		return (M_SPACE);
+	return (WORD);
 }
 
 // To fill the token node, with its type and the corresponding character string
 void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 {
 	int	start_pos;
-	int length;
+	int	length;
 
 	start_pos = *current_pos;
 	new_token->type = get_token_hint(input_str[*current_pos]);
@@ -34,12 +34,13 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 		[REDIRECT_IN] = redirect_token,
 		[REDIRECT_OUT] = redirect_token,
 		[WORD] = word_token,
-		[SPACE] = space_token,
+		[M_SPACE] = space_token,
 	};
 	if (get_full_token[new_token->type] != NULL)
-        get_full_token[new_token->type](current_pos, input_str, input_str[*current_pos]);
+		get_full_token[new_token->type](current_pos, input_str,
+			input_str[*current_pos]);
 	length = (*current_pos - start_pos);
-    new_token->str = ft_substr(input_str, start_pos, length);
+	new_token->str = ft_substr(input_str, start_pos, length);
 }
 
 // To extract the complete list of tokens from the input string

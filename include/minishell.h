@@ -1,12 +1,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h> // for testing!
 # include <stdlib.h>
 # include <unistd.h>
-# include "../libft/libft.h"
 
 // PART 1: DATA STRUCTURES
 
@@ -21,7 +21,7 @@ typedef enum s_token_type
 	REDIRECT_IN,
 	REDIRECT_OUT,
 	WORD,
-	SPACE,
+	M_SPACE,
 }						t_token_type;
 
 typedef struct s_token
@@ -74,9 +74,9 @@ void					word_token(int *current_pos, char *input_str, char c);
 int						ft_isspace(char c);
 
 // Libft functions --> THIS IS A TEMPORARY FILE (to be deleted once we include libft with our Makefile)
-//char					*ft_strdup(const char *s);
-//int						ft_strlen(const char *str);
-//char					*ft_substr(const char *s, unsigned int start,
+// char					*ft_strdup(const char *s);
+// int						ft_strlen(const char *str);
+// char					*ft_substr(const char *s, unsigned int start,
 //							size_t len);
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
