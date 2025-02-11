@@ -8,7 +8,7 @@ int	main(void)
 	t_token *test;
 	t_token *tmp;
 
-	//prompt = "minishell > ";
+	// prompt = "minishell > ";
 	input_str = readline(prompt);
 	test = extract_tokens(input_str);
 
@@ -20,5 +20,8 @@ int	main(void)
 		i++;
 		tmp = tmp->next;
 	}
+
+	if (check_syntax(test) != 0)
+		write(1, "ERR", 3);
 	return (0);
 }

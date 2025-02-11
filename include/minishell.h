@@ -73,11 +73,15 @@ void					redirect_token(int *current_pos, char *input_str,
 void					word_token(int *current_pos, char *input_str, char c);
 int						ft_isspace(char c);
 
-// Libft functions --> THIS IS A TEMPORARY FILE (to be deleted once we include libft with our Makefile)
-// char					*ft_strdup(const char *s);
-// int						ft_strlen(const char *str);
-// char					*ft_substr(const char *s, unsigned int start,
-//							size_t len);
+// Syntax Checker
+// -> Checks whether the tokens respect grammar rules for BASH
+
+// syntaxer.c
+int						check_syntax(t_token *token_list);
+
+// syntaxer_utils.c
+void					pipe_syntaxer(char *token_str);
+
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
 

@@ -1,5 +1,17 @@
 #include "minishell.h"
 
+int	check_syntax(t_token *token_list)
+{
+	if (!token_list)
+		return (1);
+	void (*check_grammar_rules[])(char *str) = {
+		[TOKEN] = NULL,
+		[PIPE] = pipe_syntaxer,
+	};
+	check_grammar_rules[token_list->type](token_list->str);
+	return (0);
+}
+
 /* SYNTAX RULES:
 
 // 1. PIPE |

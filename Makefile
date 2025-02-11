@@ -16,6 +16,9 @@ OBJDIR = obj
 SRCDIR_LEXER = $(SRCDIR)/lexer
 OBJDIR_LEXER = objs_lexer
 
+SRCDIR_SYNTAXER = $(SRCDIR)/syntax_checker
+OBJDIR_SYNTAXER = objs_syntax_checker
+
 SRCDIR_PARSER = $(SRCDIR)/parser
 OBJDIR_PARSER = objs_parser
 
@@ -24,9 +27,11 @@ OBJDIR_EXECUTER = objs_executer
 
 SRC = main.c
 SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c 
+SRC_SYNTAXER = syntaxer.c syntaxer_utils.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o) \
 	$(SRC_LEXER:%.c=$(OBJDIR_LEXER)/%.o) \
+	$(SRC_SYNTAXER:%.c=$(OBJDIR_SYNTAXER)/%.o) \
 	$(SRC_PARSER:%.c=$(OBJDIR_PARSER)/%.o) \
 	$(SRC_EXECUTER:%.c=$(OBJDIR_EXECUTER)/%.o)
 
@@ -44,6 +49,9 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c  $(OBJDIR)
 $(OBJDIR_LEXER)/%.o: $(SRCDIR_LEXER)/%.c  $(OBJDIR_LEXER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
+$(OBJDIR_SYNTAXER)/%.o: $(SRCDIR_SYNTAXER)/%.c  $(OBJDIR_SYNTAXER)
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
+
 $(OBJDIR_PARSER)/%.o: $(SRCDIR_PARSER)/%.c  $(OBJDIR_PARSER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
@@ -54,6 +62,9 @@ $(OBJDIR):
 	@mkdir -p $@
 
 $(OBJDIR_LEXER):
+	@mkdir -p $@
+
+$(OBJDIR_SYNTAXER):
 	@mkdir -p $@
 
 $(OBJDIR_PARSER):
