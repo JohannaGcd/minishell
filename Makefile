@@ -23,7 +23,9 @@ SRCDIR_EXECUTER = $(SRCDIR)/executer
 OBJDIR_EXECUTER = objs_executer
 
 SRC = main.c
-SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c 
+SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c expansion.c
+SRC_PARSER = 
+SRC_EXECUTER = 
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o) \
 	$(SRC_LEXER:%.c=$(OBJDIR_LEXER)/%.o) \

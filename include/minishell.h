@@ -7,6 +7,8 @@
 # include <stdio.h> // for testing!
 # include <stdlib.h>
 # include <unistd.h>
+# include <string.h>
+# include <sys/wait.h>
 
 // PART 1: DATA STRUCTURES
 
@@ -82,5 +84,5 @@ int						ft_isspace(char c);
 //							size_t len);
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
-
+int expand_env(t_token *list_tokens);
 #endif

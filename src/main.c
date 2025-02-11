@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	int i;
 	char *input_str;
@@ -22,6 +22,7 @@ int	main(void)
 		i++;
 		tmp = tmp->next;
 	}
+	expand_env(test);
 	}
 	return (0);
 }
