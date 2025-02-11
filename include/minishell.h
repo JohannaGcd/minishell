@@ -2,6 +2,8 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "lexer.h"
+# include "env.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h> // for testing!
@@ -14,25 +16,6 @@
 
 // Lexical Analyser (ie. Lexer)
 
-typedef enum s_token_type
-{
-	TOKEN,
-	PIPE,
-	S_QUOTE,
-	D_QUOTE,
-	REDIRECT_IN,
-	REDIRECT_OUT,
-	WORD,
-	M_SPACE,
-	ENV,
-}						t_token_type;
-
-typedef struct s_token
-{
-	t_token_type		type;
-	char				*str;
-	struct s_token		*next;
-}						t_token;
 
 // Parser
 

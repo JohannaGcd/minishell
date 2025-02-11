@@ -17,13 +17,6 @@ int expand_env(t_token *list_tokens, t_envs *envs)
     {   
         if(list_tokens->type == ENV)
         {
-            //  char *argv[] = {
-            //     "/bin/sh",
-            //     "-c",
-            //     "echo $PATH",
-            //     NULL
-            //  };
-            // execve("/bin/sh", argv, environ);
             {
                 tmp = extract_env(list_tokens->str, envs);
                 if (tmp == NULL)
