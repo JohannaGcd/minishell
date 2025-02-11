@@ -9,6 +9,8 @@ int	main(void)
 	t_token *tmp;
 
 	//prompt = "minishell > ";
+	while (1)
+	{
 	input_str = readline(prompt);
 	test = extract_tokens(input_str);
 
@@ -19,6 +21,7 @@ int	main(void)
 		printf("token%d:<%s>\n", i, tmp->str);
 		i++;
 		tmp = tmp->next;
+	}
 	}
 	return (0);
 }

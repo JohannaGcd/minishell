@@ -22,6 +22,7 @@ typedef enum s_token_type
 	REDIRECT_OUT,
 	WORD,
 	M_SPACE,
+	ENV,
 }						t_token_type;
 
 typedef struct s_token
@@ -71,6 +72,7 @@ void					quote_token(int *current_pos, char *input_str, char c);
 void					redirect_token(int *current_pos, char *input_str,
 							char c);
 void					word_token(int *current_pos, char *input_str, char c);
+void					env_token(int *current_pos, char *input_str, char c);
 int						ft_isspace(char c);
 
 // Libft functions --> THIS IS A TEMPORARY FILE (to be deleted once we include libft with our Makefile)

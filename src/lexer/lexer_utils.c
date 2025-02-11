@@ -32,6 +32,20 @@ void	quote_token(int *current_pos, char *input_str, char c)
 		(*current_pos)++; // TODO -Jo : idem, check purpose
 }
 
+void	env_token(int *current_pos, char *input_str, char c)
+{
+	if (input_str == NULL)
+		return ;
+	(*current_pos)++; 
+	if (input_str[*current_pos] && input_str[*current_pos] == '?')
+	{
+		(*current_pos)++;
+		return ;
+	}
+	while (input_str[*current_pos] && ft_isalpha(input_str[*current_pos]))
+		(*current_pos)++;
+}
+
 // To extract a redirection token
 void	redirect_token(int *current_pos, char *input_str, char c)
 {

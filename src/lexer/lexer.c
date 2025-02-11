@@ -15,6 +15,8 @@ int	get_token_hint(char c)
 		return (REDIRECT_OUT);
 	if (c == ' ')
 		return (M_SPACE);
+	if (c == '$')
+		return (ENV);
 	return (WORD);
 }
 
@@ -35,6 +37,7 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 		[REDIRECT_OUT] = redirect_token,
 		[WORD] = word_token,
 		[M_SPACE] = space_token,
+		[ENV] = env_token,
 	};
 	if (get_full_token[new_token->type] != NULL)
 		get_full_token[new_token->type](current_pos, input_str,
