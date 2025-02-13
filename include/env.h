@@ -14,4 +14,5 @@ typedef struct s_envs
 	int			status;
 } 	t_envs;
 
+void init_env(char **envp, t_envs *envs);
 #endif

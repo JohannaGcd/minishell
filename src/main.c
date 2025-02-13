@@ -7,8 +7,10 @@ int	main(int argc, char **argv, char **envp)
 	const char prompt[] = "minishell > ";
 	t_token *test;
 	t_token *tmp;
+	t_envs *envs;
 
-	//prompt = "minishell > ";
+	envs = (t_envs *)malloc(sizeof(t_envs));
+	init_env(envp, envs);
 	while (1)
 	{
 	input_str = readline(prompt);
@@ -22,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 		tmp = tmp->next;
 	}
-	expand_env(test);
+	//expand_env(test);
 	}
 	return (0);
 }

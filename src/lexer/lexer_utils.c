@@ -42,9 +42,9 @@ void	env_token(int *current_pos, char *input_str, char c)
 		(*current_pos)++;
 		return ;
 	}
-	if (input_str[*current_pos] && (ft_isalpha(input_str[*current_pos]) || input_str[*current_pos] == '_'))
-		(*current_pos)++;
-	while (input_str[*current_pos] && ft_isalpha(input_str[*current_pos]))
+	//if (input_str[*current_pos] && (ft_isalpha(input_str[*current_pos]) || input_str[*current_pos] == '_'))
+		//(*current_pos)++;
+	while (input_str[*current_pos] && (ft_isalpha(input_str[*current_pos]) || input_str[*current_pos] == '_'))
 		(*current_pos)++;
 }
 

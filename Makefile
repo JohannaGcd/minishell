@@ -22,15 +22,20 @@ OBJDIR_PARSER = objs_parser
 SRCDIR_EXECUTER = $(SRCDIR)/executer
 OBJDIR_EXECUTER = objs_executer
 
+SRCDIR_ENV = $(SRCDIR)/env
+OBJDIR_ENV = objs_env
+
 SRC = main.c
 SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c expansion.c
 SRC_PARSER = 
 SRC_EXECUTER = 
+SRC_ENV = init_env.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o) \
 	$(SRC_LEXER:%.c=$(OBJDIR_LEXER)/%.o) \
 	$(SRC_PARSER:%.c=$(OBJDIR_PARSER)/%.o) \
-	$(SRC_EXECUTER:%.c=$(OBJDIR_EXECUTER)/%.o)
+	$(SRC_EXECUTER:%.c=$(OBJDIR_EXECUTER)/%.o) \
+	$(SRC_ENV:%.c=$(OBJDIR_ENV)/%.o)
 
 all: $(NAME)
 
@@ -52,6 +57,9 @@ $(OBJDIR_PARSER)/%.o: $(SRCDIR_PARSER)/%.c  $(OBJDIR_PARSER)
 $(OBJDIR_EXECUTER)/%.o: $(SRCDIR_EXECUTER)/%.c  $(OBJDIR_EXECUTER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
+$(OBJDIR_ENV)/%.o: $(SRCDIR_ENV)/%.c  $(OBJDIR_ENV)
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
+
 $(OBJDIR):
 	@mkdir -p $@
 
@@ -62,6 +70,9 @@ $(OBJDIR_PARSER):
 	@mkdir -p $@
 
 $(OBJDIR_EXECUTER):
+	@mkdir -p $@
+
+$(OBJDIR_ENV):
 	@mkdir -p $@
 
 clean:
