@@ -12,6 +12,11 @@
 # include <string.h>
 # include <sys/wait.h>
 
+// TODO: HANDLE ERRORS.
+// -> for now we "return 1" in case of error, but we should
+// define what number to send depending on the type of error we face
+// and define the appropriate behavior for each type of error
+
 // PART 1: DATA STRUCTURES
 
 // Lexical Analyser (ie. Lexer)
@@ -60,11 +65,24 @@ void					word_token(int *current_pos, char *input_str, char c);
 void					env_token(int *current_pos, char *input_str, char c);
 int						ft_isspace(char c);
 
-// Libft functions --> THIS IS A TEMPORARY FILE (to be deleted once we include libft with our Makefile)
-// char					*ft_strdup(const char *s);
-// int						ft_strlen(const char *str);
-// char					*ft_substr(const char *s, unsigned int start,
-//							size_t len);
+// Syntax Checker
+// -> Checks whether the tokens respect grammar rules for BASH
+
+// syntaxer.c
+int						syntaxer(t_token *token_list);
+int						check_token_syntax(t_token *prev_token,
+							t_token *curr_token);
+t_token					*skip_space_token(t_token *current_token);
+
+// syntaxer_utils.c
+int						pipe_syntaxer(t_token *prev_token, t_token *curr_token);
+int						quote_syntaxer(t_token *prev_token,
+							t_token *curr_token);
+int						word_syntaxer(t_token *prev_token, t_token *curr_token);
+int						redir_syntaxer(t_token *prev_token,
+							t_token *curr_token);
+int						na_syntaxer(t_token *prev_token, t_token *curr_token);
+
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
 int expand_env(t_token *list_tokens);
