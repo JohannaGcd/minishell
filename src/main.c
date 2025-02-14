@@ -8,9 +8,18 @@ int	main(int argc, char **argv, char **envp)
 	t_token *test;
 	t_token *tmp;
 	t_envs *envs;
+	t_env_node *tmp_node;
 
 	envs = (t_envs *)malloc(sizeof(t_envs));
 	init_env(envp, envs);
+	printf("env inited\n");
+	tmp_node = envs->env;
+	while(tmp_node)
+	{
+		printf("value=%s\n",tmp_node->value);
+		printf("var=%s\n",tmp_node->var);
+		tmp_node = tmp_node->next;
+	}
 	while (1)
 	{
 	input_str = readline(prompt);

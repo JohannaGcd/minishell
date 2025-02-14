@@ -3,8 +3,8 @@
 
 typedef struct s_env_node
 {
-	char    			*var;
-	char    			*value;
+	char    	*var;
+	char    	*value;
 	struct s_env_node	*next;
 }   t_env_node;
 
