@@ -16,12 +16,11 @@ int	main(void)
 	i = 0;
 	while (tmp != NULL)
 	{
-		printf("token%d:<%s>\n", i, tmp->str);
+		printf("token %d:<%s>\n", i, tmp->str);
 		i++;
 		tmp = tmp->next;
 	}
-
-	if (check_syntax(test) != 0)
-		write(1, "ERR", 3);
+	if (syntaxer(test) != 0)
+		return (1);
 	return (0);
 }

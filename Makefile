@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = cc
-CFLAG = -Wextra -Werror -Wall
+CFLAG = -g -Wextra -Werror -Wall
 
 HEADERS = -I ./include
 
@@ -16,7 +16,7 @@ OBJDIR = obj
 SRCDIR_LEXER = $(SRCDIR)/lexer
 OBJDIR_LEXER = objs_lexer
 
-SRCDIR_SYNTAXER = $(SRCDIR)/syntax_checker
+SRCDIR_SYNTAXER = $(SRCDIR)/syntaxer
 OBJDIR_SYNTAXER = objs_syntax_checker
 
 SRCDIR_PARSER = $(SRCDIR)/parser
