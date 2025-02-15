@@ -13,6 +13,12 @@ int	main(int argc, char **argv, char **envp)
 	t_env_node *tmp_node;
 
 	envs = (t_envs *)malloc(sizeof(t_envs));
+	if (envs == NULL) 
+	{
+        perror("Failed to allocate memory for envs");
+        return 1;
+    }
+
 	init_env(envp, envs);
 	printf("env inited\n");
 	tmp_node = envs->env;
@@ -35,5 +41,6 @@ int	main(int argc, char **argv, char **envp)
 			i++;
 			tmp = tmp->next;
 		}
-		return (0);
 	}
+	return (0);
+}

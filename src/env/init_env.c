@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-t_env_node *create_new_env_node (char *var, char*value)
+t_env_node *create_new_env_node (char *var, char *value)
 {
 	t_env_node	*node;
 
@@ -13,20 +13,22 @@ t_env_node *create_new_env_node (char *var, char*value)
 	return (node);
 }
 
-void add_env_to_list(t_env_node *list, t_env_node	*node)
-{
-	t_env_node *tmp;
-	tmp = list;
-
-	list = node;
-	node->next = tmp;
+void add_env_to_list(t_env_node **list, t_env_node *node) {
+    if (*list == NULL) {
+        *list = node;
+    } else {
+        t_env_node *tmp = *list;
+        while (tmp->next != NULL)
+            tmp = tmp->next;
+        tmp->next = node;
+    }
 }
 void init_env(char **envp, t_envs *envs)
 {
 	int	i;
+	int	j;
 	char	*var;
 	char	*value;
-	int j;
 	t_env_node *node;
 
 	i = 0;
@@ -42,11 +44,8 @@ void init_env(char **envp, t_envs *envs)
 			{
 				var = ft_substr(envp[i], 0, j);
 				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
-				//printf("%s, %s\n", var, value);
 				node = create_new_env_node(var, value);
-				//printf("node created\n");
-				add_env_to_list(envs->env, node);
-				//printf("added list\n");
+				add_env_to_list(&(envs->env), node);
 				free(var);
 				free(value);
 				break ;
