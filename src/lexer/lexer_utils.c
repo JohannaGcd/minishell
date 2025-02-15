@@ -1,10 +1,4 @@
 #include "../include/minishell.h"
-
-int	ft_isspace(char c)
-{
-	return (c == ' ');
-}
-
 // To extract a pipe token
 void	pipe_token(int *current_pos, char *input_str, char c)
 {
@@ -39,15 +33,14 @@ void	env_token(int *current_pos, char *input_str, char c)
 {
 	if (input_str == NULL)
 		return ;
-	(*current_pos)++; 
+	(*current_pos)++;
 	if (input_str[*current_pos] && input_str[*current_pos] == '?')
 	{
 		(*current_pos)++;
 		return ;
 	}
-	//if (input_str[*current_pos] && (ft_isalpha(input_str[*current_pos]) || input_str[*current_pos] == '_'))
-		//(*current_pos)++;
-	while (input_str[*current_pos] && (ft_isalpha(input_str[*current_pos]) || input_str[*current_pos] == '_'))
+	while (input_str[*current_pos] && (ft_isalpha(input_str[*current_pos])
+			|| input_str[*current_pos] == '_'))
 		(*current_pos)++;
 }
 
