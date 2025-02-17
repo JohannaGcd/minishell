@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		input_str = readline(prompt);
 		test = extract_tokens(input_str);
-		expand_env(test, envs);
+		//expand_env(test, envs);
 		tmp = test;
 		i = 0;
 		while (tmp != NULL)

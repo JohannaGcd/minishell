@@ -1,6 +1,9 @@
 #ifndef ENV_H
 # define ENV_H
 
+# include "lexer.h"
+#include "minishell.h"
+
 typedef struct s_env_node
 {
 	char				*var;
