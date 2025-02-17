@@ -10,18 +10,18 @@ int	main(int argc, char **argv, char **envp)
 
 	// prompt = "minishell > ";
 	t_envs *envs;
-	//t_env_node *tmp_node;
+	// t_env_node *tmp_node;
 
 	envs = (t_envs *)malloc(sizeof(t_envs));
-	if (envs == NULL) 
+	if (envs == NULL)
 	{
-        perror("Failed to allocate memory for envs");
-        return 1;
-    }
+		perror("Failed to allocate memory for envs");
+		return (1);
+	}
 
 	init_env(envp, envs);
-	//printf("env inited\n");
-	//tmp_node = envs->env;
+	// printf("env inited\n");
+	// tmp_node = envs->env;
 	// while (tmp_node)
 	// {
 	// 	printf("var=%s\n", tmp_node->var);
@@ -32,6 +32,11 @@ int	main(int argc, char **argv, char **envp)
 	{
 		input_str = readline(prompt);
 		test = extract_tokens(input_str);
+		if (syntaxer(test) != 0)
+		{
+			printf("there is a syntax error");
+			return (1);
+		};
 		expand_env(test, envs);
 		tmp = test;
 		i = 0;

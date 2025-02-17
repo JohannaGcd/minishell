@@ -20,7 +20,7 @@ int	pipe_syntaxer(t_token *prev_token, t_token *curr_token)
 		if ((ft_strncmp(curr_token->str, "|", 1) == 0)
 			&& (ft_strncmp(next_token->str, "|", 1) == 0))
 			return (1);
-	if (next_token->type != WORD)
+	if (next_token->type != WORD || next_token->type != ENV)
 		return (1);
 	return (0);
 }
@@ -65,7 +65,7 @@ int	redir_syntaxer(t_token *prev_token, t_token *curr_token)
 	if (ft_strlen(curr_token->str) > 2)
 		return (1);
 	if (next_token->type != S_QUOTE || next_token->type != D_QUOTE
-		|| next_token->type != WORD)
+		|| next_token->type != WORD || next_token->type != ENV)
 		return (1);
 	return (0);
 }

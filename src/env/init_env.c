@@ -64,7 +64,7 @@ void	init_env(char **envp, t_envs *envs)
 
 char	*extract_env(char *var, t_envs *envs)
 {
-	t_env_node	*node;
+	t_env_node *node;
 
 	if (var[1] == '?')
 		return (ft_itoa(envs->status));

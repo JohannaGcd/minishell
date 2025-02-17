@@ -22,6 +22,7 @@ int	check_token_syntax(t_token *prev_token, t_token *curr_token)
 		[REDIRECT_OUT] = redir_syntaxer,
 		[WORD] = word_syntaxer,
 		[M_SPACE] = na_syntaxer,
+		[ENV] = env_syntaxer,
 	};
 	if (check_grammar_rules[curr_token->type](prev_token, curr_token) != 0)
 		return (1);
