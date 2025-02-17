@@ -6,7 +6,7 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 13:11:35 by spanfilo      #+#    #+#                 */
-/*   Updated: 2024/10/09 13:08:34 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/02/17 12:59:40 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isalpha(int s)
 {
-	if (s < 'A' || s > 'z' || (s < 'a' && s > 'Z'))
+	if ((s >= 'A' && s <= 'Z') || (s >= 'a' && s <= 'Z'))
 		return (0);
 	return (1);
 }

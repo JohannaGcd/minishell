@@ -2,15 +2,15 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include "lexer.h"
 # include "env.h"
+# include "lexer.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h> // for testing!
 # include <stdlib.h>
-# include <unistd.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <unistd.h>
 
 // TODO: HANDLE ERRORS.
 // -> for now we "return 1" in case of error, but we should
@@ -20,7 +20,6 @@
 // PART 1: DATA STRUCTURES
 
 // Lexical Analyser (ie. Lexer)
-
 
 // Parser
 
@@ -82,8 +81,9 @@ int						word_syntaxer(t_token *prev_token, t_token *curr_token);
 int						redir_syntaxer(t_token *prev_token,
 							t_token *curr_token);
 int						na_syntaxer(t_token *prev_token, t_token *curr_token);
+int						env_syntaxer(t_token *prev_token, t_token *curr_token);
 
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
-int expand_env(t_token *list_tokens);
+int						expand_env(t_token *list_tokens);
 #endif
