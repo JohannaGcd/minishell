@@ -43,6 +43,4 @@ void					word_token(int *current_pos, char *input_str, char c);
 void					env_token(int *current_pos, char *input_str, char c);
 int						ft_isspace(char c);
 
-//expansion.c
-int expand_env(t_token *list_tokens);
 #endif
