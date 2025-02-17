@@ -1,14 +1,48 @@
 #include "../include/minishell.h"
 
+void find_env(char *str, int *begin, int *end)
+{
+	int i;
+	int flag_begin;
+
+	i = 0;
+	flag_begin = 0;
+	while (str[i])
+	{
+		if(str[i] == '$')
+		{
+			*begin = i;
+			flag_begin = 1;
+			i++;
+			continue;
+		}
+		else 
+		if (flag_begin == 0)
+		{
+			i++;
+			continue;
+		}
+		while (str[i] && (str[i] != '\"' || str[i] != '/'))
+		{
+			i++;
+		}
+		*end = i;
+		break;
+	}
+}
+
 int	expand_env(t_token *list_tokens, t_envs *envs)
 {
 	char *tmp;
+	int *begin_env;
+	int *end_env;
 
 	while (list_tokens)
 	{
 		if (list_tokens->type == ENV)
 		{
-			{
+			{	
+				*begin_env = 0;
 				tmp = extract_env(list_tokens->str, envs);
 				if (tmp == NULL)
 				{
@@ -21,6 +55,10 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 				}
 			}
 			list_tokens->type = WORD;
+		}
+		if(list_tokens->type == D_QUOTE)
+		{
+
 		}
 		list_tokens = list_tokens->next;
 	}
