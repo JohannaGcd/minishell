@@ -32,11 +32,21 @@ int	main(int argc, char **argv, char **envp)
 	{
 		input_str = readline(prompt);
 		test = extract_tokens(input_str);
+		
+		tmp = test;
+		i = 0;
+		while (tmp != NULL)
+		{
+			printf("token %d:<%s>, type=%u\n", i, tmp->str, tmp->type);
+			i++;
+			tmp = tmp->next;
+		}
 		if (syntaxer(test) != 0)
 		{
 			printf("there is a syntax error");
 			return (1);
 		};
+		printf("expand\n");
 		expand_env(test, envs);
 		tmp = test;
 		i = 0;

@@ -54,6 +54,7 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 			{
 				free(list_tokens->str);
 				list_tokens->str = ft_strjoin(start, (list_tokens->str)+end_env + 1);
+				free(start);
 			}
 			list_tokens->type = WORD;
 		}

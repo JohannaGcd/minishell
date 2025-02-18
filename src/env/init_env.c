@@ -71,7 +71,8 @@ char	*extract_env(char *str, int begin, int end, t_envs *envs)
 		return (ft_itoa(envs->status));
 	node = envs->env;
 	var = ft_substr(str, begin, end - begin + 1);
-	while (node && ft_strncmp(node->var, var, ft_max(ft_strlen(var), ft_strlen(node->var) + 1)))
+	printf("var=%s\n", var);
+	while (node && ft_strncmp(node->var, var+1, ft_max(ft_strlen(var), ft_strlen(node->var) + 1)))
 		node = node->next;
 	if (node == NULL)
 		return (NULL);
