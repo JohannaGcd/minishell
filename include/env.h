@@ -3,6 +3,7 @@
 
 # include "lexer.h"
 # include "minishell.h"
+# include "minishell.h"
 
 typedef struct s_env_node
 {

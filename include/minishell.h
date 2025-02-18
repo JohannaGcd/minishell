@@ -85,5 +85,4 @@ int						env_syntaxer(t_token *prev_token, t_token *curr_token);
 
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
-int						expand_env(t_token *list_tokens, t_envs *envs);
 #endif
