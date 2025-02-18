@@ -62,14 +62,16 @@ void	init_env(char **envp, t_envs *envs)
 	}
 }
 
-char	*extract_env(char *var, t_envs *envs)
+char	*extract_env(char *str, int begin, int end, t_envs *envs)
 {
-	t_env_node *node;
+	t_env_node	*node;
+	char *var;
 
-	if (var[1] == '?')
+	if (var[begin] == '?')
 		return (ft_itoa(envs->status));
 	node = envs->env;
-	while (node && ft_strncmp(node->var, var + 1, ft_strlen(var) + 1))
+	var = ft_substr(str, begin, end - begin + 1);
+	while (node && ft_strncmp(node->var, var, ft_max(ft_strlen(var), ft_strlen(node->var) + 1)))
 		node = node->next;
 	if (node == NULL)
 		return (NULL);

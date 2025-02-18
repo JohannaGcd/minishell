@@ -20,6 +20,6 @@ typedef struct s_envs
 
 void					init_env(char **envp, t_envs *envs);
 int						expand_env(t_token *list_tokens, t_envs *envs);
-char					*extract_env(char *var, t_envs *envs);
+char					*extract_env(char *str, int begin, int end, t_envs *envs);
 
 #endif
