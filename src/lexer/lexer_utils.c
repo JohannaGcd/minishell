@@ -29,7 +29,6 @@ void	quote_token(int *current_pos, char *input_str, char c)
 		(*current_pos)++;
 }
 
-
 // To extract a redirection token
 void	redirect_token(int *current_pos, char *input_str, char c)
 {
