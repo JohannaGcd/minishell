@@ -60,16 +60,12 @@ OBJ_BONUS = $(SRC_BONUS:%.c=%.o)
 OBJS = $(SRCS:%.c=%.o)
 #OBJS = ft_strlen.o ft_isalpha.o ft_isalnum.o ft_atoi.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_strchr.o ft_tolower.o ft_toupper.o
 
-
+all: $(NAME) bonus
 %.o: %.c
 	@$(CC) $(CFLAG) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
-
-
-all: $(NAME)
-	bonus
 
 clean:
 	rm -f *.o

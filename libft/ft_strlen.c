@@ -6,11 +6,11 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 13:46:41 by spanfilo      #+#    #+#                 */
-/*   Updated: 2024/12/17 13:34:04 by sveta         ########   odam.nl         */
+/*   Updated: 2025/02/24 13:29:02 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 size_t	ft_strlen(const char *str)
 {

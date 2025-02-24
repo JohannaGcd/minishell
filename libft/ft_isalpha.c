@@ -6,17 +6,17 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 13:11:35 by spanfilo      #+#    #+#                 */
-/*   Updated: 2025/02/17 12:59:40 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/02/24 13:38:41 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_isalpha(int s)
 {
-	if ((s >= 'A' && s <= 'Z') || (s >= 'a' && s <= 'Z'))
-		return (0);
-	return (1);
+	if ((s >= 'A' && s <= 'Z') || (s >= 'a' && s <= 'z'))
+		return (1);
+	return (0);
 }
 /*int	main(void)
 {

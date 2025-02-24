@@ -41,11 +41,11 @@ int	main(int argc, char **argv, char **envp)
 			i++;
 			tmp = tmp->next;
 		}
-		if (syntaxer(test) != 0)
-		{
-			printf("there is a syntax error");
-			return (1);
-		};
+		// if (syntaxer(test) != 0)
+		// {
+		// 	printf("there is a syntax error");
+		// 	return (1);
+		// };
 		printf("expand\n");
 		expand_env(test, envs);
 		tmp = test;
