@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/24 20:32:25 by sveta         #+#    #+#                 */
-/*   Updated: 2025/02/24 20:34:46 by sveta         ########   odam.nl         */
+/*   Updated: 2025/02/26 18:37:58 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,5 @@ char	*extract_env(char *str, t_envs *envs, size_t len)
 		node = node->next;
 	if (node == NULL)
 		return (NULL);
-	return (node->value);
+	return (ft_strdup(node->value));
 }
