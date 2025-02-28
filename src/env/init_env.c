@@ -33,7 +33,7 @@ void	add_env_to_list(t_env_node **list, t_env_node *node)
 void	init_env(char **envp, t_envs *envs)
 {
 	int			i;
-	int			j;
+	size_t		j;
 	char		*var;
 	char		*value;
 	t_env_node	*node;

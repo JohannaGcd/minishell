@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+
 // To extract a pipe token
 void	pipe_token(int *current_pos, char *input_str, char c)
 {
@@ -29,7 +30,6 @@ void	quote_token(int *current_pos, char *input_str, char c)
 		(*current_pos)++;
 }
 
-
 // To extract a redirection token
 void	redirect_token(int *current_pos, char *input_str, char c)
 {
@@ -57,6 +57,7 @@ void	word_token(int *current_pos, char *input_str, char c)
 
 void	space_token(int *current_pos, char *input_str, char c)
 {
+	c = 'c';
 	while (input_str[*current_pos] && ft_isspace(input_str[*current_pos]))
 	{
 		(*current_pos)++;

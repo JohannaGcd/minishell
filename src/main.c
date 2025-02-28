@@ -2,6 +2,8 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+	(void)argv; // to avoid the error of unused variable with WWE flags
+	argc = 1;   // to avoid the error of unused variable with WWE flags
 	int i;
 	char *input_str;
 	const char prompt[] = "minishell > ";
@@ -32,12 +34,12 @@ int	main(int argc, char **argv, char **envp)
 	{
 		input_str = readline(prompt);
 		test = extract_tokens(input_str);
-		if (syntaxer(test) != 0)
-		{
-			printf("there is a syntax error");
-			return (1);
-		};
-		expand_env(test, envs);
+		// if (syntaxer(test) != 0)
+		// {
+		// 	printf("there is a syntax error");
+		// 	return (1);
+		// };
+		// expand_env(test, envs);
 		tmp = test;
 		i = 0;
 		while (tmp != NULL)
@@ -46,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 			i++;
 			tmp = tmp->next;
 		}
+		extract_commands(test);
 	}
 	return (0);
 }

@@ -85,4 +85,13 @@ int						env_syntaxer(t_token *prev_token, t_token *curr_token);
 
 // Parsing
 // -> Processes the tokens according to a grammar and builds the command structs
+
+// parser.c
+t_command				*extract_commands(t_token *token_list);
+t_command				*init_command(void);
+void					fill_command(t_command **new_command,
+							t_token *token_list);
+void					get_command_args(t_command **new_command,
+							t_token *token_list);
+
 #endif

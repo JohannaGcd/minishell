@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../include/minishell.h"
 
 // Skips space token
 t_token	*skip_space_token(t_token *current_token)

@@ -2,6 +2,7 @@
 
 void	env_token(int *current_pos, char *input_str, char c)
 {
+	c = 'c';
 	if (input_str == NULL)
 		return ;
 	(*current_pos)++;
@@ -16,7 +17,8 @@ void	env_token(int *current_pos, char *input_str, char c)
 	// 	if (input_str[*current_pos] && ft_isdigit(input_str[*current_pos]))
 	// 	{
 	// 		(*current_pos)++;
-	// 		while (input_str[*current_pos] && ft_isdigit(input_str[*current_pos]))
+	// 		while (input_str[*current_pos]
+	//			&& ft_isdigit(input_str[*current_pos]))
 	// 			(*current_pos)++;
 	// 	}
 	// while (input_str[*current_pos] && (ft_isalpha(input_str[*current_pos])

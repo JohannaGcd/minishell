@@ -63,12 +63,10 @@ OBJS = $(SRCS:%.c=%.o)
 %.o: %.c
 	@$(CC) $(CFLAG) -c $< -o $@
 
+all: $(NAME) bonus
+
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
-
-
-all: $(NAME)
-	bonus
 
 clean:
 	rm -f *.o
@@ -76,7 +74,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	
-bonus: $(NAME) $(OBJ_BONUS)
+bonus: $(OBJ_BONUS)
 	$(AR) $(NAME) $(OBJ_BONUS)
 
 re: fclean all

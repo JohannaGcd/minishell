@@ -1,4 +1,5 @@
-#include "minishell.h"
+
+#include "../include/minishell.h"
 
 // Checks PIPE syntax:
 // Two pipe symbols are not allowed
@@ -20,7 +21,7 @@ int	pipe_syntaxer(t_token *prev_token, t_token *curr_token)
 		if ((ft_strncmp(curr_token->str, "|", 1) == 0)
 			&& (ft_strncmp(next_token->str, "|", 1) == 0))
 			return (1);
-	if (next_token->type != WORD || next_token->type != ENV)
+	if (next_token->type != WORD && next_token->type != ENV)
 		return (1);
 	return (0);
 }
@@ -31,7 +32,8 @@ int	quote_syntaxer(t_token *prev_token, t_token *curr_token)
 	int	i;
 	int	len;
 
-	if (!curr_token || !curr_token->str)
+	(void)prev_token;
+	if (!curr_token && !curr_token->str)
 		return (1);
 	i = 0;
 	len = ft_strlen(curr_token->str) - 1;
@@ -45,7 +47,8 @@ int	quote_syntaxer(t_token *prev_token, t_token *curr_token)
 // but let's see if we can add more cases for it.
 int	word_syntaxer(t_token *prev_token, t_token *curr_token)
 {
-	if (!curr_token || !curr_token->str)
+	(void)prev_token; // to avoid the error of unused variable with WWE flags
+	if (!curr_token && !curr_token->str)
 		return (1);
 	if ((ft_strncmp(curr_token->str, ";", 1) == 0)
 		|| (ft_strncmp(curr_token->str, "\\", 1) == 0))
@@ -57,15 +60,16 @@ int	redir_syntaxer(t_token *prev_token, t_token *curr_token)
 {
 	t_token	*next_token;
 
-	if (!curr_token || !curr_token->str)
+	(void)prev_token;
+	if (!curr_token && !curr_token->str)
 		return (1);
 	next_token = skip_space_token(curr_token);
 	if (!next_token)
 		return (1);
 	if (ft_strlen(curr_token->str) > 2)
 		return (1);
-	if (next_token->type != S_QUOTE || next_token->type != D_QUOTE
-		|| next_token->type != WORD || next_token->type != ENV)
+	if (next_token->type != S_QUOTE && next_token->type != D_QUOTE
+		&& next_token->type != WORD && next_token->type != ENV)
 		return (1);
 	return (0);
 }
@@ -80,9 +84,9 @@ int	na_syntaxer(t_token *prev_token, t_token *curr_token)
 
 int	env_syntaxer(t_token *prev_token, t_token *curr_token)
 {
-	t_token *next_token;
+	(void)prev_token;
 
-	if (!curr_token || !curr_token->str)
+	if (!curr_token && !curr_token->str)
 		return (1);
 	if (!ft_isalpha(curr_token->str[1]) && (curr_token->str[1]) != '?')
 		return (1);

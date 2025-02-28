@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = cc
-CFLAG = -g -Wextra -Werror -Wall
+CFLAGS = -g -O0 -Wextra -Werror -Wall
 
 HEADERS = -I ./include
 
@@ -30,7 +30,7 @@ OBJDIR_ENV = objs_env
 
 SRC = main.c
 SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c lexer_token_env.c
-SRC_PARSER = 
+SRC_PARSER = parser.c
 SRC_EXECUTER = 
 SRC_ENV = init_env.c expansion.c
 SRC_SYNTAXER = syntaxer.c syntaxer_utils.c
