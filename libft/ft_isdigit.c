@@ -6,11 +6,11 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 13:11:05 by spanfilo      #+#    #+#                 */
-/*   Updated: 2024/10/09 10:52:24 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/02/24 13:27:58 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_isdigit(int s)
 {

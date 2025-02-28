@@ -6,11 +6,11 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/08 13:52:40 by spanfilo      #+#    #+#                 */
-/*   Updated: 2024/10/09 11:55:09 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/02/24 13:29:21 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_toupper(int arg)
 {

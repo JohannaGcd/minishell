@@ -41,7 +41,8 @@ SRCS = ft_strlen.c \
 		get_next_line.c \
 		get_free_line.c \
 		ft_tolower_string.c \
-		ft_atoi_base.c 
+		ft_atoi_base.c \
+		ft_max.c
 
 
 SRC_BONUS = ft_lstnew_bonus.c \
@@ -59,7 +60,7 @@ OBJ_BONUS = $(SRC_BONUS:%.c=%.o)
 OBJS = $(SRCS:%.c=%.o)
 #OBJS = ft_strlen.o ft_isalpha.o ft_isalnum.o ft_atoi.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_strchr.o ft_tolower.o ft_toupper.o
 
-
+all: $(NAME) bonus
 %.o: %.c
 	@$(CC) $(CFLAG) -c $< -o $@
 

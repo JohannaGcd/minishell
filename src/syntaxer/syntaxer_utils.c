@@ -88,7 +88,11 @@ int	env_syntaxer(t_token *prev_token, t_token *curr_token)
 
 	if (!curr_token && !curr_token->str)
 		return (1);
-	if (!ft_isalpha(curr_token->str[1]) && (curr_token->str[1]) != '?')
+	if (ft_isalpha(curr_token->str[1]) != 0 && (curr_token->str[1]) != '?')
+	{
+		printf("%c\n", curr_token->str[1]);
 		return (1);
+	}
+
 	return (0);
 }

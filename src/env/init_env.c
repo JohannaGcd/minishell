@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   init_env.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sveta <sveta@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/24 20:32:25 by sveta         #+#    #+#                 */
+/*   Updated: 2025/02/26 18:37:58 by sveta         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 t_env_node	*create_new_env_node(char *var, char *value)
@@ -62,16 +74,17 @@ void	init_env(char **envp, t_envs *envs)
 	}
 }
 
-char	*extract_env(char *var, t_envs *envs)
+char	*extract_env(char *str, t_envs *envs, size_t len)
 {
-	t_env_node *node;
+	t_env_node	*node;
 
-	if (var[1] == '?')
+	if (str[1] == '?')
 		return (ft_itoa(envs->status));
 	node = envs->env;
-	while (node && ft_strncmp(node->var, var + 1, ft_strlen(var) + 1))
+	while (node && ft_strncmp(node->var, str + 1,
+			ft_max(len, ft_strlen(node->var))))
 		node = node->next;
 	if (node == NULL)
 		return (NULL);
-	return (node->value);
+	return (ft_strdup(node->value));
 }

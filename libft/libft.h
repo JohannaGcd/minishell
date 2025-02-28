@@ -6,7 +6,7 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/11 12:23:23 by spanfilo      #+#    #+#                 */
-/*   Updated: 2025/01/01 18:01:06 by sveta         ########   odam.nl         */
+/*   Updated: 2025/02/18 12:27:51 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	**free_all(char **res);
+size_t	ft_max(size_t a, size_t b);
 //bonus functions
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
