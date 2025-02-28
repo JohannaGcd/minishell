@@ -1,10 +1,23 @@
 #include "../../include/minishell.h"
 
+t_token	*skip_to_pipe(t_token *token)
+{
+	if (!token)
+		return (NULL);
+	while (token)
+	{
+		if (token->type == PIPE)
+			return (token);
+		token = token->next;
+	}
+	return (NULL);
+}
+
 t_command	*command_list_find_last(t_command *command_list_head)
 {
 	if (command_list_head == NULL)
 		return (NULL);
-	while (command_list_head->next != NULL)
+	while (command_list_head && command_list_head->next != NULL)
 		command_list_head = command_list_head->next;
 	return (command_list_head);
 }
@@ -30,7 +43,11 @@ int	count_command_args(t_token *token_list)
 {
 	int	counter;
 
+	if (!token_list)
+		return (-1);
 	counter = 0;
+	if (token_list->type == PIPE)
+		token_list = token_list->next;
 	while (token_list && token_list->type != PIPE)
 	{
 		if ((token_list->type != REDIRECT_IN)
@@ -47,6 +64,8 @@ void	copy_command_args(char **command_args, t_token *token_list)
 	int	i;
 
 	i = 0;
+	if (token_list->type == PIPE)
+		token_list = token_list->next;
 	while (token_list && token_list->type != PIPE)
 	{
 		if ((token_list->type != REDIRECT_IN)
@@ -92,6 +111,7 @@ t_command	*init_command(void)
 		perror("Failed to allocate memory for new_command");
 		return (NULL);
 	}
+	new_command->next = NULL;
 	return (new_command);
 }
 
@@ -101,25 +121,20 @@ t_command	*extract_commands(t_token *token_list)
 {
 	t_command	*list_command_head;
 	t_command	*new_command;
-	t_token		*curr_token;
 	int			i;
 
 	list_command_head = NULL;
-	curr_token = token_list;
-	while (curr_token)
+	while (token_list)
 	{
-		while (curr_token && curr_token->type != PIPE)
+		new_command = init_command();
+		if (!new_command)
 		{
-			new_command = init_command();
-			if (!new_command)
-			{
-				perror("Failed to allocate memory in init_command");
-				return (NULL);
-			}
-			fill_command(&new_command, token_list);
+			perror("Failed to allocate memory in init_command");
+			return (NULL);
 		}
+		fill_command(&new_command, token_list);
 		command_list_add_back(&list_command_head, new_command);
-		curr_token = curr_token->next;
+		token_list = skip_to_pipe(token_list);
 	}
 	// for testing
 	i = 0;
