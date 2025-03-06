@@ -4,7 +4,7 @@
 void	pipe_token(int *current_pos, char *input_str, char c)
 {
 	int	i;
-
+	
 	if (input_str == NULL)
 		return ;
 	i = 0;
@@ -57,7 +57,7 @@ void	word_token(int *current_pos, char *input_str, char c)
 
 void	space_token(int *current_pos, char *input_str, char c)
 {
-	c = 'c';
+	(void)c;
 	while (input_str[*current_pos] && ft_isspace(input_str[*current_pos]))
 	{
 		(*current_pos)++;

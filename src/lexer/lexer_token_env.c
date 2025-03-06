@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/24 20:24:28 by sveta         #+#    #+#                 */
-/*   Updated: 2025/02/28 18:41:39 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/03/06 22:03:38 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	env_token(int *current_pos, char *input_str, char c)
 {
-	c = 'c';
+	//c = 'c';
+	(void)c;
 	if (input_str == NULL)
 		return ;
 	(*current_pos)++;
@@ -38,11 +39,12 @@ void	env_token(int *current_pos, char *input_str, char c)
 		// 	{
 		// 		(*current_pos)++;
 		// 		while (input_str[*current_pos]
-					&& ft_isdigit(input_str[*current_pos]))
+		//			&& ft_isdigit(input_str[*current_pos]))
 		// 			(*current_pos)++;
 		// 	}
 		// while (input_str[*current_pos]
-			&& (ft_isalpha(input_str[*current_pos])
+		//	&& (ft_isalpha(input_str[*current_pos])
 		// 		|| input_str[*current_pos] == '_'))
 		// 	(*current_pos)++;
 	}
+}

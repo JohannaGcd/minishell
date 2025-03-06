@@ -31,7 +31,7 @@ OBJDIR_ENV = objs_env
 SRC = main.c
 SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c lexer_token_env.c
 SRC_PARSER = parser.c
-SRC_EXECUTER = 
+SRC_EXECUTER = executer.c 
 SRC_ENV = init_env.c expansion.c
 SRC_SYNTAXER = syntaxer.c syntaxer_utils.c
 
