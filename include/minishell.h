@@ -23,11 +23,30 @@
 
 // Parser
 
+
+typedef enum	e_type_red
+{
+	RED_OUT = 0,
+	RED_IN = 1,
+	APPEND = 2,
+	HEREDOC = 3,
+} t_type_red;
+
 typedef struct s_redirection
 {
+	t_type_red			type;
 	char				*file;
 	int					fd;
+	t_redirection		*next;
 }						t_redirection;
+
+// typedef struct s_retd_out
+// {
+// 	t_type_red	type;
+// 	char *filename;
+// 	void *next;
+// };
+
 
 typedef struct s_command
 {
