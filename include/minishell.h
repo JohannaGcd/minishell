@@ -22,14 +22,24 @@
 // Lexical Analyser (ie. Lexer)
 
 // Parser
-
+typedef enum s_msh_state
+{
+	MSH_START,
+	MSH_READLINE,
+	MSH_LEXER,
+	MSH_SYNTAXER,
+	MSH_PARSER,
+	MSH_EXECUTER,
+	MSH_CLEAN,
+	MSH_EXIT
+}	t_msh_state;
 
 typedef enum	e_type_red
 {
-	RED_OUT = 0,
-	RED_IN = 1,
-	APPEND = 2,
-	HEREDOC = 3,
+	RED_OUT,
+	RED_IN,
+	APPEND,
+	HEREDOC,
 } t_type_red;
 
 typedef struct s_redirection
@@ -55,6 +65,16 @@ typedef struct s_command
 	t_redirection		*out;
 	struct s_command	*next;
 }						t_command;
+
+typedef struct s_minishell
+{
+	t_envs		*envs;
+	char		*input_str;
+	t_token		*tokens;
+	t_command	*commands;
+}	t_minishell;
+
+typedef t_msh_state (*t_msh_function)(t_minishell *mshell); 
 
 // PART 2: FUNCTION DEFINITIONS
 
@@ -113,4 +133,12 @@ void					fill_command(t_command **new_command,
 void					get_command_args(t_command **new_command,
 							t_token *token_list);
 
+//functions
+t_msh_state fn_msh_start(t_minishell *mshell, char **envp);
+t_msh_state fn_msh_redline(t_minishell *mshell);
+t_msh_state fn_msh_lexer(t_minishell *mshell);
+t_msh_state fn_msh_syntaxer(t_minishell *mshell);
+t_msh_state fn_msh_parser(t_minishell *mshell);
+t_msh_state fn_msh_executer(t_minishell *mshell);
+t_msh_state fn_msh_clean(t_minishell *mshell);
 #endif
