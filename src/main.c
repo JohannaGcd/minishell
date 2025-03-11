@@ -5,9 +5,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_msh_state	msh_state;
 	t_minishell mshell;
-	char		*input_str;
+	//char		*input_str;
 	t_msh_function		fun[MSH_EXIT];
-	//t_envs		*envs;
 	(void)argv; // to avoid the error of unused variable with WWE flags
 	(void)argc;   // to avoid the error of unused variable with WWE flags
 	
