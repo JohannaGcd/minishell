@@ -5,7 +5,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_msh_state	msh_state;
 	t_minishell mshell;
-	//char		*input_str;
 	t_msh_function		fun[MSH_EXIT];
 	(void)argv; // to avoid the error of unused variable with WWE flags
 	(void)argc;   // to avoid the error of unused variable with WWE flags
@@ -22,6 +21,8 @@ int	main(int argc, char **argv, char **envp)
 	{
 		msh_state = fun[msh_state](&mshell);
 	}
+	return (0);
+}
 	//int i;
 	////const char prompt[] = "minishell > ";
 	//t_token *test;
@@ -86,5 +87,3 @@ int	main(int argc, char **argv, char **envp)
 
 	execute_commands(&command1);
 	*/
-	return (0);
-}
