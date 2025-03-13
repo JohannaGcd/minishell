@@ -15,7 +15,7 @@ t_msh_state fn_msh_syntaxer(t_minishell *mshell)
     else
         return (MSH_PARSER);
 }
-}
+
 
 t_msh_state fn_msh_parser(t_minishell *mshell)
 {
