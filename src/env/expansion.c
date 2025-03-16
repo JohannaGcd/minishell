@@ -105,32 +105,34 @@ char	*change_all_env(char *str, t_envs *envs)
 int	expand_env(t_token *list_tokens, t_envs *envs)
 {
 	char	*var;
+	t_token *current_token;
 
-	while (list_tokens)
+	current_token = list_tokens;
+	while (current_token)
 	{
-		if (list_tokens->type == ENV)
+		if (current_token->type == ENV)
 		{
-			var = extract_env(list_tokens->str, envs,
-					ft_strlen(list_tokens->str) - 1);
+			var = extract_env(current_token->str, envs,
+					ft_strlen(current_token->str) - 1);
 			if (var == NULL)
-				list_tokens->str = "";
+				current_token->str = "";
 			else
 			{
-				free(list_tokens->str);
-				list_tokens->str = ft_substr(var, 0, ft_strlen(var));
+				free(current_token->str);
+				current_token->str = ft_substr(var, 0, ft_strlen(var));
 			}
-			list_tokens->type = WORD;
+			current_token->type = WORD;
 		}
-		if (list_tokens->type == D_QUOTE)
+		if (current_token->type == D_QUOTE)
 		{
-			if (ft_strchr(list_tokens->str, '$'))
+			if (ft_strchr(current_token->str, '$'))
 			{
-				var = change_all_env(list_tokens->str, envs);
-				free(list_tokens->str);
-				list_tokens->str = ft_substr(var, 0, ft_strlen(var));
+				var = change_all_env(current_token->str, envs);
+				free(current_token->str);
+				current_token->str = ft_substr(var, 0, ft_strlen(var));
 			}
 		}
-		list_tokens = list_tokens->next;
+		current_token = current_token->next;
 	}
 	if (var)
 		free(var);
