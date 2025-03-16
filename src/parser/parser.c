@@ -129,7 +129,7 @@ void handle_redirections(t_command *command, t_token *tokens)
 				command->in->type = HEREDOC;
 			else
             	command->in->type = RED_IN;
-			if (tokens->next->type = M_SPACE)
+			if (tokens->next->type == M_SPACE)
 				tokens = tokens->next;
             command->in->file = ft_strdup(tokens->next->str);
             tokens = tokens->next; 
@@ -139,7 +139,7 @@ void handle_redirections(t_command *command, t_token *tokens)
 				command->out->type = APPEND;
 			else
             	command->out->type = RED_OUT;
-			if (tokens->next->type = M_SPACE)
+			if (tokens->next->type == M_SPACE)
 				tokens = tokens->next;
             command->out->file = ft_strdup(tokens->next->str);
             tokens = tokens->next; 

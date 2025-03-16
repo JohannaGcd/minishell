@@ -6,14 +6,14 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/03/07 13:56:29 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/03/16 18:13:29 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/executer.h"
 
-void handle_redirections(t_command *command)
+void handle_exe_redirections(t_command *command)
 {
     t_redirection *red_in;
     t_redirection *red_out;
@@ -54,7 +54,7 @@ void execute_single_command(t_command *command)
 	else if (pid == 0) 
 	{
         // Child process
-        handle_redirections(command);
+        handle_exe_redirections(command);
         if (execvp(command->command_args[0], command->command_args) == -1) 
 		{
             perror("execvp failed");

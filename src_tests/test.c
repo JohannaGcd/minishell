@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/15 14:49:10 by sveta         #+#    #+#                 */
-/*   Updated: 2025/03/16 11:29:56 by sveta         ########   odam.nl         */
+/*   Updated: 2025/03/16 17:50:41 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int main()
             printf("\033[0;32mOK\033[0m\n");
         else
             printf("\033[0;31mKO\033[0m\n");
-    test_with_print();
+    //test_with_print();
 }

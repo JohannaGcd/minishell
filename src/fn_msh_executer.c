@@ -3,6 +3,7 @@
 
 t_msh_state fn_msh_executer(t_minishell *mshell)
 {
+    printf("EXECUTER\n");
     execute_commands(mshell->commands);
     return(MSH_READLINE);
 }

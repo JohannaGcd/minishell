@@ -35,15 +35,20 @@ int	syntaxer(t_token *token_list)
 	t_token	*curr_token;
 	t_token	*prev_token;
 
+	//printf("begin syntaxer\n");
+	//printf("token_list%p\n", token_list);
+	//printf("token_list%s\n", token_list->str);
 	if (!token_list)
 		return (1);
 	curr_token = token_list;
+	//printf("token_list%s\n", token_list->str);
 	prev_token = NULL;
 	while (curr_token)
 	{
 		if (check_token_syntax(prev_token, curr_token) == 1)
 			return (1);
 		prev_token = curr_token;
+		//printf("two syntaxer\n");
 		curr_token = skip_space_token(curr_token);
 	}
 	return (0);

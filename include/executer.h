@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 void execute_commands(t_command *commands);
-void handle_redirections(t_command *command);
+void handle_exe_redirections(t_command *command);
 void execute_single_command(t_command *command);
 int is_builtin_command(char **command_args);
 void execute_builtin(char **command_args);
