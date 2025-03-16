@@ -5,6 +5,8 @@ t_msh_state fn_msh_lexer(t_minishell *mshell)
     mshell->tokens = extract_tokens(mshell->input_str);
     if (mshell->tokens == NULL)
         return (MSH_CLEAN);
+    expand_env(mshell->tokens, mshell->envs);
+    //check that expand sucessful
     return (MSH_SYNTAXER);
 }
 
