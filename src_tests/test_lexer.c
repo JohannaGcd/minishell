@@ -84,3 +84,17 @@ int test_lexer_double_quotes()
 		return(0);
    return(1);
 }
+
+int test_with_print()
+{
+   char    *string = "ls > file1 >> file2 < file3 << file4";
+   t_token	*tokens;
+
+    tokens = extract_tokens(string);
+	while(tokens)
+	{
+		printf("token=<%s>, type=%u\n",tokens->str, tokens->type);
+		tokens = tokens->next;
+	}
+	return(0);
+}

@@ -117,6 +117,37 @@ t_command	*init_command(void)
 
 // Creates a new command,
 // fills it with information and appends it to the list of commands
+
+void handle_redirections(t_command *command, t_token *tokens)
+{
+    while (tokens && tokens->type != PIPE)
+	{
+        if (tokens->type == REDIRECT_IN)
+		{
+            command->in = malloc(sizeof(t_redirection));
+			if (ft_strncmp(tokens->str, "<<",2) == 0)
+				command->in->type = HEREDOC;
+			else
+            	command->in->type = RED_IN;
+			if (tokens->next->type = M_SPACE)
+				tokens = tokens->next;
+            command->in->file = ft_strdup(tokens->next->str);
+            tokens = tokens->next; 
+        } else if (tokens->type == REDIRECT_OUT) {
+            command->out = malloc(sizeof(t_redirection));
+			if (ft_strncmp(tokens->str, ">>",2) == 0)
+				command->out->type = APPEND;
+			else
+            	command->out->type = RED_OUT;
+			if (tokens->next->type = M_SPACE)
+				tokens = tokens->next;
+            command->out->file = ft_strdup(tokens->next->str);
+            tokens = tokens->next; 
+        }
+        tokens = tokens->next;
+    }
+}
+
 t_command	*extract_commands(t_token *token_list)
 {
 	t_command	*list_command_head;
