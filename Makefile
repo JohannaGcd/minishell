@@ -1,4 +1,5 @@
 NAME = minishell
+TEST = test
 
 CC = cc
 CFLAGS = -g -O0 -Wextra -Werror -Wall
@@ -17,7 +18,7 @@ SRCDIR_LEXER = $(SRCDIR)/lexer
 OBJDIR_LEXER = objs_lexer
 
 SRCDIR_SYNTAXER = $(SRCDIR)/syntaxer
-OBJDIR_SYNTAXER = objs_syntax_checker
+OBJDIR_SYNTAXER = objs_syntaxer
 
 SRCDIR_PARSER = $(SRCDIR)/parser
 OBJDIR_PARSER = objs_parser
@@ -28,12 +29,16 @@ OBJDIR_EXECUTER = objs_executer
 SRCDIR_ENV = $(SRCDIR)/env
 OBJDIR_ENV = objs_env
 
-SRC = main.c
+SRCDIR_TEST = src_tests
+OBJDIR_TEST = objs_tests
+
+SRC = main.c fn_msh_start.c fn_msh_parser.c fn_msh_executer.c fn_msh_clean.c
 SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c lexer_token_env.c
 SRC_PARSER = parser.c
 SRC_EXECUTER = executer.c 
 SRC_ENV = init_env.c expansion.c
 SRC_SYNTAXER = syntaxer.c syntaxer_utils.c
+SRC_TEST = test.c test_lexer.c
 
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o) \
 	$(SRC_LEXER:%.c=$(OBJDIR_LEXER)/%.o) \
@@ -42,30 +47,39 @@ OBJ = $(SRC:%.c=$(OBJDIR)/%.o) \
 	$(SRC_EXECUTER:%.c=$(OBJDIR_EXECUTER)/%.o) \
 	$(SRC_ENV:%.c=$(OBJDIR_ENV)/%.o)
 
+OBJ_TEST = $(SRC_TEST:%.c=$(OBJDIR_TEST)/%.o) \
+	$(SRC_LEXER:%.c=$(OBJDIR_LEXER)/%.o)
+
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFLAGS) $(LIBFT) -o $@ 
 
+$(TEST): $(OBJ_TEST) $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJ_TEST) $(LIBFLAGS) $(LIBFT) -o $@ 
+
 $(LIBFT):
 	@make -s -C $(LIBFTDIR)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c  $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(OBJDIR)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_LEXER)/%.o: $(SRCDIR_LEXER)/%.c  $(OBJDIR_LEXER)
+$(OBJDIR_LEXER)/%.o: $(SRCDIR_LEXER)/%.c $(OBJDIR_LEXER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_SYNTAXER)/%.o: $(SRCDIR_SYNTAXER)/%.c  $(OBJDIR_SYNTAXER)
+$(OBJDIR_SYNTAXER)/%.o: $(SRCDIR_SYNTAXER)/%.c $(OBJDIR_SYNTAXER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
-$(OBJDIR_PARSER)/%.o: $(SRCDIR_PARSER)/%.c  $(OBJDIR_PARSER)
+$(OBJDIR_PARSER)/%.o: $(SRCDIR_PARSER)/%.c $(OBJDIR_PARSER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_EXECUTER)/%.o: $(SRCDIR_EXECUTER)/%.c  $(OBJDIR_EXECUTER)
+$(OBJDIR_EXECUTER)/%.o: $(SRCDIR_EXECUTER)/%.c $(OBJDIR_EXECUTER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_ENV)/%.o: $(SRCDIR_ENV)/%.c  $(OBJDIR_ENV)
+$(OBJDIR_ENV)/%.o: $(SRCDIR_ENV)/%.c $(OBJDIR_ENV)
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
+
+$(OBJDIR_TEST)/%.o: $(SRCDIR_TEST)/%.c $(OBJDIR_TEST)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
 $(OBJDIR):
@@ -86,12 +100,17 @@ $(OBJDIR_EXECUTER):
 $(OBJDIR_ENV):
 	@mkdir -p $@
 
+$(OBJDIR_TEST):
+	@mkdir -p $@
+
 clean:
 	@rm -rf obj*
 	@make -s -C $(LIBFTDIR) clean
 	@printf "Object files are removed\n"
 
 fclean: clean
-	@rm -f $(NAME)
-	@$(MAKE) -s -C $(LIBFTDIR) fclean
-	@printf "$(NAME) is removed\n"
+	@rm -f $(NAME) $(TEST)
+	@make -s -C $(LIBFTDIR) fclean
+	@printf "$(NAME) and $(TEST) are removed\n"
+
+re: fclean all

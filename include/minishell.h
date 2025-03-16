@@ -47,7 +47,7 @@ typedef struct s_redirection
 	t_type_red			type;
 	char				*file;
 	int					fd;
-	t_redirection		*next;
+	struct s_redirection		*next;
 }						t_redirection;
 
 // typedef struct s_retd_out
