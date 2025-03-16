@@ -10,7 +10,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;   // to avoid the error of unused variable with WWE flags
 	
 	
-	fun[MSH_READLINE] = fn_msh_redline;
+	fun[MSH_READLINE] = fn_msh_readline;
 	fun[MSH_LEXER] = fn_msh_lexer;
 	fun[MSH_SYNTAXER] = fn_msh_syntaxer;
 	fun[MSH_PARSER] = fn_msh_parser;

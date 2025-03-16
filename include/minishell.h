@@ -135,7 +135,7 @@ void					get_command_args(t_command **new_command,
 
 //functions
 t_msh_state fn_msh_start(t_minishell *mshell, char **envp);
-t_msh_state fn_msh_redline(t_minishell *mshell);
+t_msh_state fn_msh_readline(t_minishell *mshell);
 t_msh_state fn_msh_lexer(t_minishell *mshell);
 t_msh_state fn_msh_syntaxer(t_minishell *mshell);
 t_msh_state fn_msh_parser(t_minishell *mshell);

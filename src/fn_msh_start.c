@@ -20,7 +20,7 @@ t_msh_state fn_msh_start(t_minishell *mshell, char **envp)
     return (MSH_READLINE);
 }
 
-t_msh_state fn_msh_redline(t_minishell *mshell)
+t_msh_state fn_msh_readline(t_minishell *mshell)
 {
     const char prompt[] = "minishell > ";
 
