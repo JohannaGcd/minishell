@@ -2,7 +2,7 @@
 
 t_msh_state fn_msh_lexer(t_minishell *mshell)
 {
-    printf("LEXER\n");
+    printf("debug LEXER\n");
     mshell->tokens = extract_tokens(mshell->input_str);
     if (mshell->tokens == NULL)
         return (MSH_CLEAN);
@@ -32,7 +32,7 @@ t_msh_state fn_msh_lexer(t_minishell *mshell)
 
 t_msh_state fn_msh_syntaxer(t_minishell *mshell)
 {
-    printf("SYNTAXER\n");
+    printf("debug SYNTAXER\n");
     if (syntaxer(mshell->tokens))
     {
         if (mshell->input_str)
@@ -51,7 +51,7 @@ t_msh_state fn_msh_syntaxer(t_minishell *mshell)
 
 t_msh_state fn_msh_parser(t_minishell *mshell)
 {
-    printf("PARSER\n");
+    printf("debug PARSER\n");
     mshell->commands = extract_commands(mshell->tokens);
     if (mshell->commands == NULL)
         return (MSH_CLEAN);

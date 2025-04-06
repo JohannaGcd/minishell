@@ -2,6 +2,7 @@
 
 t_msh_state fn_msh_clean(t_minishell *mshell)
 {
+	printf("debug CLEAN\n");
 	if (mshell->input_str)
 		free(mshell->input_str);
 	if (mshell->tokens)

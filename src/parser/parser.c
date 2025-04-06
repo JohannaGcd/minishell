@@ -172,7 +172,7 @@ t_command	*extract_commands(t_token *token_list)
 	i = 0;
 	while (new_command->command_args[i])
 	{
-		printf("new_command[%d] = %s\n", i, new_command->command_args[i]);
+		printf("debug new_command[%d] = %s\n", i, new_command->command_args[i]);
 		i++;
 	}
 	return (list_command_head);

@@ -19,6 +19,8 @@ home: /Users/sveta
 
 ### handle multiply command
 
-### buildin command 
+### buildin commands: echo cd pwd export unset env exit
+
+### add path to commands
 
 ### handle signals
