@@ -15,7 +15,7 @@
 # include "env.h"
 # include "minishell.h"
 
-void execute_commands(t_command *commands);
+void execute_commands(t_minishell *mshell);
 void handle_exe_redirections(t_command *command);
 void execute_single_command(t_command *command);
 int is_builtin_command(char **command_args);

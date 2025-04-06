@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/06 17:35:05 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/04/06 18:05:10 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ void exec_export(t_command *command, t_minishell *mshell)
 {
     
     // exec export
-
+    (void)command;
     //add env
+    (void)mshell;
 }
 
 void execute_commands(t_minishell *mshell) 
