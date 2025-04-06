@@ -72,6 +72,7 @@ void	copy_command_args(char **command_args, t_token *token_list)
 			&& (token_list->type != REDIRECT_OUT)
 			&& (token_list->type != M_SPACE))
 		{
+			//todo remoove quotes 
 			command_args[i] = ft_substr(token_list->str, 0,
 					ft_strlen(token_list->str));
 			if (!command_args)
