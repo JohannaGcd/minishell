@@ -114,27 +114,27 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 		{
 			var = extract_env(current_token->str, envs,
 					ft_strlen(current_token->str) - 1);
-			if (var == NULL)
-				current_token->str = "";
-			else
-			{
-				free(current_token->str);
-				current_token->str = ft_substr(var, 0, ft_strlen(var));
-			}
+			free(current_token->str);
+			if (var) 
+				current_token->str = ft_strdup(var);
+			else 
+				current_token->str = ft_strdup("");
 			current_token->type = WORD;
 		}
-		if (current_token->type == D_QUOTE)
+		else if (current_token->type == D_QUOTE)
 		{
 			if (ft_strchr(current_token->str, '$'))
 			{
 				var = change_all_env(current_token->str, envs);
-				free(current_token->str);
-				current_token->str = ft_substr(var, 0, ft_strlen(var));
+				if (var)
+                {
+                    free(current_token->str);
+                    current_token->str = ft_strdup(var);
+                    free(var);  
+                }
 			}
 		}
 		current_token = current_token->next;
 	}
-	if (var)
-		free(var);
 	return (0);
 }
