@@ -72,9 +72,16 @@ void	copy_command_args(char **command_args, t_token *token_list)
 			&& (token_list->type != REDIRECT_OUT)
 			&& (token_list->type != M_SPACE))
 		{
-			//todo remoove quotes 
-			command_args[i] = ft_substr(token_list->str, 0,
-					ft_strlen(token_list->str));
+			if ((token_list->type == D_QUOTE) || (token_list->type == S_QUOTE))
+			{
+				command_args[i] = ft_substr(token_list->str, 1,
+						ft_strlen(token_list->str) - 2);
+			}
+			else
+			{
+				command_args[i] = ft_substr(token_list->str, 0,
+						ft_strlen(token_list->str));
+			}
 			if (!command_args)
 			{
 				perror("Failed to allocate memory in copy_command_args");
@@ -119,34 +126,36 @@ t_command	*init_command(void)
 // Creates a new command,
 // fills it with information and appends it to the list of commands
 
-void handle_redirections(t_command *command, t_token *tokens)
+void	handle_redirections(t_command *command, t_token *tokens)
 {
-    while (tokens && tokens->type != PIPE)
+	while (tokens && tokens->type != PIPE)
 	{
-        if (tokens->type == REDIRECT_IN)
+		if (tokens->type == REDIRECT_IN)
 		{
-            command->in = malloc(sizeof(t_redirection));
-			if (ft_strncmp(tokens->str, "<<",2) == 0)
+			command->in = malloc(sizeof(t_redirection));
+			if (ft_strncmp(tokens->str, "<<", 2) == 0)
 				command->in->type = HEREDOC;
 			else
-            	command->in->type = RED_IN;
+				command->in->type = RED_IN;
 			if (tokens->next->type == M_SPACE)
 				tokens = tokens->next;
-            command->in->file = ft_strdup(tokens->next->str);
-            tokens = tokens->next; 
-        } else if (tokens->type == REDIRECT_OUT) {
-            command->out = malloc(sizeof(t_redirection));
-			if (ft_strncmp(tokens->str, ">>",2) == 0)
+			command->in->file = ft_strdup(tokens->next->str);
+			tokens = tokens->next;
+		}
+		else if (tokens->type == REDIRECT_OUT)
+		{
+			command->out = malloc(sizeof(t_redirection));
+			if (ft_strncmp(tokens->str, ">>", 2) == 0)
 				command->out->type = APPEND;
 			else
-            	command->out->type = RED_OUT;
+				command->out->type = RED_OUT;
 			if (tokens->next->type == M_SPACE)
 				tokens = tokens->next;
-            command->out->file = ft_strdup(tokens->next->str);
-            tokens = tokens->next; 
-        }
-        tokens = tokens->next;
-    }
+			command->out->file = ft_strdup(tokens->next->str);
+			tokens = tokens->next;
+		}
+		tokens = tokens->next;
+	}
 }
 
 t_command	*extract_commands(t_token *token_list)
