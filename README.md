@@ -15,7 +15,7 @@ home: /Users/sveta
 
 ### HEREDOC
 
-### export -> add env
+### FR01 export -> add env
 
 ### add redirections  in parser
 
