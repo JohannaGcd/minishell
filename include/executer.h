@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   executer.h                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:15 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXECUTER_H
 # define EXECUTER_H
+
 # include <termios.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -13,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "env.h"
+# include "lexer.h"
 # include "minishell.h"
 
 void execute_commands(t_minishell *mshell);

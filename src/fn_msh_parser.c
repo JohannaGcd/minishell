@@ -1,4 +1,6 @@
-#include "../include/minishell.h"
+#include "lexer.h"
+#include "env.h"
+
 
 t_msh_state fn_msh_lexer(t_minishell *mshell)
 {

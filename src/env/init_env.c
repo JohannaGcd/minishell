@@ -6,11 +6,11 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/24 20:32:25 by sveta         #+#    #+#                 */
-/*   Updated: 2025/02/26 18:37:58 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/08 15:12:40 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "env.h"
 
 t_env_node	*create_new_env_node(char *var, char *value)
 {

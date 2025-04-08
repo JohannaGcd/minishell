@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "env.h"
 
 // void find_env(char *str, int *begin, int *end)
 // {

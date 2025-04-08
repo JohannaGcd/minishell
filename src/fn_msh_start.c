@@ -1,5 +1,5 @@
 
-#include "../include/minishell.h"
+#include "../include/env.h"
 
 t_msh_state fn_msh_start(t_minishell *mshell, char **envp)
 {

@@ -1,4 +1,16 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   lexer_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:38 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:39 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lexer.h"
 
 // To extract a pipe token
 void	pipe_token(int *current_pos, char *input_str, char c)

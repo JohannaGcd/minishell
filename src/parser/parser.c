@@ -1,4 +1,16 @@
-#include "../../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parser.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:45 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lexer.h"
 
 t_token	*skip_to_pipe(t_token *token)
 {

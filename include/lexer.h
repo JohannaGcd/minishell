@@ -1,27 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   lexer.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:07 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:08 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEXER_H
 # define LEXER_H
 
 # include "minishell.h"
 
-typedef enum s_token_type
-{
-	TOKEN,
-	PIPE,
-	S_QUOTE,
-	D_QUOTE,
-	REDIRECT_IN,
-	REDIRECT_OUT,
-	WORD,
-	M_SPACE,
-	ENV,
-}					t_token_type;
-
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*str;
-	struct s_token	*next;
-}					t_token;
 
 // lexer.c
 t_token				*extract_tokens(char *input_str);
@@ -43,5 +36,36 @@ void				redirect_token(int *current_pos, char *input_str, char c);
 void				word_token(int *current_pos, char *input_str, char c);
 void				env_token(int *current_pos, char *input_str, char c);
 int					ft_isspace(char c);
+
+// Syntax Checker
+// -> Checks whether the tokens respect grammar rules for BASH
+
+// syntaxer.c
+int						syntaxer(t_token *token_list);
+int						check_token_syntax(t_token *prev_token,
+							t_token *curr_token);
+t_token					*skip_space_token(t_token *current_token);
+
+// syntaxer_utils.c
+int						pipe_syntaxer(t_token *prev_token, t_token *curr_token);
+int						quote_syntaxer(t_token *prev_token,
+							t_token *curr_token);
+int						word_syntaxer(t_token *prev_token, t_token *curr_token);
+int						redir_syntaxer(t_token *prev_token,
+							t_token *curr_token);
+int						na_syntaxer(t_token *prev_token, t_token *curr_token);
+int						env_syntaxer(t_token *prev_token, t_token *curr_token);
+
+// Parsing
+// -> Processes the tokens according to a grammar and builds the command structs
+
+// parser.c
+t_command				*extract_commands(t_token *token_list);
+t_command				*init_command(void);
+void					fill_command(t_command **new_command,
+							t_token *token_list);
+void					get_command_args(t_command **new_command,
+							t_token *token_list);
+
 
 #endif

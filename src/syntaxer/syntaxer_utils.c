@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   syntaxer_utils.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:49 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:51 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../include/minishell.h"
+
+#include "lexer.h"
 
 // Checks PIPE syntax:
 // Two pipe symbols are not allowed

@@ -1,4 +1,16 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   lexer.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:41 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:42 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lexer.h"
 
 // To set the type of the token based on the first character.
 int	get_token_hint(char c)

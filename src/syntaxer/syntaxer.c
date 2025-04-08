@@ -1,4 +1,16 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   syntaxer.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:52 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:53 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lexer.h"
 
 // Skips space token
 t_token	*skip_space_token(t_token *current_token)

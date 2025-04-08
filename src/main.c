@@ -3,10 +3,14 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_msh_state	msh_state;
+	char array[5] = {
+		array[0] = 2,
+		array[1] = 3
+	};
+	t_msh_state msh_state;
 	t_minishell mshell;
-	t_msh_function		fun[MSH_EXIT];
-	(void)argv; // to avoid the error of unused variable with WWE flags
+	t_msh_function fun[MSH_EXIT];
+	(void)argv;	  // to avoid the error of unused variable with WWE flags
 	(void)argc;   // to avoid the error of unused variable with WWE flags
 	
 	

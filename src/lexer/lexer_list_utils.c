@@ -1,4 +1,16 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   lexer_list_utils.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:30 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:32 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "lexer.h"
 
 // To create and initialise an empty token with default values
 t_token	*create_new_token(void)

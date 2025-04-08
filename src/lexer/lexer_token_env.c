@@ -6,11 +6,11 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/24 20:24:28 by sveta         #+#    #+#                 */
-/*   Updated: 2025/03/06 22:03:38 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/08 15:10:44 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "lexer.h"
 
 void	env_token(int *current_pos, char *input_str, char c)
 {

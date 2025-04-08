@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
+/*   Updated: 2025/04/08 15:22:12 by jguacide      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include "env.h"
-# include "lexer.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h> // for testing!
@@ -57,6 +67,39 @@ typedef struct s_redirection
 // 	void *next;
 // };
 
+typedef struct s_env_node
+{
+	char				*var;
+	char				*value;
+	struct s_env_node	*next;
+}						t_env_node;
+
+typedef struct s_envs
+{
+	t_env_node			*env;
+	int					status;
+}			t_envs;
+
+typedef enum s_token_type
+{
+	TOKEN,
+	PIPE,
+	S_QUOTE,
+	D_QUOTE,
+	REDIRECT_IN,
+	REDIRECT_OUT,
+	WORD,
+	M_SPACE,
+	ENV,
+}					t_token_type;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*str;
+	struct s_token	*next;
+}					t_token;
+
 
 typedef struct s_command
 {
@@ -80,58 +123,6 @@ typedef t_msh_state (*t_msh_function)(t_minishell *mshell);
 
 // Lexical Analysis
 // -> Separates the input into tokens
-
-// lexer.c
-t_token					*extract_tokens(char *input_str);
-void					fill_token_info(int *current_pos, char *input_str,
-							t_token *new_token);
-int						get_token_hint(char c);
-
-// lexer_list_utils.c
-t_token					*token_list_find_last(t_token *token_list_node);
-void					token_list_add_back(t_token **token_list_head,
-							t_token *new_token);
-t_token					*create_new_token(void);
-
-// lexer_utils.c
-void					pipe_token(int *current_pos, char *input_str, char c);
-void					space_token(int *current_pos, char *input_str, char c);
-void					quote_token(int *current_pos, char *input_str, char c);
-void					redirect_token(int *current_pos, char *input_str,
-							char c);
-void					word_token(int *current_pos, char *input_str, char c);
-void					env_token(int *current_pos, char *input_str, char c);
-int						ft_isspace(char c);
-
-// Syntax Checker
-// -> Checks whether the tokens respect grammar rules for BASH
-
-// syntaxer.c
-int						syntaxer(t_token *token_list);
-int						check_token_syntax(t_token *prev_token,
-							t_token *curr_token);
-t_token					*skip_space_token(t_token *current_token);
-
-// syntaxer_utils.c
-int						pipe_syntaxer(t_token *prev_token, t_token *curr_token);
-int						quote_syntaxer(t_token *prev_token,
-							t_token *curr_token);
-int						word_syntaxer(t_token *prev_token, t_token *curr_token);
-int						redir_syntaxer(t_token *prev_token,
-							t_token *curr_token);
-int						na_syntaxer(t_token *prev_token, t_token *curr_token);
-int						env_syntaxer(t_token *prev_token, t_token *curr_token);
-
-// Parsing
-// -> Processes the tokens according to a grammar and builds the command structs
-
-// parser.c
-t_command				*extract_commands(t_token *token_list);
-t_command				*init_command(void);
-void					fill_command(t_command **new_command,
-							t_token *token_list);
-void					get_command_args(t_command **new_command,
-							t_token *token_list);
 
 //functions
 t_msh_state fn_msh_start(t_minishell *mshell, char **envp);
