@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/08 16:51:48 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/10 17:15:05 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void execute_single_command(t_command *command)
 	else if (pid == 0) 
 	{
         // Child process
-        handle_exe_redirections(command);
-        if (execvp(command->command_args[0], command->command_args) == -1) 
-		{
+        open_file_redirect(command);
+        if (execvp(command->command_args[0], command->command_args) == -1)
+        {
             perror("execvp failed");
             exit(EXIT_FAILURE);
         }
@@ -33,6 +33,8 @@ void execute_single_command(t_command *command)
 	{
         // Parent process
         int status;
+        // printf("in execute single command: redirect in is: %d with file %s\n", command->in->type, command->in->file);
+        // printf("in execute single command: redirect out is: %d with file %s\n", command->out->type, command->out->file);
         waitpid(pid, &status, 0);
     }
 }

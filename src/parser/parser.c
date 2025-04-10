@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/10 13:34:03 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/10 17:49:35 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,16 @@ int	count_command_args(t_token *token_list)
 }
 
 // Allocates space for a redirection struct & fills the corresponding type and file.
+// TODO: Handle error: currently we exit without clearing the whole linkedlist. 
+// use ft_lstclear -> leverage void pointer (see test.c)
+// OR CREATE Ft lst clear and ft list new for each struct. 
 void	fill_redirections(t_command **command, t_token *tokens)
 {
 	while (tokens && tokens->type != PIPE)
 	{
 		if (tokens->type == REDIRECT_IN)
 		{
-			(*command)->in = malloc(sizeof(t_redirection));
+			(*command)->in = ft_calloc(1, sizeof(t_redirection));
 			if (!(*command)->in)
 			{
 				perror("malloc fill_redirections failed");
@@ -94,7 +97,7 @@ void	fill_redirections(t_command **command, t_token *tokens)
 		}
 		else if (tokens->type == REDIRECT_OUT)
 		{
-			(*command)->out = malloc(sizeof(t_redirection));
+			(*command)->out = ft_calloc(1, sizeof(t_redirection));
 			if (!(*command)->out)
 			{
 				perror("malloc fill_redirections failed");
