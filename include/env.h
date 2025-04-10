@@ -10,4 +10,5 @@ int						expand_env(t_token *list_tokens, t_envs *envs);
 char					*extract_env(char *str, t_envs *envs, size_t len);
 t_env_node				*create_new_env_node(char *var, char *value);
 void					add_env_to_list(t_env_node **list, t_env_node *node);
+void 					remove_env_var(t_envs *envs, const char *var_to_remove);
 #endif
