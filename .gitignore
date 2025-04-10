@@ -7,3 +7,5 @@
 .vscode/
 .DS_Store
 
+# Ignore test files
+test.txt

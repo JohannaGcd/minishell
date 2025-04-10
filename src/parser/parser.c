@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/08 15:22:45 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/10 13:34:03 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,47 @@ int	count_command_args(t_token *token_list)
 	return (counter);
 }
 
+// Allocates space for a redirection struct & fills the corresponding type and file.
+void	fill_redirections(t_command **command, t_token *tokens)
+{
+	while (tokens && tokens->type != PIPE)
+	{
+		if (tokens->type == REDIRECT_IN)
+		{
+			(*command)->in = malloc(sizeof(t_redirection));
+			if (!(*command)->in)
+			{
+				perror("malloc fill_redirections failed");
+				exit(EXIT_FAILURE);
+			}
+			if (ft_strncmp(tokens->str, "<<", 2) == 0)
+				(*command)->in->type = HEREDOC;
+			else
+				(*command)->in->type = RED_IN;
+			if (tokens->next->type == M_SPACE)
+				tokens = tokens->next;
+			(*command)->in->file = ft_strdup(tokens->next->str);
+		}
+		else if (tokens->type == REDIRECT_OUT)
+		{
+			(*command)->out = malloc(sizeof(t_redirection));
+			if (!(*command)->out)
+			{
+				perror("malloc fill_redirections failed");
+				exit(EXIT_FAILURE);
+			}
+			if (ft_strncmp(tokens->str, ">>", 2) == 0)
+				(*command)->out->type = APPEND;
+			else
+				(*command)->out->type = RED_OUT;
+			if (tokens->next->type == M_SPACE)
+				tokens = tokens->next;
+			(*command)->out->file = ft_strdup(tokens->next->str);
+		}
+		tokens = tokens->next;
+	}
+}
+
 void	copy_command_args(char **command_args, t_token *token_list)
 {
 	int	i;
@@ -118,6 +159,7 @@ void	fill_command(t_command **new_command, t_token *token_list)
 		perror("Failed to allocate memory for new_command->command_args");
 	}
 	copy_command_args((*new_command)->command_args, token_list);
+	fill_redirections(new_command, token_list);
 }
 
 // Allocates memory for a new command
@@ -133,41 +175,6 @@ t_command	*init_command(void)
 	}
 	new_command->next = NULL;
 	return (new_command);
-}
-
-// Creates a new command,
-// fills it with information and appends it to the list of commands
-
-void	handle_redirections(t_command *command, t_token *tokens)
-{
-	while (tokens && tokens->type != PIPE)
-	{
-		if (tokens->type == REDIRECT_IN)
-		{
-			command->in = malloc(sizeof(t_redirection));
-			if (ft_strncmp(tokens->str, "<<", 2) == 0)
-				command->in->type = HEREDOC;
-			else
-				command->in->type = RED_IN;
-			if (tokens->next->type == M_SPACE)
-				tokens = tokens->next;
-			command->in->file = ft_strdup(tokens->next->str);
-			tokens = tokens->next;
-		}
-		else if (tokens->type == REDIRECT_OUT)
-		{
-			command->out = malloc(sizeof(t_redirection));
-			if (ft_strncmp(tokens->str, ">>", 2) == 0)
-				command->out->type = APPEND;
-			else
-				command->out->type = RED_OUT;
-			if (tokens->next->type == M_SPACE)
-				tokens = tokens->next;
-			command->out->file = ft_strdup(tokens->next->str);
-			tokens = tokens->next;
-		}
-		tokens = tokens->next;
-	}
 }
 
 t_command	*extract_commands(t_token *token_list)
@@ -198,3 +205,6 @@ t_command	*extract_commands(t_token *token_list)
 	}
 	return (list_command_head);
 }
+
+// TODO: it seems the loop is not executing. clarify what goes inside command_args[0], 
+//maybe the fill command args should be called is copy command arg instead. 

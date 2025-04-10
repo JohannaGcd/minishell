@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:07 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/08 15:22:08 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/08 17:08:49 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void					fill_command(t_command **new_command,
 							t_token *token_list);
 void					get_command_args(t_command **new_command,
 							t_token *token_list);
-
+void handle_redirections(t_command *command, t_token *tokens);
 
 #endif

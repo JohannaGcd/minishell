@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/08 15:12:52 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/08 16:51:48 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void exec_export(t_command *command, t_minishell *mshell)
     char *var;
     char *value;
     t_env_node	*node;
-    
 
     count = 0;
     while(command->command_args[count])
