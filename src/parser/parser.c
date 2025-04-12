@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/10 17:49:35 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/12 14:07:08 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,13 @@ int	count_command_args(t_token *token_list)
 		token_list = token_list->next;
 	while (token_list && token_list->type != PIPE)
 	{
-		if ((token_list->type != REDIRECT_IN)
-			&& (token_list->type != REDIRECT_OUT)
-			&& (token_list->type != M_SPACE))
+		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT
+			|| token_list->type == APPEND || token_list->type == HEREDOC)
+			{
+				printf("Breaking at token type: %d\n", token_list->type);  // Debugging output
+				break ;
+			}	
+		if (token_list->type != M_SPACE)
 			counter += 1;
 		token_list = token_list->next;
 	}
@@ -72,9 +76,9 @@ int	count_command_args(t_token *token_list)
 }
 
 // Allocates space for a redirection struct & fills the corresponding type and file.
-// TODO: Handle error: currently we exit without clearing the whole linkedlist. 
+// TODO: Handle error: currently we exit without clearing the whole linkedlist.
 // use ft_lstclear -> leverage void pointer (see test.c)
-// OR CREATE Ft lst clear and ft list new for each struct. 
+// OR CREATE Ft lst clear and ft list new for each struct.
 void	fill_redirections(t_command **command, t_token *tokens)
 {
 	while (tokens && tokens->type != PIPE)
@@ -93,6 +97,10 @@ void	fill_redirections(t_command **command, t_token *tokens)
 				(*command)->in->type = RED_IN;
 			if (tokens->next->type == M_SPACE)
 				tokens = tokens->next;
+			// {
+			// 	while (tokens->next->type == M_SPACE)
+			// 		tokens = tokens->next;
+			// }
 			(*command)->in->file = ft_strdup(tokens->next->str);
 		}
 		else if (tokens->type == REDIRECT_OUT)
@@ -109,6 +117,10 @@ void	fill_redirections(t_command **command, t_token *tokens)
 				(*command)->out->type = RED_OUT;
 			if (tokens->next->type == M_SPACE)
 				tokens = tokens->next;
+			// {
+			// 	while (tokens->next->type == M_SPACE)
+			// 		tokens = tokens->next;
+			// }
 			(*command)->out->file = ft_strdup(tokens->next->str);
 		}
 		tokens = tokens->next;
@@ -156,6 +168,7 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	int	nbr_args;
 
 	nbr_args = count_command_args(token_list);
+	printf("cmd args nbr: %d", nbr_args);
 	(*new_command)->command_args = malloc(sizeof(char **) * (nbr_args + 1));
 	if (!(*new_command)->command_args)
 	{
@@ -209,5 +222,7 @@ t_command	*extract_commands(t_token *token_list)
 	return (list_command_head);
 }
 
-// TODO: it seems the loop is not executing. clarify what goes inside command_args[0], 
-//maybe the fill command args should be called is copy command arg instead. 
+// ["echo" "Hello" "$world" NULL]
+// < Makefile > out.txt > out2.txt
+
+// **args = args_from_list(list, envp)
