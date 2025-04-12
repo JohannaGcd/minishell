@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/10 21:11:03 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/12 14:20:36 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "minishell.h"
 
 void    execute_commands(t_minishell *mshell);
-void    handle_exe_redirections(t_command *command);
+void    open_file_redirect(t_command *command);
 void    execute_single_command(t_command *command);
 void    exec_export(t_command *command, t_minishell *mshell);
 void    exec_env(t_minishell *mshell);

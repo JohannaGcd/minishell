@@ -7,3 +7,8 @@
 .vscode/
 .DS_Store
 
+# Ignore test files
+test.txt
+how_to_libft.c
+input.txt
+output.txt

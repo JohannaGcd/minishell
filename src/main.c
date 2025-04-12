@@ -3,10 +3,6 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char array[5] = {
-		array[0] = 2,
-		array[1] = 3
-	};
 	t_msh_state msh_state;
 	t_minishell mshell;
 	t_msh_function fun[MSH_EXIT];
