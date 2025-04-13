@@ -134,11 +134,9 @@ void	copy_command_args(char **command_args, t_token *token_list)
 	i = 0;
 	if (token_list->type == PIPE)
 		token_list = token_list->next;
-	while (token_list && token_list->type != PIPE)
+	while (token_list && token_list->type != PIPE && token_list->type != REDIRECT_IN && token_list->type != REDIRECT_OUT)
 	{
-		if ((token_list->type != REDIRECT_IN)
-			&& (token_list->type != REDIRECT_OUT)
-			&& (token_list->type != M_SPACE))
+		if (token_list->type != M_SPACE)
 		{
 			if ((token_list->type == D_QUOTE) || (token_list->type == S_QUOTE))
 			{
