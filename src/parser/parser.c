@@ -64,10 +64,7 @@ int	count_command_args(t_token *token_list)
 	{
 		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT
 			|| token_list->type == APPEND || token_list->type == HEREDOC)
-			{
-				printf("Breaking at token type: %d\n", token_list->type);  // Debugging output
 				break ;
-			}	
 		if (token_list->type != M_SPACE)
 			counter += 1;
 		token_list = token_list->next;
@@ -97,10 +94,10 @@ void	fill_redirections(t_command **command, t_token *tokens)
 				(*command)->in->type = RED_IN;
 			if (tokens->next->type == M_SPACE)
 				tokens = tokens->next;
-			// {
-			// 	while (tokens->next->type == M_SPACE)
-			// 		tokens = tokens->next;
-			// }
+			{
+				while (tokens->next->type == M_SPACE)
+					tokens = tokens->next;
+			}
 			(*command)->in->file = ft_strdup(tokens->next->str);
 		}
 		else if (tokens->type == REDIRECT_OUT)
@@ -117,10 +114,10 @@ void	fill_redirections(t_command **command, t_token *tokens)
 				(*command)->out->type = RED_OUT;
 			if (tokens->next->type == M_SPACE)
 				tokens = tokens->next;
-			// {
-			// 	while (tokens->next->type == M_SPACE)
-			// 		tokens = tokens->next;
-			// }
+			{
+				while (tokens->next->type == M_SPACE)
+					tokens = tokens->next;
+			}
 			(*command)->out->file = ft_strdup(tokens->next->str);
 		}
 		tokens = tokens->next;
