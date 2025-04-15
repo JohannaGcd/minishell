@@ -6,7 +6,8 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/10 16:02:47 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/11 21:48:04 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/12 14:20:36 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +29,15 @@
 # include "env.h"
 # include "lexer.h"
 # include "minishell.h"
+#include <limits.h>
 
-void execute_commands(t_minishell *mshell);
-void open_file_redirect(t_command *command);
-void execute_single_command(t_command *command);
+void    execute_commands(t_minishell *mshell);
+void    open_file_redirect(t_command *command);
+void    execute_single_command(t_command *command);
+void    exec_export(t_command *command, t_minishell *mshell);
+void    exec_env(t_minishell *mshell);
+void    exec_unset(t_command *command, t_minishell *mshell);
+
 int is_builtin_command(char **command_args);
 void execute_builtin(char **command_args);
 void restore_file_descriptors(int saved_stdin, int saved_stdout);
