@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:21:54 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/10 17:19:26 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/15 15:41:13 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void open_file_redirect(t_command *command)
     red_in = command->in;
     while (red_in)
     {
-        printf("red_in while loop\n");
-        // HANDLE HEREDOC HERE
         int in_fd = open(red_in->file, O_RDONLY);
         if (in_fd == -1) {
             perror("Error opening input file");
@@ -34,14 +32,14 @@ void open_file_redirect(t_command *command)
     red_out = command->out;
     while (red_out)
 	{
-        printf("red_out while loop\n");
+        //printf("red_out while loop\n");
         int out_fd;
         if (red_out->type == APPEND) {
             printf("append: %s\n", red_out->file);
             out_fd = open(red_out->file, O_WRONLY | O_CREAT | O_APPEND);
         }
         else {
-            printf("trunc: %s\n", red_out->file);
+            //printf("trunc: %s\n", red_out->file);
             out_fd = open(red_out->file, O_WRONLY | O_CREAT | O_TRUNC);
         }
         if (out_fd == -1) {
@@ -53,3 +51,9 @@ void open_file_redirect(t_command *command)
         red_out = red_out->next;
     }
 }
+
+// HEREDOC NOTES:
+// cmd (args) << delimeter
+// blabla
+// delimiter
+// reads until delimiter and feeds into pipe, then sends to the commands. 

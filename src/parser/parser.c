@@ -6,49 +6,11 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/12 14:07:08 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/15 15:45:36 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-t_token	*skip_to_pipe(t_token *token)
-{
-	if (!token)
-		return (NULL);
-	while (token)
-	{
-		if (token->type == PIPE)
-			return (token);
-		token = token->next;
-	}
-	return (NULL);
-}
-
-t_command	*command_list_find_last(t_command *command_list_head)
-{
-	if (command_list_head == NULL)
-		return (NULL);
-	while (command_list_head && command_list_head->next != NULL)
-		command_list_head = command_list_head->next;
-	return (command_list_head);
-}
-
-void	command_list_add_back(t_command **command_list_head,
-		t_command *new_command)
-{
-	t_command	*tmp;
-
-	if (command_list_head == NULL)
-		return ;
-	if (*command_list_head == NULL)
-		*command_list_head = new_command;
-	else
-	{
-		tmp = command_list_find_last(*command_list_head);
-		tmp->next = new_command;
-	}
-}
 
 // Counts the number of arguments in the input command
 int	count_command_args(t_token *token_list)
@@ -64,7 +26,7 @@ int	count_command_args(t_token *token_list)
 	{
 		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT
 			|| token_list->type == APPEND || token_list->type == HEREDOC)
-				break ;
+			break ;
 		if (token_list->type != M_SPACE)
 			counter += 1;
 		token_list = token_list->next;
@@ -72,7 +34,8 @@ int	count_command_args(t_token *token_list)
 	return (counter);
 }
 
-// Allocates space for a redirection struct & fills the corresponding type and file.
+// Allocates space for a redirection struct 
+// & fills the corresponding type and file.
 // TODO: Handle error: currently we exit without clearing the whole linkedlist.
 // use ft_lstclear -> leverage void pointer (see test.c)
 // OR CREATE Ft lst clear and ft list new for each struct.
@@ -131,7 +94,8 @@ void	copy_command_args(char **command_args, t_token *token_list)
 	i = 0;
 	if (token_list->type == PIPE)
 		token_list = token_list->next;
-	while (token_list && token_list->type != PIPE && token_list->type != REDIRECT_IN && token_list->type != REDIRECT_OUT)
+	while (token_list && token_list->type != PIPE
+		&& token_list->type != REDIRECT_IN && token_list->type != REDIRECT_OUT)
 	{
 		if (token_list->type != M_SPACE)
 		{
@@ -171,21 +135,6 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	}
 	copy_command_args((*new_command)->command_args, token_list);
 	fill_redirections(new_command, token_list);
-}
-
-// Allocates memory for a new command
-t_command	*init_command(void)
-{
-	t_command	*new_command;
-
-	new_command = malloc(sizeof(t_command) * 1);
-	if (!new_command)
-	{
-		perror("Failed to allocate memory for new_command");
-		return (NULL);
-	}
-	new_command->next = NULL;
-	return (new_command);
 }
 
 t_command	*extract_commands(t_token *token_list)
