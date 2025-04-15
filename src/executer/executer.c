@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/10 17:15:05 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/15 15:33:46 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void exec_export_print(t_minishell *mshell)
     node = mshell->envs->env;
     while (node)
     {
-    printf("declare -x %s=\"%s\"\n",node->var, node->value);
-    node = node->next;
+        printf("declare -x %s=\"%s\"\n",node->var, node->value);
+        node = node->next;
     }
 }
 
