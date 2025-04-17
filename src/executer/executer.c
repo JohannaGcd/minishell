@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/15 17:48:56 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/17 22:46:41 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void execute_commands(t_minishell *mshell)
 	current = mshell->commands;
 	
 	while (current) 
-	{   
+	{  
+		printf("debug current command %s\n", current->command_args[0]); 
 		if (ft_strncmp(current->command_args[0],"export", 7) == 0)
 			exec_export(current, mshell);
 		else if (ft_strncmp(current->command_args[0],"env", 4) == 0)

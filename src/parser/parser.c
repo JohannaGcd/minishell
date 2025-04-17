@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/15 15:45:36 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/17 22:52:01 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	int	nbr_args;
 
 	nbr_args = count_command_args(token_list);
-	printf("cmd args nbr: %d", nbr_args);
+	printf("cmd args nbr: %d\n", nbr_args);
 	(*new_command)->command_args = malloc(sizeof(char **) * (nbr_args + 1));
 	if (!(*new_command)->command_args)
 	{
@@ -155,6 +155,11 @@ t_command	*extract_commands(t_token *token_list)
 		fill_command(&new_command, token_list);
 		command_list_add_back(&list_command_head, new_command);
 		token_list = skip_to_pipe(token_list);
+		if (token_list)
+		{
+			printf("debug token_list is %s\n", token_list->str);
+			token_list = token_list->next;
+		}
 	}
 	// for testing
 	i = 0;
