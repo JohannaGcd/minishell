@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/08 15:22:53 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/18 21:29:06 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ t_token	*skip_space_token(t_token *current_token)
 	if (!current_token)
 		return (NULL);
 	if (current_token->next)
-		return (current_token->next->next);
+	{
+		if (current_token->next->type == M_SPACE)
+			return (current_token->next->next);
+		else 
+			return(current_token->next);
+	}
 	return (NULL);
 }
 

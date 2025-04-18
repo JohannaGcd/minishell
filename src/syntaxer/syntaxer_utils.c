@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:49 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/08 15:22:51 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/18 21:37:38 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	pipe_syntaxer(t_token *prev_token, t_token *curr_token)
 	if (ft_strlen(curr_token->str) != 1)
 		return (1);
 	next_token = skip_space_token(curr_token);
+	//printf("next_token in pipe_syntaxer is <%s>\n",next_token->str);
 	if (prev_token == NULL || next_token == NULL)
 		return (1);
 	if ((ft_strncmp(prev_token->str, "|", 1) == 0)
@@ -35,6 +36,7 @@ int	pipe_syntaxer(t_token *prev_token, t_token *curr_token)
 			return (1);
 	if (next_token->type != WORD && next_token->type != ENV)
 		return (1);
+	//printf("end pipe_syntaxer\n");
 	return (0);
 }
 
@@ -83,6 +85,7 @@ int	redir_syntaxer(t_token *prev_token, t_token *curr_token)
 	if (next_token->type != S_QUOTE && next_token->type != D_QUOTE
 		&& next_token->type != WORD && next_token->type != ENV)
 		return (1);
+		//printf("end redir_syntaxer\n");
 	return (0);
 }
 
