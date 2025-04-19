@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/17 22:52:01 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/19 15:55:07 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	fill_redirections(t_command **command, t_token *tokens)
 
 void	copy_command_args(char **command_args, t_token *token_list)
 {
-	int	i;
+	int		i;
+	size_t	len;
 
 	i = 0;
 	if (token_list->type == PIPE)
@@ -101,18 +102,20 @@ void	copy_command_args(char **command_args, t_token *token_list)
 		{
 			if ((token_list->type == D_QUOTE) || (token_list->type == S_QUOTE))
 			{
-				command_args[i] = ft_substr(token_list->str, 1,
-						ft_strlen(token_list->str) - 2);
+				len = ft_strlen(token_list->str) - 2;
+				if (len < 0) len = 0;
+				command_args[i] = ft_substr(token_list->str, 1, len);
 			}
 			else
 			{
-				command_args[i] = ft_substr(token_list->str, 0,
-						ft_strlen(token_list->str));
+				//command_args[i] = ft_substr(token_list->str, 0,
+						//ft_strlen(token_list->str));
+				command_args[i] = ft_strdup(token_list->str);
 			}
-			if (!command_args)
-			{
-				perror("Failed to allocate memory in copy_command_args");
-			}
+			// if (!command_args)
+			// {
+			// 	perror("Failed to allocate memory in copy_command_args");
+			// }
 			i++;
 		}
 		token_list = token_list->next;
@@ -125,15 +128,16 @@ void	copy_command_args(char **command_args, t_token *token_list)
 void	fill_command(t_command **new_command, t_token *token_list)
 {
 	int	nbr_args;
+	char **commands;
 
 	nbr_args = count_command_args(token_list);
-	printf("cmd args nbr: %d\n", nbr_args);
-	(*new_command)->command_args = malloc(sizeof(char **) * (nbr_args + 1));
-	if (!(*new_command)->command_args)
+	commands = (char **)malloc(sizeof(char *) * (nbr_args + 2));
+	if (!commands)
 	{
 		perror("Failed to allocate memory for new_command->command_args");
 	}
-	copy_command_args((*new_command)->command_args, token_list);
+	copy_command_args(commands, token_list);
+	(*new_command)->command_args = commands;
 	fill_redirections(new_command, token_list);
 }
 
@@ -141,7 +145,6 @@ t_command	*extract_commands(t_token *token_list)
 {
 	t_command	*list_command_head;
 	t_command	*new_command;
-	int			i;
 
 	list_command_head = NULL;
 	while (token_list)
@@ -157,17 +160,18 @@ t_command	*extract_commands(t_token *token_list)
 		token_list = skip_to_pipe(token_list);
 		if (token_list)
 		{
-			printf("debug token_list is %s\n", token_list->str);
+			//printf("debug token_list is %s\n", token_list->str);
 			token_list = token_list->next;
 		}
 	}
-	// for testing
-	i = 0;
-	while (new_command->command_args[i])
-	{
-		printf("debug new_command[%d] = %s\n", i, new_command->command_args[i]);
-		i++;
-	}
+	// // for testing
+	//int			i;
+	// i = 0;
+	// while (new_command->command_args[i])
+	// {
+	// 	printf("debug extract_commands new_command[%d] = %s\n", i, new_command->command_args[i]);
+	// 	i++;
+	// }
 	return (list_command_head);
 }
 

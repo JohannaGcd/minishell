@@ -9,23 +9,41 @@ echo path: /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes
 path: /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
 home: /Users/sveta
 
-### | does not work for parser
+### DONE
+### | does not work for parser - works
+### FR01 export command -> add env 
+### FR02 ececute env command
+### add redirections  in parser
+### buildin commands: pwd export unset
+### bug with parser ls | grep "text" or ls | grep 'text'(there is no command grep). There is no such problem with  ls | grep text 
+minishell > echo "bla" "bla-bla"
+debug LEXER
+token_type: 6, token_str: echo
+token_type: 7, token_str:  
+token_type: 3, token_str: "bla"
+token_type: 7, token_str:  
+token_type: 3, token_str: "bla-bla"
+debug SYNTAXER
+debug PARSER
+cmd args nbr: 1
+debug new_command[0] = ???
+debug new_command[1] = bla
+debug new_command[2] = bla-bla
+debug EXECUTER
+debug current command ???
+execvp failed: No such file or directory
 
 ## TODO
 
 ### HEREDOC
 
-### FR01 export command -> add env
-### FR02 ececute env command
-
-### add redirections  in parser
-
 ### handle rediraction
 
-### handle multiply command
+### handle multiply command in executer
 
 ### buildin commands: echo cd pwd export unset env exit
 
 ### add path to commands
 
 ### handle signals
+
