@@ -1,6 +1,8 @@
 #include "../include/minishell.h"
 #include "../include/executer.h"
 
+int global_exit = 0;
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_msh_state msh_state;

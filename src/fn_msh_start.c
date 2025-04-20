@@ -17,6 +17,7 @@ t_msh_state fn_msh_start(t_minishell *mshell, char **envp)
     mshell->input_str = NULL;
     mshell->commands = NULL;
     mshell->tokens = NULL;
+    mshell->isExit = 0;
     return (MSH_READLINE);
 }
 
