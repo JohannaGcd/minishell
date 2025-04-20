@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/17 22:46:41 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/20 15:27:36 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	execute_single_command(t_command *command)
 {
+	if (command->in->type == HEREDOC)
+		handle_heredoc(command);
 	pid_t pid = fork();
 	if (pid == -1) {
 		perror("fork failed");
@@ -22,6 +24,7 @@ void	execute_single_command(t_command *command)
 	else if (pid == 0) 
 	{
         // Child process
+		// TODO: check if here add if/else condition cause HEREDOC redirect already handled.
         open_file_redirect(command);
         if (execvp(command->command_args[0], command->command_args) == -1)
         {

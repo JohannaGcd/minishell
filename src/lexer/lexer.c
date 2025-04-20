@@ -6,10 +6,10 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:41 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/13 20:54:49 by sveta         ########   odam.nl         */
-/*   Updated: 2025/04/12 12:23:21 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/20 13:09:38 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "lexer.h"
 
