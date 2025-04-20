@@ -42,7 +42,8 @@ SRCS = ft_strlen.c \
 		get_free_line.c \
 		ft_tolower_string.c \
 		ft_atoi_base.c \
-		ft_max.c
+		ft_max.c\
+		ft_is_number.c 
 
 
 SRC_BONUS = ft_lstnew_bonus.c \
