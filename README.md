@@ -35,7 +35,7 @@ execvp failed: No such file or directory
 
 ## TODO
 
-### HEREDOC
+### HEREDOC: 1. handle env expansion 2. handle signals 3. handle exit status 4. what if multiple redirections? (jo) 5. close heredoc ? (jo)
 
 ### handle rediraction
 
