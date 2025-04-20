@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/20 17:22:15 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/20 17:25:13 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	read_heredoc(char *delimiter)
 		if (len > 0)
 		{
 			text[len] = '\0';
-			printf("\nParent received:\n %s", text);
+			printf("\nParent received:\n%s", text);
 		}
 		close(pipe_fd[0]);
 	}
@@ -78,10 +78,14 @@ void	read_heredoc(char *delimiter)
 
 void	handle_heredoc(t_command *command)
 {
-	if (command->in->type == HEREDOC)
+	while (command->in)
 	{
-		read_heredoc(command->in->file);
+		if (command->in->type == HEREDOC)
+		{
+			read_heredoc(command->in->file);
+		}
 	}
+	// TODO: close heredoc
 	//printf("\ncommand_args[0]: %s, delim = %s", command->command_args[0], command->in->file);
 }
 
