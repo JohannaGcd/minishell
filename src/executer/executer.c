@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/20 15:27:36 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/20 16:53:29 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,33 @@ void	execute_single_command(t_command *command)
     }
 }
 
+int is_builtin_command(char **command_args)
+{
+	if (ft_strncmp(command_args[0],"export", 7) == 0)
+		return (1);
+	if (ft_strncmp(command_args[0],"env", 4) == 0)
+		return (1);
+	if (ft_strncmp(command_args[0],"unset", 6) == 0)
+		return (1);
+	if (ft_strncmp(command_args[0],"exit", 5) == 0)
+		return (1);
+	if (ft_strncmp(command_args[0],"cd", 3) == 0)
+		return (1);
+	return (0);
+}
+
+void execute_builtin(char **command_args, t_minishell *mshell)
+{
+	if (ft_strncmp(command_args[0],"export", 7) == 0)
+		exec_export(command_args, mshell);
+	else if (ft_strncmp(command_args[0],"env", 4) == 0)
+		exec_env(mshell);
+	else if (ft_strncmp(command_args[0],"unset", 6) == 0)
+		exec_unset(command_args, mshell);
+	else if (ft_strncmp(command_args[0],"exit", 5) == 0)
+		exec_exit(command_args, mshell);
+}
+
 void execute_commands(t_minishell *mshell) 
 {
 	t_command   *current;
@@ -50,12 +77,8 @@ void execute_commands(t_minishell *mshell)
 	while (current) 
 	{  
 		printf("debug current command %s\n", current->command_args[0]); 
-		if (ft_strncmp(current->command_args[0],"export", 7) == 0)
-			exec_export(current, mshell);
-		else if (ft_strncmp(current->command_args[0],"env", 4) == 0)
-			exec_env(mshell);
-		else if (ft_strncmp(current->command_args[0],"unset", 6) == 0)
-			exec_unset(current, mshell);
+		if (is_builtin_command(current->command_args))
+			execute_builtin(current->command_args, mshell);
 		else
 			execute_single_command(current);
 		current = current->next;

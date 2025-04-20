@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   execute_unset.c                                    :+:    :+:            */
+/*   ft_is_number.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/04/10 20:35:46 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/20 12:00:12 by sveta         ########   odam.nl         */
+/*   Created: 2025/04/20 15:35:00 by sveta         #+#    #+#                 */
+/*   Updated: 2025/04/20 15:52:09 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executer.h"
+#include "libft.h"
 
-void	exec_unset(char **command_args, t_minishell *mshell)
+int	ft_is_number(char *s)
 {
-	char		*var;
 	int i;
 
-	if (command_args[1] == NULL)
+	i = 0;
+	while (s[i])
 	{
-		return;
-	}
-	i = 1;
-	while (command_args[i])
-	{
-		var = command_args[i];
-		remove_env_var(mshell->envs, var);
+		if (!ft_isdigit(s[i]))
+			return (0);
 		i++;
 	}
+	return (1);
 }

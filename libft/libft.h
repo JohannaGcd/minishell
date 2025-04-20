@@ -6,7 +6,7 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/11 12:23:23 by spanfilo      #+#    #+#                 */
-/*   Updated: 2025/02/18 12:27:51 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/04/20 15:41:15 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		ft_isalpha(int s);
 int		ft_isascii(int s);
 int		ft_isdigit(int s);
 int		ft_isprint(int s);
+int		ft_is_number(char *s);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *str);
 int		ft_tolower(int arg);

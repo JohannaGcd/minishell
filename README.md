@@ -47,3 +47,9 @@ execvp failed: No such file or directory
 
 ### handle signals
 
+### Add status executed command. Now it is in env
+
+### Add is_exit variable. where should it be?
+
+### where should be status of executed command?
+### where should be the status that we need to exit after execution?

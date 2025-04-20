@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/08 15:22:12 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/20 15:16:57 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_minishell
 	char		*input_str;
 	t_token		*tokens;
 	t_command	*commands;
+	int 		isExit;
 }	t_minishell;
 
 typedef t_msh_state (*t_msh_function)(t_minishell *mshell); 
