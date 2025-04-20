@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/20 17:00:57 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/20 17:03:33 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	read_heredoc(char *delimiter)
 				free(line);
 				break;
 			}
-			printf("\nline is: %s\n", line);
 			write(pipe_fd[1], line, ft_strlen(line));
 			write(pipe_fd[1], "\n", 1);
 
@@ -71,7 +70,7 @@ void	read_heredoc(char *delimiter)
 		if (len > 0)
 		{
 			text[len] = '\0';
-			printf("\nParent received: %s", text);
+			printf("\nParent received:\n %s", text);
 		}
 		close(pipe_fd[0]);
 	}
@@ -83,7 +82,7 @@ void	handle_heredoc(t_command *command)
 	{
 		read_heredoc(command->in->file);
 	}
-	printf("\ncommand_args[0]: %s, delim = %s", command->command_args[0], command->in->file);
+	//printf("\ncommand_args[0]: %s, delim = %s", command->command_args[0], command->in->file);
 }
 
 // Executor → open the pipe, read the heredoc, hook it up via dup2(), then run the command.
