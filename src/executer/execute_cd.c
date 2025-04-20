@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/11 21:46:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/13 20:59:30 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/20 17:15:57 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void exec_cd(t_command *command, t_minishell *mshell) {
         path = getenv("HOME");
         //use our env 
         if (path == NULL) {
-            fprintf(stderr, "cd: HOME not set\n");
+            ft_putendl_fd("cd: HOME not set", 2);
             return;
         }
     }

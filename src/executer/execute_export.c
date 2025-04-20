@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:10:48 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/20 12:01:31 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/20 17:18:12 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ void	exec_export(char **command_args, t_minishell *mshell)
 		exec_export_print(mshell);
 	else if (count == 2)
 	{
-		var = ft_substr(command_args[1], 0,
-				ft_strchr(command_args[1],
+		var = ft_substr(command_args[1], 0, ft_strchr(command_args[1],
 					'=') - command_args[1]);
-		value = ft_substr(command_args[1],
-				(ft_strchr(command_args[1],
+		value = ft_substr(command_args[1],(ft_strchr(command_args[1],
 						'=') - command_args[1]) + 1,
 				ft_strlen(command_args[1]));
 		node = create_new_env_node(var, value);

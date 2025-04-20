@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/20 16:53:29 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/20 17:28:23 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	execute_single_command(t_command *command)
 
 int is_builtin_command(char **command_args)
 {
+	printf("is_builtin_command\n");
 	if (ft_strncmp(command_args[0],"export", 7) == 0)
 		return (1);
 	if (ft_strncmp(command_args[0],"env", 4) == 0)

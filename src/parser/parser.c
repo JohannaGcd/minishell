@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/20 13:21:14 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/20 17:25:32 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	int	nbr_args;
 	char **commands;
 
+	printf("fill_command\n");
 	nbr_args = count_command_args(token_list);
 	commands = (char **)malloc(sizeof(char *) * (nbr_args + 2));
 	if (!commands)
@@ -139,6 +140,7 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	copy_command_args(commands, token_list);
 	(*new_command)->command_args = commands;
 	fill_redirections(new_command, token_list);
+	printf("end fill_command\n");
 }
 
 t_command	*extract_commands(t_token *token_list)
@@ -146,6 +148,7 @@ t_command	*extract_commands(t_token *token_list)
 	t_command	*list_command_head;
 	t_command	*new_command;
 
+	printf("debug extract_commands\n");
 	list_command_head = NULL;
 	while (token_list)
 	{
@@ -157,7 +160,7 @@ t_command	*extract_commands(t_token *token_list)
 		}
 		fill_command(&new_command, token_list);
 		// TEST
-		printf("\nnew_command: command_args[0] = %s, redir_in: type = %d, filish: %s\n", new_command->command_args[0], new_command->in->type, new_command->in->file);
+		//printf("\nnew_command: command_args[0] = %s, redir_in: type = %d, filish: %s\n", new_command->command_args[0], new_command->in->type, new_command->in->file);
 		command_list_add_back(&list_command_head, new_command);
 		token_list = skip_to_pipe(token_list);
 		if (token_list)
@@ -174,6 +177,7 @@ t_command	*extract_commands(t_token *token_list)
 	// 	printf("debug extract_commands new_command[%d] = %s\n", i, new_command->command_args[i]);
 	// 	i++;
 	// }
+	printf("debug end extract_commands\n");
 	return (list_command_head);
 }
 
