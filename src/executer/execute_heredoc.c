@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/20 16:06:52 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/20 17:00:57 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	read_heredoc(char *delimiter)
 		
 		while (1)
 		{
-			line = readline("> ");
+			line = readline("heredoc> ");
 			if (!line)
 				break;
 			if (strcmp(line, delimiter) == 0)
