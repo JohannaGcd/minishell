@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/20 16:53:29 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/21 14:50:04 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	execute_single_command(t_command *command)
 {
-	if (command->in->type == HEREDOC)
+	if (command->in)
 		handle_heredoc(command);
 	pid_t pid = fork();
 	if (pid == -1) {

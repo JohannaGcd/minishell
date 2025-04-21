@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/20 17:25:13 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/21 14:49:35 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,17 @@ void	read_heredoc(char *delimiter)
 
 void	handle_heredoc(t_command *command)
 {
-	while (command->in)
+	if (command->in)
 	{
-		if (command->in->type == HEREDOC)
+		while (command->in)
 		{
-			read_heredoc(command->in->file);
+			if (command->in->type == HEREDOC)
+			{
+				read_heredoc(command->in->file);
+			}
 		}
 	}
+	
 	// TODO: close heredoc
 	//printf("\ncommand_args[0]: %s, delim = %s", command->command_args[0], command->in->file);
 }
