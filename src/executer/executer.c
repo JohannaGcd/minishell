@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/21 14:50:04 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/22 11:18:38 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,17 @@ void	execute_single_command(t_command *command)
 	else if (pid == 0) 
 	{
         // Child process
-		// TODO: check if here add if/else condition cause HEREDOC redirect already handled.
-        open_file_redirect(command);
+		if (command->in && command->in->type == HEREDOC)
+		{
+			if (command->in->fd > 0)
+			{
+				dup2(command->in->fd, STDIN_FILENO);
+				close(command->in->fd);
+			}
+		}
+		else
+			open_file_redirect(command);
+		
         if (execvp(command->command_args[0], command->command_args) == -1)
         {
             perror("execvp failed");
