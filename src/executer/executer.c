@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/22 11:18:38 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/22 14:45:54 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	execute_single_command(t_command *command)
 {
-	if (command->in)
-		handle_heredoc(command);
+	if (command->in) //TODO: find a way to only call if a heredoc. use a flag.
+		handle_heredoc(&command);
 	pid_t pid = fork();
 	if (pid == -1) {
 		perror("fork failed");
@@ -24,18 +24,8 @@ void	execute_single_command(t_command *command)
 	else if (pid == 0) 
 	{
         // Child process
-		if (command->in && command->in->type == HEREDOC)
-		{
-			if (command->in->fd > 0)
-			{
-				dup2(command->in->fd, STDIN_FILENO);
-				close(command->in->fd);
-			}
-		}
-		else
-			open_file_redirect(command);
-		
-        if (execvp(command->command_args[0], command->command_args) == -1)
+		io_redirect(command);
+		if (execvp(command->command_args[0], command->command_args) == -1)
         {
             perror("execvp failed");
             exit(EXIT_FAILURE);
@@ -45,8 +35,6 @@ void	execute_single_command(t_command *command)
 	{
         // Parent process
         int status;
-        // printf("in execute single command: redirect in is: %d with file %s\n", command->in->type, command->in->file);
-        // printf("in execute single command: redirect out is: %d with file %s\n", command->out->type, command->out->file);
         waitpid(pid, &status, 0);
     }
 }

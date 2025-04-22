@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/22 11:20:12 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/22 14:45:24 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 int	read_heredoc(char *delimiter)
 {
 	int pipe_fd[2];
-	pid_t pid;
 	char *line;
 
 	// Create pipe
@@ -28,53 +27,33 @@ int	read_heredoc(char *delimiter)
 		return -1;
 	}
 
-	// Fork process
-	pid = fork();
-	if (pid == -1)
+	while (1)
 	{
-		perror("fork heredoc");
-		return -1;
-	}	
-
-	// Child process
-	if (pid == 0)
-	{		
-		close(pipe_fd[0]); // Child only writes
-
-		while (1)
+		line = readline("heredoc> ");
+		if (!line || (strcmp(line, delimiter) == 0))
 		{
-			line = readline("heredoc> ");
-			if (!line || (strcmp(line, delimiter) == 0))
-			{
-				free(line);
-				break;
-			}
-			write(pipe_fd[1], line, ft_strlen(line));
-			write(pipe_fd[1], "\n", 1);
 			free(line);
+			break;
 		}
-		close(pipe_fd[1]); // Close write end
-		exit(EXIT_SUCCESS);
+		write(pipe_fd[1], line, ft_strlen(line));
+		write(pipe_fd[1], "\n", 1);
+		free(line);
 	}
-	// Parent process
-	else 
-	{
-		close(pipe_fd[1]); // Parent only reads from the pipe
-		waitpid(pid, NULL, 0);
-		return pipe_fd[0]; // return read-end of the pipe
-	}
+	close(pipe_fd[1]); 
+
+	return pipe_fd[0]; // return read-end of the pipe
 }
 
-void	handle_heredoc(t_command *command)
+void	handle_heredoc(t_command **command)
 {
-	if (command->in)
+	if ((*command)->in)
 	{
-		while (command->in)
+		while ((*command)->in)
 		{
-			if (command->in->type == HEREDOC)
+			if ((*command)->in->type == HEREDOC)
 			{
-				command->in->fd = read_heredoc(command->in->file);
-				if (command->in->fd == -1)
+				(*command)->in->fd = read_heredoc((*command)->in->file);
+				if ((*command)->in->fd == -1)
 				{
 					perror("failed to set up heredoc\n");
 					exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/20 16:54:20 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/22 14:37:24 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 #include <limits.h>
 
 void	execute_commands(t_minishell *mshell);
-void	open_file_redirect(t_command *command);
+void	io_redirect(t_command *command);
 void	execute_single_command(t_command *command);
 void	exec_export(char **command_args, t_minishell *mshell);
 void	exec_env(t_minishell *mshell);
@@ -46,6 +46,7 @@ int 	exec_exit(char **command_args, t_minishell *mshell);
 
 void restore_file_descriptors(int saved_stdin, int saved_stdout);
 
-void handle_heredoc(t_command *command);
+void handle_heredoc(t_command **command);
+int read_heredoc(char *delimiter);
 
 #endif
