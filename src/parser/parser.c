@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/21 14:53:11 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/25 14:44:52 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,6 @@ t_command	*extract_commands(t_token *token_list)
 			return (NULL);
 		}
 		fill_command(&new_command, token_list);
-		// TEST
-		//printf("\nnew_command: command_args[0] = %s, redir_in: type = %d, filish: %s\n", new_command->command_args[0], new_command->in->type, new_command->in->file);
 		command_list_add_back(&list_command_head, new_command);
 		token_list = skip_to_pipe(token_list);
 		if (token_list)
@@ -166,8 +164,8 @@ t_command	*extract_commands(t_token *token_list)
 			token_list = token_list->next;
 		}
 	}
-	// // for testing
-	//int			i;
+	// for testing
+	// int			i;
 	// i = 0;
 	// while (new_command->command_args[i])
 	// {

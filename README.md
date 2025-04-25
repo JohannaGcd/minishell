@@ -32,12 +32,12 @@ debug new_command[2] = bla-bla
 debug EXECUTER
 debug current command ???
 execvp failed: No such file or directory
+### handle rediraction
 
 ## TODO
 
-### HEREDOC: 1. handle env expansion 2. handle signals 3. handle exit status 4. what if multiple redirections? (jo) 5. close heredoc ? (jo)
-
-### handle rediraction
+### HEREDOC: 1. handle env expansion 2. handle signals 3. handle exit status 4. modify calling function so that heredoc is only called when needed.
+ 
 
 ### handle multiply command in executer
 

@@ -6,13 +6,40 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/22 14:45:54 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/25 15:16:18 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-void	execute_single_command(t_command *command)
+int	execute_multiple_cmd(t_command *command)
+{
+	// fork
+	// pipe
+	// redirect -> output of first command goes to second one
+	int pipe_fd[2];
+	pid_t pid = fork();
+	if ((pipe_fd) == -1)
+	{
+		perror("Error with pipe in execute_multiple_cmd");
+		return -1;
+	}
+
+	else if (pid == 0)
+	{
+		io_redirect(command); // change for multiple cmds? how? get last one?
+
+	}
+	else
+	{
+		// what happens in Parent vs child?
+		int status;
+		waitpid(pid, &status, 0);
+	}
+}
+
+
+void	execute_single_cmd(t_command *command)
 {
 	if (command->in) //TODO: find a way to only call if a heredoc. use a flag.
 		handle_heredoc(&command);
@@ -25,8 +52,9 @@ void	execute_single_command(t_command *command)
 	{
         // Child process
 		io_redirect(command);
+		//retrieve_cmds();
 		if (execvp(command->command_args[0], command->command_args) == -1)
-        {
+		{
             perror("execvp failed");
             exit(EXIT_FAILURE);
         }
@@ -74,10 +102,12 @@ void execute_commands(t_minishell *mshell)
 	while (current) 
 	{  
 		printf("debug current command %s\n", current->command_args[0]); 
-		if (is_builtin_command(current->command_args))
+		if (is_builtin_cmd(current->command_args))
 			execute_builtin(current->command_args, mshell);
+		else if (current->next == NULL)
+			execute_single_cmd(current);
 		else
-			execute_single_command(current);
+			execute_multiple_cmd(current);
 		current = current->next;
 	}
 }
