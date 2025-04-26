@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/25 22:34:14 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 08:23:08 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		is_builtin_command(char **command_args);
 void	execute_builtin(char **command_args, t_minishell *mshell);
 int 	exec_exit(char **command_args, t_minishell *mshell);
 char    *return_command_with_path(char *command, t_minishell *mshell);
+void	free_array(char **args);
 
 
 void restore_file_descriptors(int saved_stdin, int saved_stdout);
