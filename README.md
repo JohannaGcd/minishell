@@ -34,6 +34,7 @@ debug current command ???
 execvp failed: No such file or directory
 
 ### BUG empty line, enter
+### BUG space, enter
 
 ## TODO
 
@@ -59,4 +60,3 @@ execvp failed: No such file or directory
 ### check what will be if remove PATH 
 ### check how works changing env
 
-### BUG space, enter

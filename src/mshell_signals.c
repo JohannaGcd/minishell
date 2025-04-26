@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 10:25:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 12:39:36 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 13:59:43 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,5 @@ void handle_signal(int mode) {
 
         // Handle SIGINT (Ctrl+C) to print prompt on new line
         signal(SIGINT, sigint_handler);
-
-        // No need to handle SIGTERM or EOF (Ctrl+D) as you mentioned it's handled
     }
 }
