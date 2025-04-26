@@ -1,35 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   expansion.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sveta <sveta@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/26 09:09:09 by sveta         #+#    #+#                 */
+/*   Updated: 2025/04/26 09:19:48 by sveta         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "env.h"
-
-// void find_env(char *str, int *begin, int *end)
-// {
-// 	int i;
-// 	int flag_begin;
-
-// 	i = 0;
-// 	flag_begin = 0;
-// 	while (str[i])
-// 	{
-// 		if(str[i] == '$')
-// 		{
-// 			*begin = i;
-// 			flag_begin = 1;
-// 			i++;
-// 			continue;
-// 		}
-// 		else 
-// 		if (flag_begin == 0)
-// 		{
-// 			i++;
-// 			continue;
-// 		}
-// 		while (str[i] && str[i] != '\"' && str[i] != '/' && str[i] != ' ')
-// 		{
-// 			i++;
-// 		}
-// 		*end = i - 1;
-// 		break;
-// 	}
-// }
 
 size_t	env_var_length(const char *str)
 {
@@ -105,7 +86,7 @@ char	*change_all_env(char *str, t_envs *envs)
 int	expand_env(t_token *list_tokens, t_envs *envs)
 {
 	char	*var;
-	t_token *current_token;
+	t_token	*current_token;
 
 	current_token = list_tokens;
 	while (current_token)
@@ -115,9 +96,9 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 			var = extract_env(current_token->str, envs,
 					ft_strlen(current_token->str) - 1);
 			free(current_token->str);
-			if (var) 
+			if (var)
 				current_token->str = ft_strdup(var);
-			else 
+			else
 				current_token->str = ft_strdup("");
 			current_token->type = WORD;
 		}
@@ -127,11 +108,11 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 			{
 				var = change_all_env(current_token->str, envs);
 				if (var)
-                {
-                    free(current_token->str);
-                    current_token->str = ft_strdup(var);
-                    free(var);  
-                }
+				{
+					free(current_token->str);
+					current_token->str = ft_strdup(var);
+					free(var);
+				}
 			}
 		}
 		current_token = current_token->next;

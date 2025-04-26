@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/25 22:35:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 06:57:38 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 09:11:08 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	envs_count(t_envs *envs)
 {
-	int	i;
+	int			i;
 	t_env_node	*env;
 
 	i = 0;
@@ -27,7 +27,7 @@ size_t	envs_count(t_envs *envs)
 	return (i);
 }
 
-char **envs_to_envp(t_envs *envs)
+char	**envs_to_envp(t_envs *envs)
 {
 	t_env_node	*env;
 	char		**envp;

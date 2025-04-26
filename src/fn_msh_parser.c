@@ -1,61 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   fn_msh_parser.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sveta <sveta@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
+/*   Updated: 2025/04/26 08:55:56 by sveta         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lexer.h"
 #include "env.h"
 
-
-t_msh_state fn_msh_lexer(t_minishell *mshell)
+t_msh_state	fn_msh_lexer(t_minishell *mshell)
 {
-    printf("debug LEXER\n");
-    mshell->tokens = extract_tokens(mshell->input_str);
-    if (mshell->tokens == NULL)
-        return (MSH_CLEAN);
-        //print
-        // t_token *tmp;
-        // tmp = mshell->tokens;
-        // int i = 0;
-        // while (tmp != NULL)
-        // {
-        //     printf("token %d:<%s>, type=%u\n", i, tmp->str, tmp->type);
-        //     i++;
-        //     tmp = tmp->next;
-        // }
-    expand_env(mshell->tokens, mshell->envs);
-    // printf("AFTER expand_env");
-    // tmp = mshell->tokens;
-    //      i = 0;
-    //     while (tmp != NULL)
-    //     {
-    //         printf("token %d:<%s>, type=%u\n", i, tmp->str, tmp->type);
-    //         i++;
-    //         tmp = tmp->next;
-    //     }
-    //check that expand sucessful
-    return (MSH_SYNTAXER);
+	printf("debug LEXER\n");
+	mshell->tokens = extract_tokens(mshell->input_str);
+	if (mshell->tokens == NULL)
+		return (MSH_CLEAN);
+	expand_env(mshell->tokens, mshell->envs);
+	return (MSH_SYNTAXER);
 }
 
-t_msh_state fn_msh_syntaxer(t_minishell *mshell)
+t_msh_state	fn_msh_syntaxer(t_minishell *mshell)
 {
-    printf("debug SYNTAXER\n");
-    if (syntaxer(mshell->tokens))
-    {
-        if (mshell->input_str)
-		    free(mshell->input_str);
-	    if (mshell->tokens)
-        {
-            //write function to clean list
-		    free(mshell->tokens);
-        }
-        return (MSH_READLINE);
-    }
-    else
-        return (MSH_PARSER);
+	printf("debug SYNTAXER\n");
+	if (syntaxer(mshell->tokens))
+	{
+		if (mshell->input_str)
+			free(mshell->input_str);
+		if (mshell->tokens)
+		{
+			free(mshell->tokens);
+		}
+		return (MSH_READLINE);
+	}
+	else
+		return (MSH_PARSER);
 }
 
-
-t_msh_state fn_msh_parser(t_minishell *mshell)
+t_msh_state	fn_msh_parser(t_minishell *mshell)
 {
-    printf("debug PARSER\n");
-    mshell->commands = extract_commands(mshell->tokens);
-    if (mshell->commands == NULL)
-        return (MSH_CLEAN);
-    return (MSH_EXECUTER);
+	printf("debug PARSER\n");
+	mshell->commands = extract_commands(mshell->tokens);
+	if (mshell->commands == NULL)
+		return (MSH_CLEAN);
+	return (MSH_EXECUTER);
 }

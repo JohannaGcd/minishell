@@ -6,31 +6,34 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/10 20:58:52 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/10 21:07:51 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 09:13:59 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void remove_env_var(t_envs *envs, const char *var_to_remove)
+void	remove_env_var(t_envs *envs, const char *var_to_remove)
 {
-    t_env_node *current = envs->env;
-    t_env_node *prev = NULL;
+	t_env_node	*current;
+	t_env_node	*prev;
 
-    while (current != NULL)
-    {
-        if (ft_strncmp(current->var, var_to_remove, ft_strlen(var_to_remove) + 1) == 0)
-        {
-            if (prev == NULL)
-                envs->env = current->next;
-            else 
-                prev->next = current->next;
-            free(current->var);
-            free(current->value);
-            free(current);
-            return; 
-        }
-        prev = current;
-        current = current->next;
-    }
+	current = envs->env;
+	prev = NULL;
+	while (current != NULL)
+	{
+		if (ft_strncmp(current->var, var_to_remove,
+				ft_strlen(var_to_remove) + 1) == 0)
+		{
+			if (prev == NULL)
+				envs->env = current->next;
+			else
+				prev->next = current->next;
+			free(current->var);
+			free(current->value);
+			free(current);
+			return ;
+		}
+		prev = current;
+		current = current->next;
+	}
 }
