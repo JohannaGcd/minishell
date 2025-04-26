@@ -6,16 +6,16 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/15 16:54:05 by sveta         #+#    #+#                 */
-/*   Updated: 2025/02/15 16:56:01 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 08:59:41 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t ft_max(size_t a, size_t b)
+size_t	ft_max(size_t a, size_t b)
 {
-    if (a >= b)
-        return(a);
-    else
-        return(b);
+	if (a >= b)
+		return (a);
+	else
+		return (b);
 }
