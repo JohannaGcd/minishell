@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 08:21:25 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 14:52:07 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void execute_commands(t_minishell *mshell)
 	char		*command_wp;
 
 	current = mshell->commands;
+	mshell->envs->status = 0;
 	while (current) 
 	{  
 		printf("debug current command %s\n", current->command_args[0]); 
@@ -87,6 +88,7 @@ void execute_commands(t_minishell *mshell)
 			else
 			{
 				printf("minishell: %s : command not found\n", current->command_args[0]);
+				mshell->envs->status = 127;
 				return;
 			}
 			printf("command with path =%s\n", current->command_args[0]);
