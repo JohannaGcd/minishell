@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/20 15:16:57 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 10:40:10 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,14 @@ typedef struct s_minishell
 	int 		isExit;
 }	t_minishell;
 
+typedef enum e_signal
+{
+	MAIN_SIG,
+	CHILD_SIG,
+	PARENT_SIG,
+	HEREDOC_SIG,
+}	t_signal;
+
 typedef t_msh_state (*t_msh_function)(t_minishell *mshell); 
 
 // PART 2: FUNCTION DEFINITIONS
@@ -126,11 +134,12 @@ typedef t_msh_state (*t_msh_function)(t_minishell *mshell);
 // -> Separates the input into tokens
 
 //functions
-t_msh_state fn_msh_start(t_minishell *mshell, char **envp);
-t_msh_state fn_msh_readline(t_minishell *mshell);
-t_msh_state fn_msh_lexer(t_minishell *mshell);
-t_msh_state fn_msh_syntaxer(t_minishell *mshell);
-t_msh_state fn_msh_parser(t_minishell *mshell);
-t_msh_state fn_msh_executer(t_minishell *mshell);
-t_msh_state fn_msh_clean(t_minishell *mshell);
+t_msh_state		mshell_start(t_minishell *mshell, char **envp);
+t_msh_state		mshell_readline(t_minishell *mshell);
+t_msh_state 	mshell_lexer(t_minishell *mshell);
+t_msh_state 	mshell_syntaxer(t_minishell *mshell);
+t_msh_state 	mshell_parser(t_minishell *mshell);
+t_msh_state 	mshell_executer(t_minishell *mshell);
+t_msh_state 	mshell_clean(t_minishell *mshell);
+void			handle_signal(int mode);
 #endif

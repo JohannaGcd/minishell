@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/18 21:29:06 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 13:48:37 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	syntaxer(t_token *token_list)
 	if (!token_list)
 		return (1);
 	curr_token = token_list;
+	if (curr_token->type == M_SPACE && curr_token->next == NULL)
+		return (1);
 	//printf("token_list%s\n", token_list->str);
 	prev_token = NULL;
 	while (curr_token)

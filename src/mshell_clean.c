@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fn_msh_executer.c                                  :+:    :+:            */
+/*   fn_msh_clean.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/04/26 08:53:01 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 08:53:04 by sveta         ########   odam.nl         */
+/*   Created: 2025/04/26 08:49:27 by sveta         #+#    #+#                 */
+/*   Updated: 2025/04/26 10:19:15 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/executer.h"
 
-t_msh_state	fn_msh_executer(t_minishell *mshell)
+t_msh_state	mshell_clean(t_minishell *mshell)
 {
-	printf("debug EXECUTER\n");
-	execute_commands(mshell);
-	if (mshell->isExit == 1)
-		return (MSH_CLEAN);
-	return (MSH_READLINE);
+	printf("debug CLEAN\n");
+	if (mshell->input_str)
+		free(mshell->input_str);
+	if (mshell->tokens)
+		free(mshell->tokens);
+	if (mshell->commands)
+		free(mshell->commands);
+	if (mshell->envs)
+		free(mshell->envs);
+	return (MSH_EXIT);
 }
