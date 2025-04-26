@@ -6,13 +6,13 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/22 14:45:54 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/26 07:35:15 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-void	execute_single_command(t_command *command)
+void	execute_single_command(t_command *command, char **envp)
 {
 	if (command->in) //TODO: find a way to only call if a heredoc. use a flag.
 		handle_heredoc(&command);
@@ -25,7 +25,7 @@ void	execute_single_command(t_command *command)
 	{
         // Child process
 		io_redirect(command);
-		if (execvp(command->command_args[0], command->command_args) == -1)
+		if (execve(command->command_args[0], command->command_args, envp) == -1)
         {
             perror("execvp failed");
             exit(EXIT_FAILURE);
@@ -69,15 +69,30 @@ void execute_builtin(char **command_args, t_minishell *mshell)
 void execute_commands(t_minishell *mshell) 
 {
 	t_command   *current;
+	char		**envp;
+	char		*command_wp;
+
 	current = mshell->commands;
-	
 	while (current) 
 	{  
 		printf("debug current command %s\n", current->command_args[0]); 
 		if (is_builtin_command(current->command_args))
 			execute_builtin(current->command_args, mshell);
 		else
-			execute_single_command(current);
+		{
+			envp = envs_to_envp(mshell->envs);
+			command_wp = return_command_with_path(current->command_args[0], mshell);
+			if (command_wp)
+				current->command_args[0] = command_wp;
+			else
+			{
+				printf("minishell: %s : command not found\n", current->command_args[0]);
+				return;
+			}
+			printf("command with path =%s\n", current->command_args[0]);
+			execute_single_command(current, envp);
+			//clean envp
+		}
 		current = current->next;
 	}
 }
