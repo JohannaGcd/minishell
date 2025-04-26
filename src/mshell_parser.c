@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fn_msh_parser.c                                    :+:    :+:            */
+/*   mshell_parser.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 08:55:56 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 10:18:13 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "env.h"
 
-t_msh_state	fn_msh_lexer(t_minishell *mshell)
+t_msh_state	mshell_lexer(t_minishell *mshell)
 {
 	printf("debug LEXER\n");
 	mshell->tokens = extract_tokens(mshell->input_str);
@@ -23,7 +23,7 @@ t_msh_state	fn_msh_lexer(t_minishell *mshell)
 	return (MSH_SYNTAXER);
 }
 
-t_msh_state	fn_msh_syntaxer(t_minishell *mshell)
+t_msh_state	mshell_syntaxer(t_minishell *mshell)
 {
 	printf("debug SYNTAXER\n");
 	if (syntaxer(mshell->tokens))
@@ -40,7 +40,7 @@ t_msh_state	fn_msh_syntaxer(t_minishell *mshell)
 		return (MSH_PARSER);
 }
 
-t_msh_state	fn_msh_parser(t_minishell *mshell)
+t_msh_state	mshell_parser(t_minishell *mshell)
 {
 	printf("debug PARSER\n");
 	mshell->commands = extract_commands(mshell->tokens);

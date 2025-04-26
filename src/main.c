@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:44:32 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 08:48:04 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/26 10:39:41 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
-	fun[MSH_READLINE] = fn_msh_readline;
-	fun[MSH_LEXER] = fn_msh_lexer;
-	fun[MSH_SYNTAXER] = fn_msh_syntaxer;
-	fun[MSH_PARSER] = fn_msh_parser;
-	fun[MSH_EXECUTER] = fn_msh_executer;
-	fun[MSH_CLEAN] = fn_msh_clean;
-	msh_state = fn_msh_start(&mshell, envp);
+	fun[MSH_READLINE] = mshell_readline;
+	fun[MSH_LEXER] = mshell_lexer;
+	fun[MSH_SYNTAXER] = mshell_syntaxer;
+	fun[MSH_PARSER] = mshell_parser;
+	fun[MSH_EXECUTER] = mshell_executer;
+	fun[MSH_CLEAN] = mshell_clean;
+	msh_state = mshell_start(&mshell, envp);
 	while (msh_state != MSH_EXIT)
 	{
+		handle_signal(MAIN_SIG);
 		msh_state = fun[msh_state](&mshell);
 	}
 	return (0);
