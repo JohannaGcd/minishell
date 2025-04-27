@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/27 13:29:11 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/27 15:40:50 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exec_unset(char **command_args, t_minishell *mshell);
 int		is_builtin_cmd(char **command_args);
 void	execute_builtin(char **command_args, t_minishell *mshell);
 int 	exec_exit(char **command_args, t_minishell *mshell);
-int		execute_multiple_cmd(t_command *command);
+int		execute_multiple_cmd(t_command **command, char **envp, t_minishell *mshell);
 char    *return_command_with_path(char *command, t_minishell *mshell);
 void	free_array(char **args);
 
