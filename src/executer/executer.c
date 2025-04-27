@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/27 16:14:31 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/27 16:19:28 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void execute_commands(t_minishell *mshell)
 		{
 			envp = envs_to_envp(mshell->envs);
 			command_wp = return_command_with_path(current->command_args[0], mshell);
+			printf("command with path is %s\n", command_wp);
 			if (command_wp)
 				current->command_args[0] = command_wp;
 			else
