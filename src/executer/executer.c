@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/27 16:19:28 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/27 17:11:27 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	execute_multiple_cmd(t_command **command, char **envp, t_minishell *mshell)
 		close(pipe_fd[1]); // close write end after dup2;
 		io_redirect(*command); // apply normal redirections if any
 		command_wp = return_command_with_path((*command)->command_args[0], mshell);
-		printf("\n1: %s\n", command_wp);
-		if (execve((*command)->command_args[0], (*command)->command_args, envp) == -1)
+		printf("\n1here: %s\n", command_wp);
+		if (execve(command_wp, (*command)->command_args, envp) == -1)
         {
             perror("execve failed");
             exit(EXIT_FAILURE);
@@ -57,8 +57,8 @@ int	execute_multiple_cmd(t_command **command, char **envp, t_minishell *mshell)
 		close(pipe_fd[0]);
 		io_redirect((*command)->next);
 		command_wp = return_command_with_path((*command)->next->command_args[0], mshell);
-		printf("\n2: %s\n", command_wp);
-		if (execve((*command)->next->command_args[0], (*command)->next->command_args, envp) == -1)
+		printf("\n2here: %s\n", command_wp);
+		if (execve(command_wp, (*command)->next->command_args, envp) == -1)
         {
             perror("execve failed");
             exit(EXIT_FAILURE);
