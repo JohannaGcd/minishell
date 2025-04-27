@@ -34,6 +34,9 @@ debug current command ???
 execvp failed: No such file or directory
 ### handle rediraction
 
+### BUG empty line, enter
+### BUG space, enter
+
 ## TODO
 
 ### HEREDOC: 1. handle env expansion 2. handle signals 3. handle exit status 4. modify calling function so that heredoc is only called when needed.
@@ -53,3 +56,7 @@ execvp failed: No such file or directory
 
 ### where should be status of executed command?
 ### where should be the status that we need to exit after execution?
+
+### check what will be if remove PATH 
+### check how works changing env
+

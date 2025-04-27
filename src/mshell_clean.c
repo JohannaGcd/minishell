@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_max.c                                           :+:    :+:            */
+/*   fn_msh_clean.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/02/15 16:54:05 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 08:59:41 by sveta         ########   odam.nl         */
+/*   Created: 2025/04/26 08:49:27 by sveta         #+#    #+#                 */
+/*   Updated: 2025/04/26 10:19:15 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
 
-size_t	ft_max(size_t a, size_t b)
+t_msh_state	mshell_clean(t_minishell *mshell)
 {
-	if (a >= b)
-		return (a);
-	else
-		return (b);
+	printf("debug CLEAN\n");
+	if (mshell->input_str)
+		free(mshell->input_str);
+	if (mshell->tokens)
+		free(mshell->tokens);
+	if (mshell->commands)
+		free(mshell->commands);
+	if (mshell->envs)
+		free(mshell->envs);
+	return (MSH_EXIT);
 }

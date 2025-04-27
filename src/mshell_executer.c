@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_max.c                                           :+:    :+:            */
+/*   fn_msh_executer.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/02/15 16:54:05 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 08:59:41 by sveta         ########   odam.nl         */
+/*   Created: 2025/04/26 08:53:01 by sveta         #+#    #+#                 */
+/*   Updated: 2025/04/26 10:18:44 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/minishell.h"
+#include "../include/executer.h"
 
-size_t	ft_max(size_t a, size_t b)
+t_msh_state	mshell_executer(t_minishell *mshell)
 {
-	if (a >= b)
-		return (a);
-	else
-		return (b);
+	printf("debug EXECUTER\n");
+	execute_commands(mshell);
+	if (mshell->isExit == 1)
+		return (MSH_CLEAN);
+	return (MSH_READLINE);
 }

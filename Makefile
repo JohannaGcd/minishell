@@ -32,11 +32,12 @@ OBJDIR_ENV = objs_env
 SRCDIR_TEST = src_tests
 OBJDIR_TEST = objs_tests
 
-SRC = main.c fn_msh_start.c fn_msh_parser.c fn_msh_executer.c fn_msh_clean.c
+SRC = main.c mshell_start.c mshell_parser.c mshell_executer.c mshell_clean.c mshell_signals.c
 SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c lexer_token_env.c
 SRC_PARSER = parser.c parser_utils.c
-SRC_EXECUTER = executer.c redirect.c execute_env.c execute_export.c execute_unset.c execute_exit.c execute_heredoc.c
-SRC_ENV = init_env.c expansion.c remove_env.c
+SRC_EXECUTER = executer.c redirect.c execute_env.c execute_export.c execute_unset.c \
+			execute_exit.c execute_heredoc.c path_command.c clean_in_exec.c 
+SRC_ENV = init_env.c expansion.c remove_env.c envs_to_envp.c clean_env.c 
 SRC_SYNTAXER = syntaxer.c syntaxer_utils.c
 SRC_TEST = test.c test_lexer.c
 

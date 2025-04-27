@@ -1,39 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   remove_env.c                                       :+:    :+:            */
+/*   clean_env.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/04/10 20:58:52 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 09:13:59 by sveta         ########   odam.nl         */
+/*   Created: 2025/04/26 06:55:53 by sveta         #+#    #+#                 */
+/*   Updated: 2025/04/26 09:10:09 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	remove_env_var(t_envs *envs, const char *var_to_remove)
+void	free_env_node(t_env_node **env)
 {
 	t_env_node	*current;
-	t_env_node	*prev;
+	t_env_node	*next;
 
-	current = envs->env;
-	prev = NULL;
-	while (current != NULL)
+	if (!env || !*env)
+		return ;
+	current = *env;
+	while (current)
 	{
-		if (ft_strncmp(current->var, var_to_remove,
-				ft_strlen(var_to_remove) + 1) == 0)
+		next = current->next;
+		if (current->var)
 		{
-			if (prev == NULL)
-				envs->env = current->next;
-			else
-				prev->next = current->next;
 			free(current->var);
-			free(current->value);
-			free(current);
-			return ;
+			current->var = NULL;
 		}
-		prev = current;
-		current = current->next;
+		if (current->value)
+		{
+			free(current->value);
+			current->value = NULL;
+		}
+		free(current);
+		current = next;
 	}
+	*env = NULL;
+}
+
+void	clean_env(t_envs **envs)
+{
+	free_env_node(&(*envs)->env);
+	free(*envs);
+	*envs = NULL;
 }

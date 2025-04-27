@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/24 20:32:25 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/08 15:12:40 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/26 15:12:35 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ char	*extract_env(char *str, t_envs *envs, size_t len)
 	t_env_node	*node;
 
 	if (str[1] == '?')
+	{
+		printf ("debug status is %d\n", envs->status);
 		return (ft_itoa(envs->status));
+	}
 	node = envs->env;
 	while (node && ft_strncmp(node->var, str + 1,
 			ft_max(len, ft_strlen(node->var))))
