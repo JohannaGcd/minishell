@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/25 21:19:03 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 06:40:34 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/27 15:28:15 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ char *return_command_with_path(char *command, t_minishell *mshell)
         // }
         // command_with_path = ft_strjoin(temp_path, command);
         // free(temp_path);
+        printf("list_of_paths[%d]=%s\n", i, list_of_paths[i]);
+        printf("command_with_path=%s\n", command_with_path);
         command_with_path = ft_strjoin_with_char(list_of_paths[i], command, '/');
+        printf("command_with_path=%s\n\n", command_with_path);
         if (!command_with_path)
         {
             break;
@@ -51,6 +54,7 @@ char *return_command_with_path(char *command, t_minishell *mshell)
         if (access(command_with_path, X_OK) == 0)
         {
             i = 0;
+            printf("command founded\n");
             while (list_of_paths[i])
             {
                 free(list_of_paths[i++]);
@@ -60,6 +64,7 @@ char *return_command_with_path(char *command, t_minishell *mshell)
             return (command_with_path);
         }
         free(command_with_path);
+        command_with_path = NULL;
         i++;
     }
     i = 0;
