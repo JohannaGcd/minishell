@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 06:32:22 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/27 16:04:51 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/04/27 16:54:07 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char	*ft_strjoin_with_char(char *s1, char *s2, char c)
 	i = 0;
 	while (i < s2_len)
 	{
-		dest[s1_len +1 + i] = s2[i];
+		dest[s1_len + 1 + i] = s2[i];
 		i++;
 	}
-	dest[s1_len+i+1] = '\0';
+	dest[s1_len + i + 1] = '\0';
 	return (dest);
 }
