@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/25 21:19:03 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/27 15:28:15 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/04/27 17:10:40 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char *return_command_with_path(char *command, t_minishell *mshell)
     //char    *temp_path;
     int     i;
 
+    if (access(command, X_OK) == 0)
+        return command;
     paths = extract_env("$PATH", mshell->envs, 5);
     if (!paths)
     {
@@ -43,10 +45,10 @@ char *return_command_with_path(char *command, t_minishell *mshell)
         // }
         // command_with_path = ft_strjoin(temp_path, command);
         // free(temp_path);
-        printf("list_of_paths[%d]=%s\n", i, list_of_paths[i]);
-        printf("command_with_path=%s\n", command_with_path);
+        //printf("list_of_paths[%d]=%s\n", i, list_of_paths[i]);
+        //printf("command_with_path=%s\n", command_with_path);
         command_with_path = ft_strjoin_with_char(list_of_paths[i], command, '/');
-        printf("command_with_path=%s\n\n", command_with_path);
+        //printf("command_with_path=%s\n\n", command_with_path);
         if (!command_with_path)
         {
             break;
