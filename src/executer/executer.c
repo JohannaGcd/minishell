@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/27 17:11:27 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/27 18:14:45 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	execute_multiple_cmd(t_command **command, char **envp, t_minishell *mshell)
 		close(pipe_fd[1]); // close write end after dup2;
 		io_redirect(*command); // apply normal redirections if any
 		command_wp = return_command_with_path((*command)->command_args[0], mshell);
-		printf("\n1here: %s\n", command_wp);
+		//printf("\n1here: %s\n", command_wp);
 		if (execve(command_wp, (*command)->command_args, envp) == -1)
         {
             perror("execve failed");
@@ -57,7 +57,7 @@ int	execute_multiple_cmd(t_command **command, char **envp, t_minishell *mshell)
 		close(pipe_fd[0]);
 		io_redirect((*command)->next);
 		command_wp = return_command_with_path((*command)->next->command_args[0], mshell);
-		printf("\n2here: %s\n", command_wp);
+		//printf("\n2here: %s\n", command_wp);
 		if (execve(command_wp, (*command)->next->command_args, envp) == -1)
         {
             perror("execve failed");
@@ -141,23 +141,24 @@ void execute_commands(t_minishell *mshell)
 	mshell->envs->status = 0;
 	while (current) 
 	{  
-		printf("debug current command %s\n", current->command_args[0]); 
+		//printf("debug current command %s\n", current->command_args[0]); 
 		if (is_builtin_cmd(current->command_args))
 			execute_builtin(current->command_args, mshell);
 		else if (current->next == NULL)
 		{
 			envp = envs_to_envp(mshell->envs);
 			command_wp = return_command_with_path(current->command_args[0], mshell);
-			printf("command with path is %s\n", command_wp);
+			//printf("command with path is %s\n", command_wp);
 			if (command_wp)
 				current->command_args[0] = command_wp;
 			else
 			{
 				printf("minishell: %s : command not found\n", current->command_args[0]);
+				//perror
 				mshell->envs->status = 127;
 				return;
 			}
-			printf("command with path =%s\n", current->command_args[0]);
+			//printf("command with path =%s\n", current->command_args[0]);
 			execute_single_command(current, envp);
 			free_array(envp);
 		}

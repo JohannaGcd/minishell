@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:30 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/08 15:22:32 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/04/30 18:27:24 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ t_token	*create_new_token(void)
 	new->str = NULL;
 	new->next = NULL;
 	return (new);
+}
+
+t_token	*create_token(int type, char *str)
+{
+	t_token	*new;
+
+	new = malloc(sizeof(t_token) * 1);
+	if (new == NULL)
+		return (NULL);
+	new->type = type;
+	new->str = ft_strdup(str);
+	new->next = NULL;
+	return (new); 
 }
 
 // To add a token node to the list of existing tokens

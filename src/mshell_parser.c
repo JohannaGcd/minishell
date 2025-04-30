@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 10:18:13 by sveta         ########   odam.nl         */
+/*   Updated: 2025/04/28 06:45:43 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ t_msh_state	mshell_lexer(t_minishell *mshell)
 	if (mshell->tokens == NULL)
 		return (MSH_CLEAN);
 	expand_env(mshell->tokens, mshell->envs);
+	t_token *tmp;
+	tmp = mshell->tokens;
+	while (tmp)
+	{
+		printf("token_type: %d, token_str: %s\n", tmp->type, tmp->str);
+		tmp = tmp->next;
+	}
 	return (MSH_SYNTAXER);
 }
 
