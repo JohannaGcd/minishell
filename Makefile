@@ -2,11 +2,10 @@ NAME = minishell
 TEST = test
 
 CC = cc
-CFLAGS = -g -O0 -Wextra -Werror -Wall
+CFLAGS = -g -O0 -Wextra -Werror -Wall -I/opt/homebrew/opt/readline/include #-fsanitize=address
+LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
 
 HEADERS = -I ./include
-
-LIBFLAGS = -lreadline
 
 LIBFTDIR = libft
 LIBFT = $(LIBFTDIR)/libft.a
@@ -54,7 +53,7 @@ OBJ_TEST = $(SRC_TEST:%.c=$(OBJDIR_TEST)/%.o) \
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFLAGS) $(LIBFT) -o $@ 
+	@$(CC) $(CFLAGS) $(OBJ)  $(LIBFT) $(LDFLAGS) -o $@ 
 
 $(TEST): $(OBJ_TEST) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ_TEST) $(LIBFLAGS) $(LIBFT) -o $@ 
