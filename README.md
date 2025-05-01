@@ -87,3 +87,9 @@ AddressSanitizer:DEADLYSIGNAL
     1.txt: Permission denied
      ls -la |grep txt
      ----r-----    1 sveta  staff     127 May  1 05:43 1.txt - add another permisions to file during the creation
+
+### add execution built in commands into multicomands
+
+### check memory leak with valgrind 
+
+### env should be changed if it is already exists
