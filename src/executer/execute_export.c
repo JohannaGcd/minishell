@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:10:48 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/20 12:01:31 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/01 21:59:18 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,13 @@ void	exec_export(char **command_args, t_minishell *mshell)
 				(ft_strchr(command_args[1],
 						'=') - command_args[1]) + 1,
 				ft_strlen(command_args[1]));
-		node = create_new_env_node(var, value);
-		add_env_to_list(&(mshell->envs->env), node);
+		if (find_env_var(mshell->envs, var) == 0)
+		{
+			node = create_new_env_node(var, value);
+			add_env_to_list(&(mshell->envs->env), node);
+		}
+		else 
+			change_env_var(mshell->envs, var, value);
 	}
 	else if (count == 3)
 	{
@@ -55,7 +60,12 @@ void	exec_export(char **command_args, t_minishell *mshell)
 				- command_args[1]);
 		value = ft_substr(command_args[2], 0,
 				ft_strlen(command_args[2]));
-		node = create_new_env_node(var, value);
-		add_env_to_list(&(mshell->envs->env), node);
+		if (find_env_var(mshell->envs, var) == 0)
+		{
+			node = create_new_env_node(var, value);
+			add_env_to_list(&(mshell->envs->env), node);
+		}
+		else 
+			change_env_var(mshell->envs, var, value);
 	}
 }

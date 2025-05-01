@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/10 20:58:52 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 09:13:59 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/01 21:51:08 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,24 @@ void	remove_env_var(t_envs *envs, const char *var_to_remove)
 			return ;
 		}
 		prev = current;
+		current = current->next;
+	}
+}
+
+void	change_env_var(t_envs *envs, const char *var_to_change, char *value)
+{
+	t_env_node	*current;
+
+	current = envs->env;
+	while (current != NULL)
+	{
+		if (ft_strncmp(current->var, var_to_change,
+				ft_strlen(var_to_change) + 1) == 0)
+		{
+			free(current->value);
+			current->value = ft_strdup(value);
+			return ;
+		}
 		current = current->next;
 	}
 }
