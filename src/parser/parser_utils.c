@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/15 17:45:36 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/15 17:45:40 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/01 05:37:28 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ t_command	*init_command(void)
 		return (NULL);
 	}
 	new_command->next = NULL;
+	new_command->in = NULL;
+	new_command->out = NULL;
 	return (new_command);
 }

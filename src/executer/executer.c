@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/27 18:14:45 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/01 10:30:53 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	execute_multiple_cmd(t_command **command, char **envp, t_minishell *mshell)
 
 void	execute_single_command(t_command *command, char **envp)
 {
+	//printf("command->in %p\n", command->in);
 	if (command->in) //TODO: find a way to only call if a heredoc. use a flag.
 		handle_heredoc(&command);
 	pid_t pid = fork();
@@ -90,6 +91,7 @@ void	execute_single_command(t_command *command, char **envp)
 	{
         // Child process
 		io_redirect(command);
+		handle_signal(CHILD_SIG);
 		if (execve(command->command_args[0], command->command_args, envp) == -1)
         {
             perror("execve failed");
@@ -100,6 +102,7 @@ void	execute_single_command(t_command *command, char **envp)
 	{
         // Parent process
         int status;
+		handle_signal(PARENT_SIG);
         waitpid(pid, &status, 0);
     }
 }
