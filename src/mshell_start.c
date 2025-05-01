@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 13:36:19 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/01 15:45:32 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_msh_state	mshell_readline(t_minishell *mshell)
 	mshell->input_str = readline(prompt);
 	if (!mshell->input_str)
 		return (MSH_CLEAN);
-	if (ft_strncmp(mshell->input_str,"",2) == 0)
+	if (ft_strncmp(mshell->input_str, "", 2) == 0)
 		return (MSH_READLINE);
 	if (*mshell->input_str)
 		add_history(mshell->input_str);

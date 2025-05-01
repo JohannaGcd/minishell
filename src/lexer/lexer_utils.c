@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:38 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/08 15:22:39 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/01 16:01:49 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	pipe_token(int *current_pos, char *input_str, char c)
 {
 	int	i;
-	
+
 	if (input_str == NULL)
 		return ;
 	i = 0;

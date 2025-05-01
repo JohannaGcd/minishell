@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/25 14:44:52 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/01 16:00:50 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	copy_command_args(char **command_args, t_token *token_list)
 			{
 				len = ft_strlen(token_list->str) - 2;
 				if (len < 0) len = 0;
-				command_args[i] = ft_substr(token_list->str, 1, len);
+					command_args[i] = ft_substr(token_list->str, 1, len);
 			}
 			else
 			{
