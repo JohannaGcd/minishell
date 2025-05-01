@@ -15,4 +15,6 @@ char                    **envs_to_envp(t_envs *envs);
 size_t	                envs_count(t_envs *envs);
 void	                free_env_node(t_env_node **env);
 void	                clean_env(t_envs **envs);
+int	                    find_env_var(t_envs *envs, const char *var_to_find);
+void	                change_env_var(t_envs *envs, const char *var_to_change, char *value);
 #endif
