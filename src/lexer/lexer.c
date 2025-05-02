@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:41 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/01 15:58:10 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/02 14:13:08 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,14 @@ t_token	*extract_tokens(char *input_str)
 		fill_token_info(&current_pos, input_str, new_token);
 		token_list_add_back(&token_list_head, new_token);
 	}
+	// t_token *tmp;
+	// tmp = token_list_head;
+	// while (tmp)
+	// {
+	// 	printf("token_type: %d, token_str: %s\n", tmp->type, tmp->str);
+	// 	tmp = tmp->next;
+	// }
+
 	return (token_list_head);
 }
 //t_token *tmp;
