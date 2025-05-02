@@ -32,7 +32,7 @@ SRCDIR_TEST = src_tests
 OBJDIR_TEST = objs_tests
 
 SRC = main.c mshell_start.c mshell_parser.c mshell_executer.c mshell_clean.c mshell_signals.c
-SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c lexer_token_env.c
+SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c lexer_token_env.c lexer_clean.c
 SRC_PARSER = parser.c parser_utils.c
 SRC_EXECUTER = executer.c redirect.c execute_env.c execute_export.c execute_unset.c \
 			execute_exit.c execute_heredoc.c path_command.c clean_in_exec.c 
