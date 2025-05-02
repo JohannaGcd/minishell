@@ -36,7 +36,8 @@ SRC = main.c mshell_start.c mshell_parser.c mshell_executer.c mshell_clean.c msh
 SRC_LEXER = lexer_list_utils.c lexer_utils.c lexer.c lexer_token_env.c
 SRC_PARSER = parser.c parser_utils.c
 SRC_EXECUTER = executer.c redirect.c execute_env.c execute_export.c execute_unset.c \
-			execute_exit.c execute_heredoc.c path_command.c clean_in_exec.c 
+			execute_exit.c execute_heredoc.c path_command.c clean_in_exec.c execute_built_in.c \
+			execute_cmd.c
 SRC_ENV = init_env.c expansion.c remove_env.c envs_to_envp.c clean_env.c 
 SRC_SYNTAXER = syntaxer.c syntaxer_utils.c
 SRC_TEST = test.c test_lexer.c
