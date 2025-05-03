@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/27 15:40:50 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/03 14:41:35 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ void	exec_unset(char **command_args, t_minishell *mshell);
 int		is_builtin_cmd(char **command_args);
 void	execute_builtin(char **command_args, t_minishell *mshell);
 int 	exec_exit(char **command_args, t_minishell *mshell);
-int		execute_multiple_cmd(t_command **command, char **envp, t_minishell *mshell);
-char    *return_command_with_path(char *command, t_minishell *mshell);
+int		execute_multiple_cmd(char **envp, t_minishell *mshell);
+void	wait_for_children(pid_t child_id, int nbr_children);
+char	*return_command_with_path(char *command, t_minishell *mshell);
+int		execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, char **envp, int prev_read_end);
+int		update_pipe_fd(int *pipe_fd, int prev_read_end);
 void	free_array(char **args);
+int		execute_child(t_minishell *mshell, t_command *curr_cmd, char **envp, int *pipe_fd, int prev_read_end);
+// void	restore_file_descriptors(int saved_stdin, int saved_stdout);
+void	handle_heredoc(t_command **command);
+int		read_heredoc(char *delimiter);
 
-
-void restore_file_descriptors(int saved_stdin, int saved_stdout);
-
-void handle_heredoc(t_command **command);
-int read_heredoc(char *delimiter);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:44:32 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 10:39:41 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/02 15:21:43 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	main(int argc, char **argv, char **envp)
 		handle_signal(MAIN_SIG);
 		msh_state = fun[msh_state](&mshell);
 	}
-	return (0);
+	return (0); // TODO: exit with Exit status
 }

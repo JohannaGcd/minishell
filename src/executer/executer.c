@@ -6,11 +6,27 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/02 14:05:57 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/03 14:34:40 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
+
+int	get_nbr_cmds(t_minishell *mshell)
+{
+	t_command *cmd;
+	int nbr_cmds;
+
+	nbr_cmds = 0;
+
+	cmd = mshell->commands;
+	while (cmd)
+	{
+		nbr_cmds += 1;
+		cmd = cmd->next;
+	}
+	return (nbr_cmds);
+}
 
 int is_builtin_cmd(char **command_args)
 {
@@ -35,7 +51,7 @@ void execute_commands(t_minishell *mshell)
 
 	current = mshell->commands;
 	mshell->envs->status = 0;
-	while (current) 
+	while (current)
 	{  
 		//printf("debug current command %s\n", current->command_args[0]); 
 		if (is_builtin_cmd(current->command_args))
@@ -61,7 +77,7 @@ void execute_commands(t_minishell *mshell)
 		else
 		{
 			envp = envs_to_envp(mshell->envs);
-			execute_multiple_cmd(&mshell->commands, envp, mshell);
+			execute_multiple_cmd(envp, mshell);
 			break;
 		}
 		break;

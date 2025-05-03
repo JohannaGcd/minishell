@@ -32,7 +32,6 @@ debug new_command[2] = bla-bla
 debug EXECUTER
 debug current command ???
 execvp failed: No such file or directory
-### handle rediraction
 
 ### BUG empty line, enter
 ### BUG space, enter
@@ -40,23 +39,17 @@ execvp failed: No such file or directory
 ## TODO
 
 ### HEREDOC: 1. handle env expansion 2. handle signals 3. handle exit status 4. modify calling function so that heredoc is only called when needed.
- 
 
 ### handle multiply command in executer
 
 ### buildin commands: echo cd pwd export unset env exit
 
-### add path to commands
-
 ### handle signals
 
 ### Add status executed command. Now it is in env
 
-### Add is_exit variable. where should it be?
 
+# HANDLE EXIT STATUS OF LAST COMMAND AND OF MINISHELL
+### Add is_exit variable. where should it be?
 ### where should be status of executed command?
 ### where should be the status that we need to exit after execution?
-
-### check what will be if remove PATH 
-### check how works changing env
-
