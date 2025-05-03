@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/25 14:44:52 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/01 20:48:56 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,19 +103,14 @@ void	copy_command_args(char **command_args, t_token *token_list)
 			if ((token_list->type == D_QUOTE) || (token_list->type == S_QUOTE))
 			{
 				len = ft_strlen(token_list->str) - 2;
-				if (len < 0) len = 0;
+				if (len < 0)
+					len = 0;
 				command_args[i] = ft_substr(token_list->str, 1, len);
 			}
 			else
 			{
-				//command_args[i] = ft_substr(token_list->str, 0,
-						//ft_strlen(token_list->str));
 				command_args[i] = ft_strdup(token_list->str);
 			}
-			// if (!command_args)
-			// {
-			// 	perror("Failed to allocate memory in copy_command_args");
-			// }
 			i++;
 		}
 		token_list = token_list->next;
@@ -127,8 +122,8 @@ void	copy_command_args(char **command_args, t_token *token_list)
 // and copies each argument over.
 void	fill_command(t_command **new_command, t_token *token_list)
 {
-	int	nbr_args;
-	char **commands;
+	int		nbr_args;
+	char	**commands;
 
 	nbr_args = count_command_args(token_list);
 	commands = (char **)malloc(sizeof(char *) * (nbr_args + 2));
@@ -160,22 +155,12 @@ t_command	*extract_commands(t_token *token_list)
 		token_list = skip_to_pipe(token_list);
 		if (token_list)
 		{
-			//printf("debug token_list is %s\n", token_list->str);
 			token_list = token_list->next;
 		}
 	}
-	// for testing
-	// int			i;
-	// i = 0;
-	// while (new_command->command_args[i])
-	// {
-	// 	printf("debug extract_commands new_command[%d] = %s\n", i, new_command->command_args[i]);
-	// 	i++;
-	// }
 	return (list_command_head);
 }
 
 // ["echo" "Hello" "$world" NULL]
 // < Makefile > out.txt > out2.txt
-
 // **args = args_from_list(list, envp)

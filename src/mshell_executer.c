@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fn_msh_executer.c                                  :+:    :+:            */
+/*   mshell_executer.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:01 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/26 10:18:44 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/01 19:32:18 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_msh_state	mshell_executer(t_minishell *mshell)
 {
-	printf("debug EXECUTER\n");
+	//printf("debug EXECUTER\n");
 	execute_commands(mshell);
 	if (mshell->isExit == 1)
 		return (MSH_CLEAN);

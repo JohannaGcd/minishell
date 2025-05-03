@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:07 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/30 17:58:04 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/02 14:45:17 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		redirect_token(int *current_pos, char *input_str, char c);
 void		word_token(int *current_pos, char *input_str, char c);
 void		env_token(int *current_pos, char *input_str, char c);
 int			ft_isspace(char c);
+void		clean_tokens(t_token *tokens);
 
 // Syntax Checker
 // -> Checks whether the tokens respect grammar rules for BASH

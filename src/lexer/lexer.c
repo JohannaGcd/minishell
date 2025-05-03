@@ -6,10 +6,9 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:41 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/01 12:49:28 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/02 14:13:08 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "lexer.h"
 
@@ -38,10 +37,7 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 {
 	int	start_pos;
 	int	length;
-
-	start_pos = *current_pos;
-	new_token->type = get_token_hint(input_str[*current_pos]);
-	void (*get_full_token[])(int *, char *, char) = {
+	void	(*get_full_token[])(int *, char *, char) = {
 		[TOKEN] = NULL,
 		[PIPE] = pipe_token,
 		[S_QUOTE] = quote_token,
@@ -52,6 +48,9 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 		[M_SPACE] = space_token,
 		[ENV] = env_token,
 	};
+
+	start_pos = *current_pos;
+	new_token->type = get_token_hint(input_str[*current_pos]);
 	if (get_full_token[new_token->type] != NULL)
 		get_full_token[new_token->type](current_pos, input_str,
 			input_str[*current_pos]);
@@ -84,3 +83,10 @@ t_token	*extract_tokens(char *input_str)
 
 	return (token_list_head);
 }
+//t_token *tmp;
+// tmp = token_list_head;
+// while (tmp)
+// {
+// 	printf("token_type: %d, token_str: %s\n", tmp->type, tmp->str);
+// 	tmp = tmp->next;
+// }

@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 09:09:09 by sveta         #+#    #+#                 */
-/*   Updated: 2025/04/30 18:44:08 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/01 20:44:38 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,76 +84,77 @@ char	*change_all_env(char *str, t_envs *envs)
 	return (result);
 }
 
-int expand_env(t_token *list_tokens, t_envs *envs)
+int	expand_env(t_token *list_tokens, t_envs *envs)
 {
-    char *var;
-    t_token *current_token = list_tokens;
-    t_token *next_token;
-    char **parts_env;
-    int i;
+	char	*var;
+	t_token	*current_token;
+	t_token	*next_token;
+	t_token	*last_inserted;
+	char	**parts_env;
+	t_token	*new_token;
+	int		i;
 
-    while (current_token)
+	current_token = list_tokens;
+	while (current_token)
 	{
-        if (current_token->type == ENV)
+		if (current_token->type == ENV)
 		{
-            var = extract_env(current_token->str, envs,
-                            ft_strlen(current_token->str) - 1);
-            free(current_token->str);
-
-            if (var)
+			var = extract_env(current_token->str, envs,
+					ft_strlen(current_token->str) - 1);
+			free(current_token->str);
+			if (var)
 			{
-                if (ft_strchr(var, ' ')) 
+				if (ft_strchr(var, ' '))
 				{
-                    parts_env = ft_split(var, ' ');
-                    i = 0;
-                    next_token = current_token->next;
-                    current_token->str = ft_strdup(parts_env[i]);
-                    current_token->type = WORD;
-                    i++;
-                    t_token *last_inserted = current_token;
-                    while (parts_env[i])
+					parts_env = ft_split(var, ' ');
+					i = 0;
+					next_token = current_token->next;
+					current_token->str = ft_strdup(parts_env[i]);
+					current_token->type = WORD;
+					i++;
+					last_inserted = current_token;
+					while (parts_env[i])
 					{
-                        t_token *new_token = create_token(WORD, parts_env[i]);
-                        if (!new_token) 
+						new_token = create_token(WORD, parts_env[i]);
+						if (!new_token)
 						{
-                            perror("Token creation failed");
-                            exit(EXIT_FAILURE);
-                        }
-                        last_inserted->next = new_token;
-                        last_inserted = new_token;
-                        i++;
-                    }
-                    last_inserted->next = next_token;
+							perror("Token creation failed");
+							exit(EXIT_FAILURE);
+						}
+						last_inserted->next = new_token;
+						last_inserted = new_token;
+						i++;
+					}
+					last_inserted->next = next_token;
 					free_array(parts_env);
-                //     i = 0;
-                //     while (parts_env[i]) {
-                //         free(parts_env[i]);
-                //         i++;
-                //     }
-                //     free(parts_env);
-                } else 
+				}
+				else
 				{
-                    current_token->str = ft_strdup(var);
-                    current_token->type = WORD;
-                }
-            } else {
-                current_token->str = ft_strdup("");
-                current_token->type = WORD;
-            }
-            free(var);
-        } 
-		else if (current_token->type == D_QUOTE) {
-            if (ft_strchr(current_token->str, '$')) 
+					current_token->str = ft_strdup(var);
+					current_token->type = WORD;
+				}
+			}
+			else
 			{
-                var = change_all_env(current_token->str, envs);
-                if (var) {
-                    free(current_token->str);
-                    current_token->str = ft_strdup(var);
-                    free(var);
-                }
-            }
-        }
-        current_token = current_token->next;
-    }
-    return 0;
+				current_token->str = ft_strdup("");
+				current_token->type = WORD;
+			}
+			free(var);
+		}
+		else if (current_token->type == D_QUOTE)
+		{
+			if (ft_strchr(current_token->str, '$'))
+			{
+				var = change_all_env(current_token->str, envs);
+				if (var)
+				{
+					free(current_token->str);
+					current_token->str = ft_strdup(var);
+					free(var);
+				}
+			}
+		}
+		current_token = current_token->next;
+	}
+	return (0);
 }
