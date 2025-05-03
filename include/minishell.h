@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/30 20:59:25 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/03 18:47:42 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,4 +142,5 @@ t_msh_state 	mshell_parser(t_minishell *mshell);
 t_msh_state 	mshell_executer(t_minishell *mshell);
 t_msh_state 	mshell_clean(t_minishell *mshell);
 void			handle_signal(int mode);
+void			clean_commands(t_command *commands);
 #endif

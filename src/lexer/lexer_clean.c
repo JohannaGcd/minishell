@@ -6,7 +6,7 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 14:19:17 by spanfilo      #+#    #+#                 */
-/*   Updated: 2025/05/02 14:53:51 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/03 17:35:11 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void clean_tokens(t_token *tokens)
 	t_token	*next_token;
 
 	current_token = tokens;
-	next_token = current_token->next;
 	while (current_token)
 	{
-		free(current_token->str);
+		next_token = current_token->next;
+		if (current_token->str)
+			free(current_token->str);
 		free(current_token);
 		current_token = next_token;
 	}
