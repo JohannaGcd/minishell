@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/03 14:41:35 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/04 12:53:45 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	execute_single_command(t_command *command, char **envp);
 void	exec_export(char **command_args, t_minishell *mshell);
 void	exec_env(t_minishell *mshell);
 void	exec_unset(char **command_args, t_minishell *mshell);
+void	exec_pwd(char **command_args, t_minishell *mshell);
+void	exec_cd(char **command_args, t_minishell *mshell);
 int		is_builtin_cmd(char **command_args);
 void	execute_builtin(char **command_args, t_minishell *mshell);
 int 	exec_exit(char **command_args, t_minishell *mshell);
