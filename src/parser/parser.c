@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/01 20:48:56 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/05 16:37:12 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	count_command_args(t_token *token_list)
 		token_list = token_list->next;
 	while (token_list && token_list->type != PIPE)
 	{
-		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT
-			|| token_list->type == APPEND || token_list->type == HEREDOC)
+		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT)
+			//|| token_list->type == APPEND || token_list->type == HEREDOC)
 			break ;
 		if (token_list->type != M_SPACE)
 			counter += 1;
