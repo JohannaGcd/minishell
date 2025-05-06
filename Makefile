@@ -2,7 +2,7 @@ NAME = minishell
 TEST = test
 
 CC = cc
-CFLAGS = -g -O0 -Wextra -Werror -Wall -I/opt/homebrew/opt/readline/include -fsanitize=address
+CFLAGS = -g -O0 -Wextra -Werror -Wall -I/opt/homebrew/opt/readline/include #-fsanitize=address
 LDFLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
 
 HEADERS = -I ./include
