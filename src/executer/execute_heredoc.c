@@ -6,13 +6,27 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/01 20:59:37 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/06 16:28:11 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
-// TODO: handle expansion 
-// TODO: handle signals
+
+bool set_all_heredocs(t_minishell *mshell)
+{
+	t_command *cmd = mshell->commands;
+
+	while (cmd)
+	{
+		handle_heredoc(mshell, &cmd);
+		if (mshell->isExit != 0)
+			return false;
+		cmd = cmd->next;
+	}
+	return true;
+}
+
+// TODO: add a check if delimiter is empty
 int	read_heredoc(char *delimiter)
 {
 	int		pipe_fd[2];
@@ -39,22 +53,22 @@ int	read_heredoc(char *delimiter)
 	return (pipe_fd[0]);
 }
 
-void	handle_heredoc(t_command **command)
+void	handle_heredoc(t_minishell *mshell, t_command **command)
 {
-	if ((*command)->in)
+	t_redirection *redir = (*command)->in;
+
+	while (redir)
 	{
-		while ((*command)->in)
+		if (redir->type == HEREDOC)
 		{
-			if ((*command)->in->type == HEREDOC)
+			redir->fd = read_heredoc(redir->file);
+			if (redir->fd == -1)
 			{
-				(*command)->in->fd = read_heredoc((*command)->in->file);
-				if ((*command)->in->fd == -1)
-				{
-					perror("failed to set up heredoc\n");
-					exit(EXIT_FAILURE);
-				}
-				break ;
+				perror("failed to set up heredoc\n");
+				mshell->isExit = 1;
+				return;
 			}
 		}
+		redir = redir->next;
 	}
 }
