@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/07 10:47:58 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/07 10:54:43 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void execute_commands(t_minishell *mshell)
 			mshell->isExit = execute_multiple_cmd(envp, mshell);
 			break;
 		}
-		break;
-		// current = current->next;
+		current = current->next;
 	}
 }
