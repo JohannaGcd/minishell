@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/06 14:19:08 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/06 22:33:11 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	exec_env(char **command_args, t_minishell *mshell);
 void	exec_unset(char **command_args, t_minishell *mshell);
 void	exec_pwd(char **command_args, t_minishell *mshell);
 void	exec_cd(char **command_args, t_minishell *mshell);
+void	exec_echo(char **command_args,t_minishell *mshell);
 int		is_builtin_cmd(char **command_args);
 void	execute_builtin(char **command_args, t_minishell *mshell);
 int 	exec_exit(char **command_args, t_minishell *mshell);
@@ -54,6 +55,7 @@ int		execute_child(t_minishell *mshell, t_command *curr_cmd, char **envp, int *p
 // void	restore_file_descriptors(int saved_stdin, int saved_stdout);
 void	handle_heredoc(t_command **command);
 int		read_heredoc(char *delimiter);
+int		number_arguments(char **command_args);
 
 
 #endif

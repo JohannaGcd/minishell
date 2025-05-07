@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:10:48 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/01 21:59:18 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/06 22:43:40 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,13 @@ void	exec_export(char **command_args, t_minishell *mshell)
 	char		*value;
 	t_env_node	*node;
 
-	count = 0;
+	count = 1;
 	while (command_args[count])
-		count++ ;
+	{
+		printf("%s\n", command_args[count]);
+		count++;
+	}
+	count = number_arguments(command_args);
 	if (count == 1)
 		exec_export_print(mshell);
 	else if (count == 2)

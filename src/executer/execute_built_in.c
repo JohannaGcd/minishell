@@ -14,4 +14,6 @@ void execute_builtin(char **command_args, t_minishell *mshell)
 		exec_cd(command_args, mshell);
 	else if (ft_strncmp(command_args[0],"pwd", 4) == 0)
 		exec_pwd(command_args, mshell);
+	else if (ft_strncmp(command_args[0],"echo", 5) == 0)
+		exec_echo(command_args, mshell);
 }

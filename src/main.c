@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:44:32 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/02 15:21:43 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/06 18:31:19 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	main(int argc, char **argv, char **envp)
 	t_msh_state		msh_state;
 	t_minishell		mshell;
 	t_msh_function	fun[MSH_EXIT];
+	int				exit_status;
 
+	exit_status=0;
+	(void)exit_status;
 	(void)argv;
 	(void)argc;
 	fun[MSH_READLINE] = mshell_readline;
@@ -31,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	while (msh_state != MSH_EXIT)
 	{
 		handle_signal(MAIN_SIG);
-		msh_state = fun[msh_state](&mshell);
+		msh_state = fun[msh_state](&mshell); //, &exit_status
 	}
 	return (0); // TODO: exit with Exit status
 }
