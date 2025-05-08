@@ -6,6 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
+/*   Updated: 2025/05/08 12:09:08 by spanfilo      ########   odam.nl         */
 /*   Updated: 2025/05/07 20:40:17 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
@@ -29,24 +30,6 @@ int	get_nbr_cmds(t_minishell *mshell)
 	return (nbr_cmds);
 }
 
-int is_builtin_cmd(char **command_args)
-{
-	if (!command_args[0])
-		return(0);
-	if (ft_strncmp(command_args[0],"export", 7) == 0)
-		return (1);
-	if (ft_strncmp(command_args[0],"env", 4) == 0)
-		return (1);
-	if (ft_strncmp(command_args[0],"unset", 6) == 0)
-		return (1);
-	if (ft_strncmp(command_args[0],"exit", 5) == 0)
-		return (1);
-	if (ft_strncmp(command_args[0],"cd", 3) == 0)
-		return (1);
-	if (ft_strncmp(command_args[0],"echo", 5) == 0)
-		return (1);
-	return (0);
-}
 
 void execute_commands(t_minishell *mshell, int *exit_status) 
 {
