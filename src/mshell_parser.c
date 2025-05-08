@@ -6,19 +6,22 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/03 19:19:30 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/07 20:24:52 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "env.h"
 
-t_msh_state	mshell_lexer(t_minishell *mshell)
+t_msh_state	mshell_lexer(t_minishell *mshell, int *exit_status)
 {
 	//printf("debug LEXER\n");
 	mshell->tokens = extract_tokens(mshell->input_str);
 	if (mshell->tokens == NULL)
+	{
+		*exit_status = 1; 
 		return (MSH_CLEAN);
+	}
 	expand_env(mshell->tokens, mshell->envs);
 	if (mshell->input_str)
 	{
@@ -28,9 +31,10 @@ t_msh_state	mshell_lexer(t_minishell *mshell)
 	return (MSH_SYNTAXER);
 }
 
-t_msh_state	mshell_syntaxer(t_minishell *mshell)
+t_msh_state	mshell_syntaxer(t_minishell *mshell, int *exit_status)
 {
 	//printf("debug SYNTAXER\n");
+	(void)exit_status;
 	if (syntaxer(mshell->tokens))
 	{
 		if (mshell->input_str)
@@ -47,12 +51,15 @@ t_msh_state	mshell_syntaxer(t_minishell *mshell)
 		return (MSH_PARSER);
 }
 
-t_msh_state	mshell_parser(t_minishell *mshell)
+t_msh_state	mshell_parser(t_minishell *mshell, int *exit_status)
 {
 	//printf("debug PARSER\n");
 	mshell->commands = extract_commands(mshell->tokens);
 	if (mshell->commands == NULL)
+	{
+		*exit_status = 1; 
 		return (MSH_CLEAN);
+	}
 	if (mshell->tokens)
 	{
 		clean_tokens(mshell->tokens);

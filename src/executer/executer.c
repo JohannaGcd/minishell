@@ -6,10 +6,10 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/06 16:49:25 by sveta         ########   odam.nl         */
-/*   Updated: 2025/05/06 16:13:22 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/07 20:40:17 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "executer.h"
 
@@ -48,7 +48,7 @@ int is_builtin_cmd(char **command_args)
 	return (0);
 }
 
-void execute_commands(t_minishell *mshell) 
+void execute_commands(t_minishell *mshell, int *exit_status) 
 {
 	t_command   *current;
 	char		**envp;
@@ -60,7 +60,7 @@ void execute_commands(t_minishell *mshell)
 	{  
 		//printf("debug current command %s\n", current->command_args[0]); 
 		if (current->command_args[0] && is_builtin_cmd(current->command_args))
-			execute_builtin(current->command_args, mshell);
+			execute_builtin(current->command_args, mshell, exit_status);
 		else if (current->next == NULL)
 		{
 			envp = envs_to_envp(mshell->envs);
