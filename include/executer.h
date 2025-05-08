@@ -6,10 +6,10 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/06 22:33:11 by sveta         ########   odam.nl         */
-/*   Updated: 2025/05/06 15:58:22 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/07 20:34:36 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -35,7 +35,7 @@
 # include <limits.h>
 # include <stdbool.h>
 
-void	execute_commands(t_minishell *mshell);
+void	execute_commands(t_minishell *mshell, int *exit_status);
 void	io_redirect(t_command *command);
 int		execute_single_command(t_minishell *mshell, t_command *command, char **envp);
 void	exec_export(char **command_args, t_minishell *mshell);
@@ -45,8 +45,8 @@ void	exec_pwd(char **command_args, t_minishell *mshell);
 void	exec_cd(char **command_args, t_minishell *mshell);
 void	exec_echo(char **command_args,t_minishell *mshell);
 int		is_builtin_cmd(char **command_args);
-void	execute_builtin(char **command_args, t_minishell *mshell);
-int 	exec_exit(char **command_args, t_minishell *mshell);
+void	execute_builtin(char **command_args, t_minishell *mshell, int *exit_status);
+int 	exec_exit(char **command_args, t_minishell *mshell, int *exit_status);
 int		execute_multiple_cmd(char **envp, t_minishell *mshell);
 void	wait_for_children(t_minishell *mshell, pid_t child_id, int nbr_children);
 char	*return_command_with_path(char *command, t_minishell *mshell);

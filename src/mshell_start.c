@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/06 22:27:41 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/07 20:21:06 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,17 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 	return (MSH_READLINE);
 }
 
-t_msh_state	mshell_readline(t_minishell *mshell)
+t_msh_state	mshell_readline(t_minishell *mshell, int *exit_status)
 {
 	const char	prompt[] = "minishell > ";
 
 	//printf("debug READLINE\n");
 	mshell->input_str = readline(prompt);
 	if (!mshell->input_str)
+	{
+		*exit_status = 1;
 		return (MSH_CLEAN);
+	}
 	if (ft_strncmp(mshell->input_str, "", 2) == 0)
 		return (MSH_READLINE);
 	if (*mshell->input_str)
