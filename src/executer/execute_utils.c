@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mshell_executer.c                                  :+:    :+:            */
+/*   execute_utils.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/04/26 08:53:01 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/07 20:39:16 by sveta         ########   odam.nl         */
+/*   Created: 2025/05/06 22:28:11 by sveta         #+#    #+#                 */
+/*   Updated: 2025/05/06 22:28:47 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "../include/executer.h"
+#include "executer.h"
 
-t_msh_state	mshell_executer(t_minishell *mshell, int *exit_status)
+int number_arguments(char **command_args)
 {
-	//printf("debug EXECUTER\n");
-	//(void)exit_status; // change it
-	execute_commands(mshell, exit_status);
-	if (mshell->isExit == 1)
-		return (MSH_CLEAN);
-	if (mshell->commands)
-	{
-		clean_commands(mshell->commands);
-		mshell->commands = NULL;
-	}
-	return (MSH_READLINE);
+	int	n;
+	
+	n = 0;
+	while (command_args[n])
+		n++;
+	return (n);
 }

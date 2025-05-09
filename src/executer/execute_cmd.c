@@ -168,5 +168,6 @@ int execute_multiple_cmd(char **envp, t_minishell *mshell)
 	}
 	child_id = execute_last_cmd(mshell, curr_cmd, envp, prev_read_end);
 	wait_for_children(mshell, child_id, nbr_children);
+	mshell->envs->status = mshell->isExit;
 	return (0);
 }
