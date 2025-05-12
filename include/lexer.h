@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:07 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/02 14:45:17 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/12 12:49:56 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_token		*extract_tokens(char *input_str);
 void		fill_token_info(int *current_pos, char *input_str,
 				t_token *new_token);
 int			get_token_hint(char c);
+typedef void (*t_token_func)(int *, char *, char);
+
 
 // lexer_list_utils.c
 t_token		*token_list_find_last(t_token *token_list_node);

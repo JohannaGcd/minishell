@@ -6,7 +6,7 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/02 14:19:17 by spanfilo      #+#    #+#                 */
-/*   Updated: 2025/05/03 17:35:11 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/12 12:26:05 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // 	struct s_token	*next;
 // }					t_token;
 
-void clean_tokens(t_token *tokens)
+void	clean_tokens(t_token *tokens)
 {
 	t_token	*current_token;
 	t_token	*next_token;
