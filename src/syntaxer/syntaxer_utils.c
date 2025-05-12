@@ -6,10 +6,9 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:49 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/04/18 21:37:38 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/12 13:14:11 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "lexer.h"
 
@@ -26,7 +25,6 @@ int	pipe_syntaxer(t_token *prev_token, t_token *curr_token)
 	if (ft_strlen(curr_token->str) != 1)
 		return (1);
 	next_token = skip_space_token(curr_token);
-	//printf("next_token in pipe_syntaxer is <%s>\n",next_token->str);
 	if (prev_token == NULL || next_token == NULL)
 		return (1);
 	if ((ft_strncmp(prev_token->str, "|", 1) == 0)
@@ -36,7 +34,6 @@ int	pipe_syntaxer(t_token *prev_token, t_token *curr_token)
 			return (1);
 	if (next_token->type != WORD && next_token->type != ENV)
 		return (1);
-	//printf("end pipe_syntaxer\n");
 	return (0);
 }
 
@@ -61,7 +58,7 @@ int	quote_syntaxer(t_token *prev_token, t_token *curr_token)
 // but let's see if we can add more cases for it.
 int	word_syntaxer(t_token *prev_token, t_token *curr_token)
 {
-	(void)prev_token; // to avoid the error of unused variable with WWE flags
+	(void)prev_token;
 	if (!curr_token && !curr_token->str)
 		return (1);
 	if ((ft_strncmp(curr_token->str, ";", 1) == 0)
@@ -85,22 +82,12 @@ int	redir_syntaxer(t_token *prev_token, t_token *curr_token)
 	if (next_token->type != S_QUOTE && next_token->type != D_QUOTE
 		&& next_token->type != WORD && next_token->type != ENV)
 		return (1);
-		//printf("end redir_syntaxer\n");
-	return (0);
-}
-
-// Placeholder function (for tokens which syntax' you can not check)
-int	na_syntaxer(t_token *prev_token, t_token *curr_token)
-{
-	(void)prev_token;
-	(void)curr_token;
 	return (0);
 }
 
 int	env_syntaxer(t_token *prev_token, t_token *curr_token)
 {
 	(void)prev_token;
-
 	if (!curr_token && !curr_token->str)
 		return (1);
 	if (ft_isalpha(curr_token->str[1]) != 0 && (curr_token->str[1]) != '?')
@@ -108,6 +95,5 @@ int	env_syntaxer(t_token *prev_token, t_token *curr_token)
 		printf("%c\n", curr_token->str[1]);
 		return (1);
 	}
-
 	return (0);
 }
