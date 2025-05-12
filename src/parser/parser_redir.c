@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 13:38:42 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/12 13:46:09 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/12 15:32:21 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ void	fill_redirections(t_command **command, t_token *tokens)
 {
 	while (tokens && tokens->type != PIPE)
 	{
-		if (tokens->type != PIPE)
-			set_redirection(&(*command)->in, tokens, 1);
-		else if (tokens->type == REDIRECT_OUT)
-			set_redirection(&(*command)->in, tokens, 0);
+		if (tokens->type != M_SPACE)
+		{
+			if (tokens->type == REDIRECT_IN || tokens->type == HEREDOC)
+				set_redirection(&(*command)->in, tokens, 1);
+			else if (tokens->type == REDIRECT_OUT || tokens->type == APPEND)
+				set_redirection(&(*command)->out, tokens, 0);
+		}
 		tokens = tokens->next;
 	}
 }

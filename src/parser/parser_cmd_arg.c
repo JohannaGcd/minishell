@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/12 13:53:10 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/12 15:01:45 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	count_command_args(t_token *token_list)
 void	copy_command_args(char **command_args, t_token *token_list)
 {
 	int		i;
-	size_t	len;
 
 	i = 0;
 	if (token_list->type == PIPE)
