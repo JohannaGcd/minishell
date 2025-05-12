@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/12 13:45:54 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/12 13:53:10 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	fill_redirections(new_command, token_list);
 }
 
+// Processes the tokens according to grammar and builds the command structs.
 t_command	*extract_commands(t_token *token_list)
 {
 	t_command	*list_command_head;

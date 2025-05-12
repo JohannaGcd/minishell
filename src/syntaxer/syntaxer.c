@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/12 13:13:33 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/12 13:51:29 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ int	check_token_syntax(t_token *prev_token, t_token *curr_token)
 	return (0);
 }
 
-// Iterates over token_list, checks if the input respects syntax rules for BASH.
+// Syntax Checker:
+// Iterates over token_list, 
+// & checks whether the tokens respect grammar rules for BASH
 int	syntaxer(t_token *token_list)
 {
 	t_token	*curr_token;
