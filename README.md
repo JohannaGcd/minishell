@@ -73,9 +73,7 @@ AddressSanitizer:DEADLYSIGNAL
 # HANDLE EXIT STATUS OF LAST COMMAND AND OF MINISHELL
 ### Add is_exit variable. where should it be?
 ### where should be status of executed command?
-<<<<<<< HEAD
 ### where should be the status that we need to exit after execution?
-=======
 ### where should be the status that we need to exit after execution?
 
 ### check what will be if remove PATH 
@@ -93,4 +91,3 @@ AddressSanitizer:DEADLYSIGNAL
 ### check memory leak with valgrind 
 
 ### env should be changed if it is already exists
->>>>>>> 1193c0faca88a1d9ab068c382b498cf327a71945

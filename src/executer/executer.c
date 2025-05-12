@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/08 10:07:55 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/12 11:28:21 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void execute_commands(t_minishell *mshell, int *exit_status)
 	mshell->envs->status = 0;
 	while (current)
 	{  
-		printf("debug current command %s\n", current->command_args[0]);
-		printf("debug redir type %d and file %s\n", current->in->type, current->in->file); 
+		//printf("debug current command %s\n", current->command_args[0]);
+		//printf("debug redir type %d and file %s\n", current->in->type, current->in->file); 
 		if (current->command_args[0] && is_builtin_cmd(current->command_args))
 			execute_builtin(current->command_args, mshell, exit_status);
 		else if (current->next == NULL)
@@ -71,7 +71,7 @@ void execute_commands(t_minishell *mshell, int *exit_status)
 				current->command_args[0] = command_wp;
 			else
 			{
-				printf("minishell: %s : command not found\n", current->command_args[0]);
+				//printf("minishell: %s : command not found\n", current->command_args[0]);
 				//perror
 				mshell->envs->status = 127;
 				return;
