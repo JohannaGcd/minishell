@@ -6,11 +6,18 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/15 17:45:36 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/01 05:37:28 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/12 13:46:20 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h" 
+
+t_token	*skip_spaces(t_token *token)
+{
+	while (token && token->type == M_SPACE)
+		token = token->next;
+	return (token);
+}
 
 t_token	*skip_to_pipe(t_token *token)
 {

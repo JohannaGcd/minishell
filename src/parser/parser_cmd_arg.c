@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
+/*   parser_cmd_arg.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/07 10:45:46 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/12 13:45:54 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+char	*handle_quoted_arg(t_token *token)
+{
+	size_t	len;
+
+	len = ft_strlen(token->str) - 2;
+	if (len < 2)
+		len = 0;
+	else
+		len -= 2;
+	return (ft_substr(token->str, 1, len));
+}
 
 // Counts the number of arguments in the input command
 int	count_command_args(t_token *token_list)
@@ -24,8 +36,8 @@ int	count_command_args(t_token *token_list)
 		token_list = token_list->next;
 	while (token_list && token_list->type != PIPE)
 	{
-		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT)
-			//|| token_list->type == APPEND || token_list->type == HEREDOC)
+		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT
+			|| token_list->type == APPEND || token_list->type == HEREDOC)
 			break ;
 		if (token_list->type != M_SPACE)
 			counter += 1;
@@ -34,59 +46,7 @@ int	count_command_args(t_token *token_list)
 	return (counter);
 }
 
-// Allocates space for a redirection struct 
-// & fills the corresponding type and file.
-// TODO: Handle error: currently we exit without clearing the whole linkedlist.
-// use ft_lstclear -> leverage void pointer (see test.c)
-// OR CREATE Ft lst clear and ft list new for each struct.
-void	fill_redirections(t_command **command, t_token *tokens)
-{
-	while (tokens && tokens->type != PIPE)
-	{
-		if (tokens->type == REDIRECT_IN)
-		{
-			(*command)->in = ft_calloc(1, sizeof(t_redirection));
-			if (!(*command)->in)
-			{
-				perror("malloc fill_redirections failed");
-				exit(EXIT_FAILURE);
-			}
-			if (ft_strncmp(tokens->str, "<<", 2) == 0)
-				(*command)->in->type = HEREDOC;
-			else
-				(*command)->in->type = RED_IN;
-			if (tokens->next->type == M_SPACE)
-				tokens = tokens->next;
-			{
-				while (tokens->next->type == M_SPACE)
-					tokens = tokens->next;
-			}
-			(*command)->in->file = ft_strdup(tokens->next->str);
-		}
-		else if (tokens->type == REDIRECT_OUT)
-		{
-			(*command)->out = ft_calloc(1, sizeof(t_redirection));
-			if (!(*command)->out)
-			{
-				perror("malloc fill_redirections failed");
-				exit(EXIT_FAILURE);
-			}
-			if (ft_strncmp(tokens->str, ">>", 2) == 0)
-				(*command)->out->type = APPEND;
-			else
-				(*command)->out->type = RED_OUT;
-			if (tokens->next->type == M_SPACE)
-				tokens = tokens->next;
-			{
-				while (tokens->next->type == M_SPACE)
-					tokens = tokens->next;
-			}
-			(*command)->out->file = ft_strdup(tokens->next->str);
-		}
-		tokens = tokens->next;
-	}
-}
-
+// Copies each argument into command_args
 void	copy_command_args(char **command_args, t_token *token_list)
 {
 	int		i;
@@ -102,10 +62,7 @@ void	copy_command_args(char **command_args, t_token *token_list)
 		{
 			if ((token_list->type == D_QUOTE) || (token_list->type == S_QUOTE))
 			{
-				len = ft_strlen(token_list->str) - 2;
-				if (len < 0)
-					len = 0;
-				command_args[i] = ft_substr(token_list->str, 1, len);
+				command_args[i] = handle_quoted_arg(token_list);
 			}
 			else
 			{
@@ -160,7 +117,3 @@ t_command	*extract_commands(t_token *token_list)
 	}
 	return (list_command_head);
 }
-
-// ["echo" "Hello" "$world" NULL]
-// < Makefile > out.txt > out2.txt
-// **args = args_from_list(list, envp)
