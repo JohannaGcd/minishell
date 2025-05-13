@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/12 11:28:21 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/13 15:57:00 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,13 @@ void execute_commands(t_minishell *mshell, int *exit_status)
 	mshell->envs->status = 0;
 	while (current)
 	{  
-		//printf("debug current command %s\n", current->command_args[0]);
-		//printf("debug redir type %d and file %s\n", current->in->type, current->in->file); 
-		if (current->command_args[0] && is_builtin_cmd(current->command_args))
+		//printf("debug current command file: %s, and type %d\n", current->in->file, current->in->type);
+		//printf("debug current command file: %s, and type %d\n", current->out->file, current->out->type);
+		if (current->command_args[0] && is_builtin_cmd(current->command_args) && current->next == NULL)
+		{
+			io_redirect(current);
 			execute_builtin(current->command_args, mshell, exit_status);
+		}
 		else if (current->next == NULL)
 		{
 			envp = envs_to_envp(mshell->envs);
@@ -77,13 +80,13 @@ void execute_commands(t_minishell *mshell, int *exit_status)
 				return;
 			}
 			//printf("command with path =%s\n", current->command_args[0]);
-			mshell->isExit = execute_single_command(mshell, current, envp);
+			mshell->envs->status = execute_single_command(mshell, current, envp);
 			free_array(envp);
 		}
 		else
 		{
 			envp = envs_to_envp(mshell->envs);
-			mshell->isExit = execute_multiple_cmd(envp, mshell);
+			mshell->envs->status = execute_multiple_cmd(envp, mshell, exit_status);
 			break;
 		}
 		current = current->next;

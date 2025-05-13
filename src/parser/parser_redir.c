@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 13:38:42 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/12 15:32:21 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/13 16:12:40 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_redirection(t_redirection **redir, t_token *tokens, int is_in)
 	if (!*redir)
 	{
 		perror("calloc set_redirections failed");
-		exit(EXIT_FAILURE);
+		//exit(EXIT_FAILURE);
 	}
 	if (is_in)
 	{
