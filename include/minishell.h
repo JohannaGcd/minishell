@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/13 16:05:00 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/14 16:03:03 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ typedef struct s_minishell
 	t_token		*tokens;
 	t_command	*commands;
 	int 		isExit;
+	char		*pwd;
+	char		*old_pwd;
 }	t_minishell;
 
 typedef enum e_signal

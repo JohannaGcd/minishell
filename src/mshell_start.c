@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/14 10:16:58 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/14 11:32:25 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 t_msh_state	mshell_readline(t_minishell *mshell, int *exit_status)
 {
 	
-	const char	prompt[] = "minishell:";
+	const char	prompt[] = "minishell>";
 	(void) exit_status;
 	//printf("debug READLINE\n");
 	//fflush(stdout);
@@ -43,7 +43,7 @@ t_msh_state	mshell_readline(t_minishell *mshell, int *exit_status)
 	//rl_replace_line("", 0);
 	//rl_redisplay();
 	mshell->input_str = readline(prompt);
-	printf("Readline returned: %s\n", mshell->input_str ? mshell->input_str : "NULL");
+	//printf("Readline returned: %s\n", mshell->input_str ? mshell->input_str : "NULL");
 	if (!mshell->input_str)
 	{
 		*exit_status = 1;
