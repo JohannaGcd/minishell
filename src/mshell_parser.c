@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/13 16:09:17 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/14 10:16:21 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_msh_state	mshell_lexer(t_minishell *mshell, int *exit_status)
 {
-	printf("debug LEXER\n");
+	//printf("debug LEXER\n");
 	mshell->tokens = extract_tokens(mshell->input_str);
 	if (mshell->tokens == NULL)
 	{
@@ -33,7 +33,7 @@ t_msh_state	mshell_lexer(t_minishell *mshell, int *exit_status)
 
 t_msh_state	mshell_syntaxer(t_minishell *mshell, int *exit_status)
 {
-	printf("debug SYNTAXER\n");
+	//printf("debug SYNTAXER\n");
 	(void)exit_status;
 	if (syntaxer(mshell->tokens))
 	{
@@ -53,7 +53,7 @@ t_msh_state	mshell_syntaxer(t_minishell *mshell, int *exit_status)
 
 t_msh_state	mshell_parser(t_minishell *mshell, int *exit_status)
 {
-	printf("debug PARSER\n");
+	//printf("debug PARSER\n");
 	// (void)mshell;
 	// (void)exit_status;
 

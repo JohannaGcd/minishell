@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:49:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/13 15:12:42 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/14 10:14:39 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void clean_commands(t_command *commands)
 
 t_msh_state	mshell_clean(t_minishell *mshell, int *exit_status)
 {
-	printf("debug CLEAN\n");
+	//printf("debug CLEAN\n");
 	(void)exit_status;
 	if (mshell->input_str)
 	{

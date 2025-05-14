@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/13 15:57:00 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/14 10:15:31 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ void execute_commands(t_minishell *mshell, int *exit_status)
 	mshell->envs->status = 0;
 	while (current)
 	{  
-		//printf("debug current command file: %s, and type %d\n", current->in->file, current->in->type);
-		//printf("debug current command file: %s, and type %d\n", current->out->file, current->out->type);
+		// if(current->in)
+		// 	printf("debug current command file: %s, and type %d\n", current->in->file, current->in->type);
+		// if(current->out)
+		// 	printf("debug current command file: %s, and type %d\n", current->out->file, current->out->type);
 		if (current->command_args[0] && is_builtin_cmd(current->command_args) && current->next == NULL)
 		{
 			io_redirect(current);

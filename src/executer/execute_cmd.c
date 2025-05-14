@@ -2,11 +2,11 @@
 
 int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 {
-	// if (!set_all_heredocs(mshell))
-	// {
-	// 	mshell->envs->status = 1;
-	// 	return (1);
-	// }
+	if (!set_all_heredocs(mshell))
+	{
+		mshell->envs->status = 1;
+		return (1);
+	}
 	pid_t pid = fork();
 	if (pid == -1) {
 		perror("fork failed");
@@ -16,7 +16,7 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 	else if (pid == 0) 
 	{
         // Child process
-		// io_redirect(command);
+		io_redirect(command);
 		if (execve(command->command_args[0], command->command_args, envp) == -1)
         {
             perror("execve failed");
