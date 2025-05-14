@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/06 16:28:11 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/13 15:10:57 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	handle_heredoc(t_minishell *mshell, t_command **command)
 			if (redir->fd == -1)
 			{
 				perror("failed to set up heredoc\n");
-				mshell->isExit = 1;
+				mshell->envs->status = 1;
 				return;
 			}
 		}

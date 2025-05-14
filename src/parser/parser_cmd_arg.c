@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/12 15:01:45 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/13 22:21:20 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	count_command_args(t_token *token_list)
 		token_list = token_list->next;
 	while (token_list && token_list->type != PIPE)
 	{
-		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT
-			|| token_list->type == APPEND || token_list->type == HEREDOC)
+		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT)
 			break ;
 		if (token_list->type != M_SPACE)
 			counter += 1;
@@ -51,6 +50,7 @@ void	copy_command_args(char **command_args, t_token *token_list)
 {
 	int		i;
 
+	//printf("copy command args\n");
 	i = 0;
 	if (token_list->type == PIPE)
 		token_list = token_list->next;
@@ -81,6 +81,7 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	int		nbr_args;
 	char	**commands;
 
+	//printf("fill command\n");
 	nbr_args = count_command_args(token_list);
 	commands = (char **)malloc(sizeof(char *) * (nbr_args + 2));
 	if (!commands)
