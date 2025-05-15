@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/13 22:21:20 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/14 20:24:00 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	copy_command_args(char **command_args, t_token *token_list)
 {
 	int		i;
 
-	//printf("copy command args\n");
 	i = 0;
 	if (token_list->type == PIPE)
 		token_list = token_list->next;
@@ -81,7 +80,6 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	int		nbr_args;
 	char	**commands;
 
-	//printf("fill command\n");
 	nbr_args = count_command_args(token_list);
 	commands = (char **)malloc(sizeof(char *) * (nbr_args + 2));
 	if (!commands)

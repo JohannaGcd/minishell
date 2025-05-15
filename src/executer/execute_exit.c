@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/19 21:32:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/07 22:21:47 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/14 22:08:58 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int exec_exit(char **command_args, t_minishell *mshell, int *exit_status)
 {
 
-    *exit_status = 0; 
+    *exit_status = mshell->envs->status; 
     if (command_args[1])
     if (command_args[2])
     {
