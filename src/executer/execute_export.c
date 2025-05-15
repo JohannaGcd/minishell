@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:10:48 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 09:27:21 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 17:44:13 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,52 +50,52 @@ int	equal_is_last(char *str)
 	return (0);
 }
 
-void	exec_export(char **args, t_minishell *mshell)
+void	handle_export_argument(char **args, t_minishell *mshell, int *i)
 {
-	int			count;
 	char		*var;
 	char		*value;
 	t_env_node	*node;
+
+	if (equal_in_mid(args[*i]))
+	{
+		var = ft_substr(args[*i], 0, ft_strchr(args[*i], '=') - args[*i]);
+		value = ft_substr(args[*i], (ft_strchr(args[*i], '=')
+					- args[*i]) + 1, ft_strlen(args[*i]));
+	}
+	else if (equal_is_last(args[*i]))
+	{
+		var = ft_substr(args[*i], 0, ft_strchr(args[*i], '=')
+				- args[*i]);
+		value = ft_substr(args[*i + 1], 0, ft_strlen(args[*i + 1]));
+		(*i)++;
+	}
+	else
+		return ;
+	if (find_env_var(mshell->envs, var) == 0)
+	{
+		node = create_new_env_node(var, value);
+		add_env_to_list(&(mshell->envs->env), node);
+	}
+	else
+		change_env_var(mshell->envs, var, value);
+	free(var);
+	free(value);
+}
+
+void	exec_export(char **args, t_minishell *mshell)
+{
+	int			count;
 	int			i;
 
 	i = 1;
 	count = number_arguments(args);
 	if (count == 1)
-	{
 		exec_export_print(mshell);
-	}
 	else
 	{
 		while (i < count)
 		{
-			if (equal_in_mid(args[i]))
-			{
-				var = ft_substr(args[i], 0, ft_strchr(args[i], '=') - args[i]);
-				value = ft_substr(args[i], (ft_strchr(args[i], '=')
-							- args[i]) + 1, ft_strlen(args[i]));
-				if (find_env_var(mshell->envs, var) == 0)
-				{
-					node = create_new_env_node(var, value);
-					add_env_to_list(&(mshell->envs->env), node);
-				}
-				else
-					change_env_var(mshell->envs, var, value);
-			}
-			else if (equal_is_last(args[i]))
-			{
-				var = ft_substr(args[i], 0, ft_strchr(args[i], '=')
-						- args[i]);
-				value = ft_substr(args[i + 1], 0,
-						ft_strlen(args[i + 1]));
-				if (find_env_var(mshell->envs, var) == 0)
-				{
-					node = create_new_env_node(var, value);
-					add_env_to_list(&(mshell->envs->env), node);
-				}
-				else
-					change_env_var(mshell->envs, var, value);
-				i++;
-			}
+			handle_export_argument(args, mshell, &i);
 			i++;
 		}
 	}

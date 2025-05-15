@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 10:04:20 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 10:06:33 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 14:49:41 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,11 @@ void	execute_builtin(char **args, t_minishell *mshell, int *exit_status)
 		exec_pwd(args, mshell);
 	else if (ft_strncmp(args[0], "echo", 5) == 0)
 		exec_echo(args, mshell);
+}
+
+void	execute_if_builtin(t_command *cmd, t_minishell *mshell,
+	int *exit_status)
+{
+	io_redirect(cmd);
+	execute_builtin(cmd->command_args, mshell, exit_status);
 }
