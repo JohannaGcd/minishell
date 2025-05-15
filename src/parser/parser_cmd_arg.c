@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/14 20:24:00 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 13:42:08 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*handle_quoted_arg(t_token *token)
 	len = ft_strlen(token->str) - 2;
 	if (len < 2)
 		len = 0;
-	else
-		len -= 2;
 	return (ft_substr(token->str, 1, len));
 }
 

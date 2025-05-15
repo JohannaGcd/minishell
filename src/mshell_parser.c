@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 11:20:47 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 13:43:12 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,3 +72,17 @@ t_msh_state	mshell_parser(t_minishell *mshell, int *exit_status)
 // 	printf("token_type: %d, token_str: %s\n", tmp->type, tmp->str);
 // 	tmp = tmp->next;
 // }
+// //debug
+// t_command * com;
+// com = mshell->commands;
+// while (com)
+// {
+// 	int i = 0;
+// 	while (com->command_args[i])
+// 	{
+// 	printf ("command[%d]=%s\n",i, com->command_args[i] );
+// 	i++;
+// 	}
+// 	com= com->next;
+// }
+// //end debug
