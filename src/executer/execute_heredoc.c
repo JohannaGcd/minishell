@@ -6,24 +6,25 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/13 15:10:57 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/15 09:12:46 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-bool set_all_heredocs(t_minishell *mshell)
+bool	set_all_heredocs(t_minishell *mshell)
 {
-	t_command *cmd = mshell->commands;
+	t_command	*cmd;
 
+	cmd = mshell->commands;
 	while (cmd)
 	{
 		handle_heredoc(mshell, &cmd);
 		if (mshell->isExit != 0)
-			return false;
+			return (false);
 		cmd = cmd->next;
 	}
-	return true;
+	return (true);
 }
 
 // TODO: add a check if delimiter is empty
@@ -55,8 +56,9 @@ int	read_heredoc(char *delimiter)
 
 void	handle_heredoc(t_minishell *mshell, t_command **command)
 {
-	t_redirection *redir = (*command)->in;
+	t_redirection	*redir;
 
+	redir = (*command)->in;
 	while (redir)
 	{
 		if (redir->type == HEREDOC)
@@ -66,7 +68,7 @@ void	handle_heredoc(t_minishell *mshell, t_command **command)
 			{
 				perror("failed to set up heredoc\n");
 				mshell->envs->status = 1;
-				return;
+				return ;
 			}
 		}
 		redir = redir->next;

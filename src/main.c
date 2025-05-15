@@ -6,10 +6,9 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:44:32 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/13 22:54:33 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 11:15:58 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minishell.h"
 #include "../include/executer.h"
@@ -35,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	while (msh_state != MSH_EXIT)
 	{
 		//handle_signal(MAIN_SIG);
-		msh_state = fun[msh_state](&mshell, &exit_status); //, &exit_status
+		msh_state = fun[msh_state](&mshell, &exit_status);
 	}
-	return (exit_status); // TODO: exit with Exit status
+	return (exit_status);
 }

@@ -6,12 +6,13 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 16:51:50 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/06 22:35:12 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 10:03:05 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "executer.h"
-int is_n_arg(char *arg)
+#include "executer.h"
+
+int	is_n_arg(char *arg)
 {
 	int	i;
 
@@ -29,10 +30,10 @@ int is_n_arg(char *arg)
 	return (1);
 }
 
-void exec_echo(char **command_args,t_minishell *mshell)
+void	exec_echo(char **command_args, t_minishell *mshell)
 {
 	int	i;
-	int is_n;
+	int	is_n;
 
 	(void)mshell;
 	i = 1;
@@ -41,12 +42,11 @@ void exec_echo(char **command_args,t_minishell *mshell)
 		i++;
 	while (i < number_arguments(command_args) - 1)
 	{
-		printf("%s ",command_args[i]);
+		printf("%s ", command_args[i]);
 		i++;
 	}
 	if (i == number_arguments(command_args) - 1)
-		printf("%s",command_args[i]);
+		printf("%s", command_args[i]);
 	if (is_n == 0)
 		printf("\n");
-
 }
