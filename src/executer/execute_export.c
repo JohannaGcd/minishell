@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:10:48 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 17:44:13 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/15 19:06:12 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	handle_export_argument(char **args, t_minishell *mshell, int *i)
 {
 	char		*var;
 	char		*value;
-	t_env_node	*node;
 
 	if (equal_in_mid(args[*i]))
 	{
@@ -67,17 +66,10 @@ void	handle_export_argument(char **args, t_minishell *mshell, int *i)
 		var = ft_substr(args[*i], 0, ft_strchr(args[*i], '=')
 				- args[*i]);
 		value = ft_substr(args[*i + 1], 0, ft_strlen(args[*i + 1]));
-		(*i)++;
 	}
 	else
 		return ;
-	if (find_env_var(mshell->envs, var) == 0)
-	{
-		node = create_new_env_node(var, value);
-		add_env_to_list(&(mshell->envs->env), node);
-	}
-	else
-		change_env_var(mshell->envs, var, value);
+	set_or_update_env(mshell, var, value);
 	free(var);
 	free(value);
 }

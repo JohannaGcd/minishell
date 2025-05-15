@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/15 14:57:40 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/15 17:51:31 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	handle_heredoc(t_minishell *mshell, t_command **command);
 int		read_heredoc(char *delimiter);
 int		number_arguments(char **command_args);
 bool	set_all_heredocs(t_minishell *mshell);
+void	set_or_update_env(t_minishell *mshell, char *var, char *value);
 
 #endif
