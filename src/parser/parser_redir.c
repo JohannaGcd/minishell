@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 13:38:42 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/14 10:05:38 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/14 20:29:18 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 // Allocates and sets redirection type.
 void	set_redirection(t_redirection **redir, t_token *tokens, int is_in)
 {
+	t_redirection	*new_redir;
+	t_token			*tok_file;
+	t_redirection	*current;
 
-	t_redirection *new_redir = ft_calloc(1, sizeof(t_redirection));
-	t_token *tok_file;
+	new_redir = ft_calloc(1, sizeof(t_redirection));
 	if (!new_redir)
 	{
 		perror("calloc set_redirections failed");
 		exit(EXIT_FAILURE);
 	}
-	//printf ("tokens->str= %s \n",tokens->str);
 	if (is_in)
 	{
 		if (ft_strncmp(tokens->str, "<<", 2) == 0)
@@ -42,23 +43,20 @@ void	set_redirection(t_redirection **redir, t_token *tokens, int is_in)
 	(new_redir)->file = ft_strdup(tok_file->str);
 	(new_redir)->next = NULL;
 	new_redir->fd = -1;
-
-	if (*redir == NULL) {
-        *redir = new_redir;
-    } else {
-        t_redirection *current = *redir;
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        current->next = new_redir;
-    }
-
+	if (*redir == NULL)
+		*redir = new_redir;
+	else
+	{
+		current = *redir;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new_redir;
+	}
 }
 
 // Fills the redirections for the current command
 void	fill_redirections(t_command **command, t_token *tokens)
 {
-	//printf("fill redirections\n");
 	while (tokens && tokens->type != PIPE)
 	{
 		if (tokens->type != M_SPACE)
