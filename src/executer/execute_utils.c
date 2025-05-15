@@ -6,16 +6,16 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 22:28:11 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/06 22:28:47 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 09:10:10 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-int number_arguments(char **command_args)
+int	number_arguments(char **command_args)
 {
 	int	n;
-	
+
 	n = 0;
 	while (command_args[n])
 		n++;

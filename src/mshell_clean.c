@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:49:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/14 10:14:39 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 11:19:47 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,42 @@
 #include "env.h"
 #include "executer.h"
 
-void free_redirection(t_redirection	*redirections)
+void	free_redirection(t_redirection	*redirections)
 {
-	t_redirection *current;
-	t_redirection *next;
+	t_redirection	*current;
+	t_redirection	*next;
 
 	current = redirections;
-	while (current) {
+	while (current)
+	{
 		next = current->next;
 		if (current->file)
 			free(current->file);
 		if (current->fd >= 0)
 			close(current->fd);
-		free(current); 
+		free(current);
 		current = next;
 	}
 }
 
-void clean_commands(t_command *commands)
+void	clean_commands(t_command *commands)
 {
-	t_command *current;
-	t_command *next;
-	int i;
+	t_command	*current;
+	t_command	*next;
+	int			i;
 
 	current = commands;
-	while (current) {
+	while (current)
+	{
 		next = current->next;
-		if (current->command_args) {
-			for (i = 0; current->command_args[i]; i++)
+		if (current->command_args)
+		{
+			i = 0;
+			while (current->command_args[i])
+			{
 				free(current->command_args[i]);
+				i++;
+			}
 			free(current->command_args);
 		}
 		if (current->in)
@@ -56,7 +63,6 @@ void clean_commands(t_command *commands)
 
 t_msh_state	mshell_clean(t_minishell *mshell, int *exit_status)
 {
-	//printf("debug CLEAN\n");
 	(void)exit_status;
 	if (mshell->input_str)
 	{

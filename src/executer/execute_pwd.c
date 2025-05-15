@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/04 12:11:03 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/14 20:15:45 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 09:32:14 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	exec_pwd(char **command_args, t_minishell *mshell)
 {
-	if(command_args[1])
+	if (command_args[1])
 		perror("two many arguments for pwd command");
 	else
 	{
-			printf("%s",mshell->pwd);
+		printf("%s", mshell->pwd);
 	}
 }
