@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/24 20:32:25 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/01 22:00:59 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/15 17:26:52 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ char	*extract_env(char *str, t_envs *envs, size_t len)
 
 	if (str[1] == '?')
 	{
-		printf ("debug  status is %d\n", envs->status);
 		return (ft_itoa(envs->status));
 	}
 	node = envs->env;
