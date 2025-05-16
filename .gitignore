@@ -14,3 +14,6 @@ input.txt
 output.txt
 1.txt
 heredoc_behavior.txt
+
+# ignore tester
+minishell_tester
