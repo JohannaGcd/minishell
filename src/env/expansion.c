@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 09:09:09 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/04 11:59:02 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/16 14:45:18 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 	{
 		if (current_token->type == ENV)
 		{
+			if(!(ft_strncmp(current_token->str, "$", 2) == 0 && (current_token->next == NULL ||current_token->next->type == M_SPACE)))
+			{	
 			var = extract_env(current_token->str, envs,
 					ft_strlen(current_token->str) - 1);
 			free(current_token->str);
@@ -140,6 +142,7 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 				current_token->type = WORD;
 			}
 			free(var);
+		}
 		}
 		else if (current_token->type == D_QUOTE)
 		{

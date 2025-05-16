@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 21:22:27 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/16 14:47:20 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,26 @@ t_msh_state	mshell_lexer(t_minishell *mshell, int *exit_status)
 		*exit_status = 1;
 		return (MSH_CLEAN);
 	}
+//debug
+// t_token *tmp;
+// tmp = mshell->tokens;
+// while (tmp)
+// {
+// 	printf("token_type: %d, token_str: %s\n", tmp->type, tmp->str);
+// 	tmp = tmp->next;
+// }
+//end debug
 	expand_env(mshell->tokens, mshell->envs);
+//debug
+//t_token *tmp;
+// printf("------ after expand-------\n");
+// tmp = mshell->tokens;
+// while (tmp)
+// {
+// 	printf("token_type: %d, token_str: %s\n", tmp->type, tmp->str);
+// 	tmp = tmp->next;
+// }
+//end debug
 	if (mshell->input_str)
 	{
 		free(mshell->input_str);
@@ -65,6 +84,7 @@ t_msh_state	mshell_parser(t_minishell *mshell, int *exit_status)
 	return (MSH_EXECUTER);
 }
 
+// //debug
 //t_token *tmp;
 // tmp = mshell->tokens;
 // while (tmp)
@@ -72,6 +92,7 @@ t_msh_state	mshell_parser(t_minishell *mshell, int *exit_status)
 // 	printf("token_type: %d, token_str: %s\n", tmp->type, tmp->str);
 // 	tmp = tmp->next;
 // }
+// //end debug
 // //debug
 // t_command * com;
 // com = mshell->commands;
