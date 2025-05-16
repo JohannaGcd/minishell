@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/16 13:25:03 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/16 13:29:45 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,22 @@ void copy_command_args(char **command_args, t_token *token_list)
 			else
 				len += ft_strlen(token_list->str);
 			str_tmp = malloc(sizeof(char)* (len + 1));
-			//if (!str) 
-			// {
-			// 	perror("Failed to allocate memory");
-			// 	exit(EXIT_FAILURE);
-			// }
+			if (!str_tmp) 
+			{
+				perror("Failed to allocate memory");
+				exit(EXIT_FAILURE);
+			}
 			if ((token_list->type == D_QUOTE) || (token_list->type == S_QUOTE))
 				str_tmp = ft_strjoin(str,  handle_quoted_arg(token_list));
 			else
 				str_tmp = ft_strjoin(str, token_list->str);
 			free(str);
 			str = ft_strdup(str_tmp);
+			if (!str) 
+			{
+				perror("Failed to allocate memory");
+				exit(EXIT_FAILURE);
+			}
 			free(str_tmp);
 			token_list = token_list->next;
 		}
