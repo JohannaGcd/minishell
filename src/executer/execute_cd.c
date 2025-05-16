@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/11 21:46:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/16 15:55:30 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/16 16:09:53 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	exec_cd(char **command_args, t_minishell *mshell)
 	{
 		path = get_env_var(mshell->envs, "HOME");
 		if (path == NULL)
-			return (perror("cd: HOME not set"));
+		{
+			return (perror("Error: HOME not set"));
+		}
+			
 	}
 	if (chdir(path) == 0)
 	{
@@ -54,13 +57,20 @@ void	exec_cd(char **command_args, t_minishell *mshell)
 			refresh_pwd_vars(mshell, cwd);
 		else
 		{
+			mshell->envs->status = 1;
+		{
 			perror("getcwd failed");
+		}	
 			mshell->envs->status = 1;
 		}
 	}
 	else
 	{
+		mshell->envs->status = 1;
+	{
 		perror("cd failed");
+	}
+		
 		mshell->envs->status = 1;
 	}
 }

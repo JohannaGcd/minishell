@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/14 16:03:03 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/16 15:53:40 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,6 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-// TODO: HANDLE ERRORS.
-// -> for now we "return 1" in case of error, but we should
-// define what number to send depending on the type of error we face
-// and define the appropriate behavior for each type of error
-
-// PART 1: DATA STRUCTURES
-
-// Lexical Analyser (ie. Lexer)
-
-// Parser
 typedef enum s_msh_state
 {
 	MSH_START,
@@ -44,28 +34,21 @@ typedef enum s_msh_state
 	MSH_EXIT
 }	t_msh_state;
 
-typedef enum	e_type_red
+typedef enum e_type_red
 {
 	RED_OUT,
 	RED_IN,
 	APPEND,
 	HEREDOC,
-} t_type_red;
+}	t_type_red;
 
 typedef struct s_redirection
 {
-	t_type_red			type;
-	char				*file;
-	int					fd;
-	struct s_redirection		*next;
-}						t_redirection;
-
-// typedef struct s_retd_out
-// {
-// 	t_type_red	type;
-// 	char *filename;
-// 	void *next;
-// };
+	t_type_red				type;
+	char					*file;
+	int						fd;
+	struct s_redirection	*next;
+}							t_redirection;
 
 typedef struct s_env_node
 {
@@ -100,7 +83,6 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-
 typedef struct s_command
 {
 	char				**command_args;
@@ -115,7 +97,7 @@ typedef struct s_minishell
 	char		*input_str;
 	t_token		*tokens;
 	t_command	*commands;
-	int 		isExit;
+	int			isExit;
 	char		*pwd;
 	char		*old_pwd;
 }	t_minishell;
@@ -128,21 +110,16 @@ typedef enum e_signal
 	HEREDOC_SIG,
 }	t_signal;
 
-typedef t_msh_state (*t_msh_function)(t_minishell *mshell, int *exit_status); 
+typedef t_msh_state	(*t_msh_function)(t_minishell *mshell, int *exit_status);
 
-// PART 2: FUNCTION DEFINITIONS
-
-// Lexical Analysis
-// -> Separates the input into tokens
-
-//functions
 t_msh_state		mshell_start(t_minishell *mshell, char **envp);
 t_msh_state		mshell_readline(t_minishell *mshell, int *exit_status);
-t_msh_state 	mshell_lexer(t_minishell *mshell, int *exit_status);
-t_msh_state 	mshell_syntaxer(t_minishell *mshell, int *exit_status);
-t_msh_state 	mshell_parser(t_minishell *mshell, int *exit_status);
-t_msh_state 	mshell_executer(t_minishell *mshell, int *exit_status);
-t_msh_state 	mshell_clean(t_minishell *mshell, int *exit_status);
+t_msh_state		mshell_lexer(t_minishell *mshell, int *exit_status);
+t_msh_state		mshell_syntaxer(t_minishell *mshell, int *exit_status);
+t_msh_state		mshell_parser(t_minishell *mshell, int *exit_status);
+t_msh_state		mshell_executer(t_minishell *mshell, int *exit_status);
+t_msh_state		mshell_clean(t_minishell *mshell, int *exit_status);
 void			handle_signal(int mode);
 void			clean_commands(t_command *commands);
+
 #endif
