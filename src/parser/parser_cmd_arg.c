@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:44 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/15 21:11:01 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/16 13:25:03 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ int	count_command_args(t_token *token_list)
 	return (counter);
 }
 
-// Copies each argument into command_args
+//Copies each argument into command_args
 void copy_command_args(char **command_args, t_token *token_list)
 {
 	int		i;
 	char	*str;
+	char	*str_tmp;
 	size_t	len;
 
 	i = 0;
@@ -66,23 +67,26 @@ void copy_command_args(char **command_args, t_token *token_list)
 			   && token_list->type != REDIRECT_IN && token_list->type != REDIRECT_OUT)
 		{
 			if ((token_list->type == D_QUOTE) || (token_list->type == S_QUOTE))
-				len += strlen(token_list->str)-2;
+				len += ft_strlen(token_list->str) - 2;
 			else
-				len += strlen(token_list->str);
-			str = realloc(str, len + 1);
-			if (!str) 
-			{
-				perror("Failed to allocate memory");
-				exit(EXIT_FAILURE);
-			}
+				len += ft_strlen(token_list->str);
+			str_tmp = malloc(sizeof(char)* (len + 1));
+			//if (!str) 
+			// {
+			// 	perror("Failed to allocate memory");
+			// 	exit(EXIT_FAILURE);
+			// }
 			if ((token_list->type == D_QUOTE) || (token_list->type == S_QUOTE))
-				strcat(str,  handle_quoted_arg(token_list));
+				str_tmp = ft_strjoin(str,  handle_quoted_arg(token_list));
 			else
-				strcat(str, token_list->str);
+				str_tmp = ft_strjoin(str, token_list->str);
+			free(str);
+			str = ft_strdup(str_tmp);
+			free(str_tmp);
 			token_list = token_list->next;
 		}
 		if (str) 
-			command_args[i] = strdup(str);
+			command_args[i] = ft_strdup(str);
 		else 
 			command_args[i] = NULL;
 		i++;
@@ -96,7 +100,7 @@ void copy_command_args(char **command_args, t_token *token_list)
 // void	copy_command_args(char **command_args, t_token *token_list)
 // {
 // 	int		i;
-// 	char	*str;
+// 	//char	*str;
 
 // 	i = 0;
 // 	if (token_list->type == PIPE)

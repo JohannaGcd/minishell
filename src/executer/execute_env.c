@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:12:35 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 17:51:58 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/16 12:04:07 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	print_env_and_args(t_env_node *env, char **command_args)
 {
 	int	i;
+	t_env_node *cur_env;
 
+	cur_env = env;
 	i = 0;
-	while (env)
+	while (cur_env)
 	{
 		printf("%s=%s\n", env->var, env->value);
-		env = env->next;
+		cur_env = cur_env->next;
 	}
 	i = 1;
 	while (command_args[i])
