@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 10:25:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/13 22:50:13 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/18 10:46:44 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	sig_heredoc(int signum)
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	// exit from minishell ?? 
 	exit(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/15 09:12:46 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/18 10:47:49 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ bool	set_all_heredocs(t_minishell *mshell)
 	t_command	*cmd;
 
 	cmd = mshell->commands;
+	handle_signal(HEREDOC_SIG);
 	while (cmd)
 	{
 		handle_heredoc(mshell, &cmd);
