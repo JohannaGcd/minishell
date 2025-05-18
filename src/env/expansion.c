@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 09:09:09 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/16 14:45:18 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/18 08:04:21 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,50 +99,52 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 	{
 		if (current_token->type == ENV)
 		{
-			if(!(ft_strncmp(current_token->str, "$", 2) == 0 && (current_token->next == NULL ||current_token->next->type == M_SPACE)))
-			{	
-			var = extract_env(current_token->str, envs,
-					ft_strlen(current_token->str) - 1);
-			free(current_token->str);
-			if (var)
+			if (!(ft_strncmp(current_token->str, "$", 2) == 0
+					&& (current_token->next == NULL
+						|| current_token->next->type == M_SPACE)))
 			{
-				if (ft_strchr(var, ' '))
+				var = extract_env(current_token->str, envs,
+						ft_strlen(current_token->str) - 1);
+				free(current_token->str);
+				if (var)
 				{
-					parts_env = ft_split(var, ' ');
-					i = 0;
-					next_token = current_token->next;
-					current_token->str = ft_strdup(parts_env[i]);
-					current_token->type = WORD;
-					i++;
-					last_inserted = current_token;
-					while (parts_env[i])
+					if (ft_strchr(var, ' '))
 					{
-						new_token = create_token(WORD, parts_env[i]);
-						if (!new_token)
-						{
-							perror("Token creation failed");
-							exit(EXIT_FAILURE);
-						}
-						last_inserted->next = new_token;
-						last_inserted = new_token;
+						parts_env = ft_split(var, ' ');
+						i = 0;
+						next_token = current_token->next;
+						current_token->str = ft_strdup(parts_env[i]);
+						current_token->type = WORD;
 						i++;
+						last_inserted = current_token;
+						while (parts_env[i])
+						{
+							new_token = create_token(WORD, parts_env[i]);
+							if (!new_token)
+							{
+								perror("Token creation failed");
+								exit(EXIT_FAILURE);
+							}
+							last_inserted->next = new_token;
+							last_inserted = new_token;
+							i++;
+						}
+						last_inserted->next = next_token;
+						free_array(parts_env);
 					}
-					last_inserted->next = next_token;
-					free_array(parts_env);
+					else
+					{
+						current_token->str = ft_strdup(var);
+						current_token->type = WORD;
+					}
 				}
 				else
 				{
-					current_token->str = ft_strdup(var);
+					current_token->str = ft_strdup("");
 					current_token->type = WORD;
 				}
+				free(var);
 			}
-			else
-			{
-				current_token->str = ft_strdup("");
-				current_token->type = WORD;
-			}
-			free(var);
-		}
 		}
 		else if (current_token->type == D_QUOTE)
 		{

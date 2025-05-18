@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/24 20:32:25 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 17:26:52 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/18 07:59:49 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ void	add_env_to_list(t_env_node **list, t_env_node *node)
 	}
 }
 
+size_t	find_equals(char *str)
+{
+	size_t	j;
+
+	j = 0;
+	while (j < ft_strlen(str))
+	{
+		if (str[j] == '=')
+			return (j);
+		j++;
+	}
+	return (-1);
+}
+
 void	init_env(char **envp, t_envs *envs)
 {
 	int			i;
@@ -55,55 +69,44 @@ void	init_env(char **envp, t_envs *envs)
 	envs->env = NULL;
 	while (envp[i])
 	{
-		j = 0;
-		while (j < ft_strlen(envp[i]))
-		{
-			if (envp[i][j] == '=')
-			{
-				var = ft_substr(envp[i], 0, j);
-				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
-				node = create_new_env_node(var, value);
-				add_env_to_list(&(envs->env), node);
-				free(var);
-				free(value);
-				break ;
-			}
-			j++;
-		}
+		j = find_equals(envp[i]);
+		var = ft_substr(envp[i], 0, j);
+		value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
+		node = create_new_env_node(var, value);
+		add_env_to_list(&(envs->env), node);
+		free(var);
+		free(value);
 		i++;
 	}
 }
 
-char	*extract_env(char *str, t_envs *envs, size_t len)
-{
-	t_env_node	*node;
+// void	init_env(char **envp, t_envs *envs)
+// {
+// 	int			i;
+// 	size_t		j;
+// 	char		*var;
+// 	char		*value;
+// 	t_env_node	*node;
 
-	if (str[1] == '?')
-	{
-		return (ft_itoa(envs->status));
-	}
-	node = envs->env;
-	while (node && ft_strncmp(node->var, str + 1,
-			ft_max(len, ft_strlen(node->var))))
-		node = node->next;
-	if (node == NULL)
-		return (NULL);
-	return (ft_strdup(node->value));
-}
-
-int	find_env_var(t_envs *envs, const char *var_to_find)
-{
-	t_env_node	*current;
-
-	current = envs->env;
-	while (current != NULL)
-	{
-		if (ft_strncmp(current->var, var_to_find,
-				ft_strlen(var_to_find) + 1) == 0)
-		{
-			return (1);
-		}
-		current = current->next;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	envs->status = 0;
+// 	envs->env = NULL;
+// 	while (envp[i])
+// 	{
+// 		j = 0;
+// 		while (j < ft_strlen(envp[i]))
+// 		{
+// 			if (envp[i][j] == '=')
+// 			{
+// 				var = ft_substr(envp[i], 0, j);
+// 				value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
+// 				node = create_new_env_node(var, value);
+// 				add_env_to_list(&(envs->env), node);
+// 				free(var), free(value);
+// 				break ;
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }

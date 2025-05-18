@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/10 20:58:52 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 09:09:13 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/17 22:33:56 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,4 @@ void	change_env_var(t_envs *envs, const char *var_to_change, char *value)
 		}
 		current = current->next;
 	}
-	
 }

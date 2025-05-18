@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:12:35 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/16 14:07:57 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/18 08:11:18 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	print_env_and_args(t_env_node *env, char **command_args)
 {
-	int	i;
-	t_env_node *cur_env;
+	int			i;
+	t_env_node	*cur_env;
 
 	cur_env = env;
 	i = 0;
