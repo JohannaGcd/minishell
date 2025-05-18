@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/16 15:41:06 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/16 15:42:30 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/18 17:11:54 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int			find_env_var(t_envs *envs, const char *var_to_find);
 void		change_env_var(t_envs *envs, const char *var_to_change,
 				char *value);
 char		*get_env_var(t_envs *envs, const char *var_to_find);
+char		*change_all_env(char *str, t_envs *envs);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:07 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/12 13:58:51 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/18 16:54:01 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,9 @@ t_command	*command_list_find_last(t_command *command_list_head);
 void		command_list_add_back(t_command **command_list_head,
 				t_command *new_command);
 t_command	*init_command(void);
-
+char		*handle_quoted_arg(t_token *token);
+int			count_command_args(t_token *token_list);
+void		skip_initial_tokens(t_token **token_list);
+int			count_len(int len, t_token **token_list);
+int			correct_token(t_token **token_list);
 #endif
