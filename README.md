@@ -91,3 +91,7 @@ AddressSanitizer:DEADLYSIGNAL
 ### check memory leak with valgrind 
 
 ### env should be changed if it is already exists
+
+### BUGS!!!!
+
+### minishell>echo "jsjj" > ppp (1 builtin command with redirrect)

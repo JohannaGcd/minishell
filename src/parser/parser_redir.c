@@ -6,11 +6,29 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 13:38:42 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/14 20:29:18 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/18 14:20:02 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+void	set_red(t_redirection	**new_redir, t_token *tokens, int is_in)
+{
+	if (is_in)
+	{
+		if (ft_strncmp(tokens->str, "<<", 2) == 0)
+			(*new_redir)->type = HEREDOC;
+		else
+			(*new_redir)->type = RED_IN;
+	}
+	else
+	{
+		if (ft_strncmp(tokens->str, ">>", 2) == 0)
+			(*new_redir)->type = APPEND;
+		else
+			(*new_redir)->type = RED_OUT;
+	}
+}
 
 // Allocates and sets redirection type.
 void	set_redirection(t_redirection **redir, t_token *tokens, int is_in)
@@ -25,20 +43,7 @@ void	set_redirection(t_redirection **redir, t_token *tokens, int is_in)
 		perror("calloc set_redirections failed");
 		exit(EXIT_FAILURE);
 	}
-	if (is_in)
-	{
-		if (ft_strncmp(tokens->str, "<<", 2) == 0)
-			(new_redir)->type = HEREDOC;
-		else
-			(new_redir)->type = RED_IN;
-	}
-	else
-	{
-		if (ft_strncmp(tokens->str, ">>", 2) == 0)
-			(new_redir)->type = APPEND;
-		else
-			(new_redir)->type = RED_OUT;
-	}
+	set_red(&new_redir, tokens, is_in);
 	tok_file = skip_spaces(tokens->next);
 	(new_redir)->file = ft_strdup(tok_file->str);
 	(new_redir)->next = NULL;
