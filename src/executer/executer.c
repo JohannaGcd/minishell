@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/16 13:23:34 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/18 20:47:50 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	is_builtin_cmd(char **command_args)
 void	execute_commands(t_minishell *mshell, int *exit_status)
 {
 	t_command	*current;
-	char		**envp;
 
 	current = mshell->commands;
 	while (current)
@@ -64,8 +63,7 @@ void	execute_commands(t_minishell *mshell, int *exit_status)
 		}
 		else
 		{
-			envp = envs_to_envp(mshell->envs);
-			mshell->envs->status = execute_multiple_cmd(envp, mshell,
+			mshell->envs->status = execute_multiple_cmd(mshell,
 					exit_status);
 			break ;
 		}

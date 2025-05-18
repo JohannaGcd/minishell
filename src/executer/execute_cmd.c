@@ -6,17 +6,19 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/18 18:17:31 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/18 20:29:21 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-int	execute_child(t_minishell *mshell, t_command *curr_cmd, char **envp,
+int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 	int *pipe_fd, int prev_read_end, int *exit_status)
 {
 	char	*command_wp;
+	char	**envp;
 
+	envp = envs_to_envp(mshell->envs);
 	close(pipe_fd[0]);
 	dup2(prev_read_end, STDIN_FILENO);
 	dup2(pipe_fd[1], STDOUT_FILENO);
@@ -36,6 +38,7 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd, char **envp,
 		execute_builtin(curr_cmd->command_args, mshell, exit_status);
 		exit(EXIT_SUCCESS);
 	}
+	free_array(envp);
 	return (0);
 }
 //---------
@@ -68,11 +71,13 @@ void	handle_builtin(t_command *curr_cmd, t_minishell *mshell, int *exit_status)
 	exit(EXIT_SUCCESS);
 }
 
-int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, char **envp, int prev_read_end, int *exit_status)
+int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, int prev_read_end, int *exit_status)
 {
 	pid_t	child_id;
 	char	*command_wp;
+	char	**envp;
 
+	envp = envs_to_envp(mshell->envs);
 	child_id = fork();
 	if (child_id < 0)
 	{
@@ -93,6 +98,7 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, char **envp, int 
 			handle_builtin(curr_cmd, mshell, exit_status);
 	}
 	close(prev_read_end);
+	free_array(envp);
 	return (child_id);
 }
 // int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, char **envp,
