@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:21:54 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/15 12:23:25 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/19 11:38:20 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	handle_output_redirections(t_command *command)
 		else
 			out_fd = open(red_out->file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 		if (out_fd == -1)
-			return (perror("Error opening output file"), exit(EXIT_FAILURE));
+		{
+			perror("Error opening output file");
+			exit(EXIT_FAILURE);
+		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 		red_out = red_out->next;

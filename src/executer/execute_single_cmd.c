@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/15 14:58:02 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/19 11:54:42 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**prep_env_and_path(t_minishell *mshell, t_command *current)
 	else
 	{
 		mshell->envs->status = 127;
-		perror("command not found");
+		ft_putendl_fd(" command not found", 2);
 		free_array(envp);
 		return (NULL);
 	}
