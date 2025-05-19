@@ -6,12 +6,12 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 10:25:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/18 10:46:44 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/19 14:01:56 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "../include/executer.h"
+#include "minishell.h"
+#include "executer.h"
 
 void	sig_ctrl_c(int signum)
 {
@@ -32,26 +32,46 @@ void	set_main_signal(void)
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
+//HEREDOC
 
-void	sig_heredoc(int signum)
+void sig_heredoc(int signum)
 {
-	(void)signum;
-	write(STDOUT_FILENO, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	exit(1);
+    signal_received = signum;  // Store the signal number
+	//(void)signum;
+    write(STDOUT_FILENO, "\n", 1);
+    rl_replace_line("", 0);
+    rl_on_new_line();
 }
 
-void	set_heredoc_signal(void)
+void set_heredoc_signal(void)
 {
-	struct sigaction	sa;
-
-	sa.sa_handler = sig_heredoc;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
+    struct sigaction sa;
+    sa.sa_handler = sig_heredoc;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+    sigaction(SIGINT, &sa, NULL);
+    signal(SIGQUIT, SIG_IGN);
 }
+//-----
+// void	sig_heredoc(int signum)
+// {
+// 	(void)signum;
+// 	write(STDOUT_FILENO, "\n", 1);
+// 	rl_replace_line("", 0);
+// 	rl_on_new_line();
+// 	exit(1);
+// }
+
+// void	set_heredoc_signal(void)
+// {
+// 	struct sigaction	sa;
+
+// 	sa.sa_handler = sig_heredoc;
+// 	sigemptyset(&sa.sa_mask);
+// 	sa.sa_flags = 0;
+// 	sigaction(SIGINT, &sa, NULL);
+// 	signal(SIGQUIT, SIG_IGN);
+// }
 
 //SIG_DFL: This constant sets the signal handler to the default
 // action defined by the system. 
@@ -64,7 +84,7 @@ void	handle_signal(int mode)
 	{
 		set_main_signal();
 	}
-	else if (mode == HEREDOC)
+	else if (mode == HEREDOC_SIG)
 	{
 		set_heredoc_signal();
 	}

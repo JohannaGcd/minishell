@@ -6,12 +6,14 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:44:32 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/18 10:46:26 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/19 13:34:49 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/executer.h"
+
+volatile sig_atomic_t signal_received = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
