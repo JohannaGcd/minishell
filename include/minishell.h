@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/16 15:53:40 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/19 12:08:17 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,13 @@ typedef enum e_signal
 	PARENT_SIG,
 	HEREDOC_SIG,
 }	t_signal;
+
+typedef	struct s_pipe_io
+{
+	int pipe_fd[2];
+	int prev_read_end;
+
+} t_pipe_io;
 
 typedef t_msh_state	(*t_msh_function)(t_minishell *mshell, int *exit_status);
 

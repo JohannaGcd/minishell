@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 22:28:11 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 17:52:36 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/19 13:41:33 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,11 @@ void	set_or_update_env(t_minishell *mshell, char *var, char *value)
 	}
 	else
 		change_env_var(mshell->envs, var, value);
+}
+
+void	init_pipe_io(t_pipe_io *pipe_io)
+{
+	pipe_io->pipe_fd[0] = -1;
+	pipe_io->pipe_fd[1] = -1;
+	pipe_io->prev_read_end = STDIN_FILENO;
 }
