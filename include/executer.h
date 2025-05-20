@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/19 13:54:55 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/19 14:23:10 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		execute_multiple_cmd(t_minishell *mshell,
 void	wait_for_children(t_minishell *mshell, pid_t child_id,
 			int nbr_children);
 char	**prep_env_and_path(t_minishell *mshell, t_command *current);
-char	*return_cmd_with_path(char *command, t_minishell *mshell);
+char	*return_cmd_w_path(char *command, t_minishell *mshell);
 int		execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 			t_pipe_io *pipe_io, int *exit_status);
 int		update_pipe_fd(t_pipe_io *pipe_io);
@@ -68,6 +68,7 @@ bool	set_all_heredocs(t_minishell *mshell);
 void	set_or_update_env(t_minishell *mshell, char *var, char *value);
 void	init_pipe_io(t_pipe_io *pipe_io);
 void	execute_pipeline(t_minishell *mshell, int *exit_status,
-					  int *nbr_children, t_pipe_io *pipe_io);
+			int *nbr_children, t_pipe_io *pipe_io);
+void	setup_last_child_io(int prev_read_end);
 
 #endif

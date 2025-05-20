@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/19 13:49:24 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/19 16:30:36 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 	io_redirect(curr_cmd);
 	if (!is_builtin_cmd(curr_cmd->command_args))
 	{
-		command_wp = return_cmd_with_path(curr_cmd->command_args[0], mshell);
+		command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);
 		if (execve(command_wp, curr_cmd->command_args, envp) == -1)
 		{
 			perror("execve failed");
@@ -40,13 +40,6 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 	}
 	free_array(envp);
 	return (0);
-}
-//---------
-
-void	setup_last_child_io(int prev_read_end)
-{
-	dup2(prev_read_end, STDIN_FILENO);
-	close(prev_read_end);
 }
 
 void	execute_command(char *command_wp, char **command_args, char **envp)
@@ -65,13 +58,15 @@ void	execute_command(char *command_wp, char **command_args, char **envp)
 	}
 }
 
-void	handle_builtin(t_command *curr_cmd, t_minishell *mshell, int *exit_status)
+void	handle_builtin(t_command *curr_cmd, t_minishell *mshell,
+		int *exit_status)
 {
 	execute_builtin(curr_cmd->command_args, mshell, exit_status);
 	exit(EXIT_SUCCESS);
 }
 
-int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, t_pipe_io *pipe_io, int *exit_status)
+int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
+	t_pipe_io *pipe_io, int *exit_status)
 {
 	pid_t	child_id;
 	char	*command_wp;
@@ -91,7 +86,7 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, t_pipe_io *pipe_i
 		io_redirect(curr_cmd);
 		if (!is_builtin_cmd(curr_cmd->command_args))
 		{
-			command_wp = return_cmd_with_path(curr_cmd->command_args[0], mshell);
+			command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);
 			execute_command(command_wp, curr_cmd->command_args, envp);
 		}
 		else
@@ -141,16 +136,6 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, t_pipe_io *pipe_i
 // 	close(prev_read_end);
 // 	return (child_id);
 // }
-
-int	update_pipe_fd(t_pipe_io *pipe_io)
-{
-	close(pipe_io->pipe_fd[1]);
-	if (pipe_io->prev_read_end != 0)
-		close(pipe_io->prev_read_end);
-	pipe_io->prev_read_end = dup(pipe_io->pipe_fd[0]);
-	close(pipe_io->pipe_fd[0]);
-	return (pipe_io->prev_read_end);
-}
 
 void	wait_for_children(t_minishell *mshell, pid_t child_id, int nbr_children)
 {

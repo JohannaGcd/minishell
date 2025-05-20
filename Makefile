@@ -55,7 +55,7 @@ OBJ_TEST = $(SRC_TEST:%.c=$(OBJDIR_TEST)/%.o) \
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJ)  $(LIBFT) $(LDFLAGS) -o $@ 
+	$(CC) $(CFLAGS) $(OBJ)  $(LIBFT) $(LDFLAGS) -o $@ 
 
 $(TEST): $(OBJ_TEST) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ_TEST) $(LIBFLAGS) $(LIBFT) -o $@ 

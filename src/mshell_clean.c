@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:49:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 11:19:47 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/20 11:42:49 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,16 @@ t_msh_state	mshell_clean(t_minishell *mshell, int *exit_status)
 	{
 		clean_env(&(mshell->envs));
 		mshell->envs = NULL;
+	}
+	if (mshell->old_pwd)
+	{
+		free(mshell->old_pwd);
+		mshell->old_pwd = NULL;
+	}
+	if (mshell->pwd)
+	{
+		free(mshell->pwd);
+		mshell->pwd = NULL;
 	}
 	return (MSH_EXIT);
 }

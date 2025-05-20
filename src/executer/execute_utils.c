@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 22:28:11 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/19 13:41:33 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/19 14:20:25 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,20 @@ void	init_pipe_io(t_pipe_io *pipe_io)
 	pipe_io->pipe_fd[0] = -1;
 	pipe_io->pipe_fd[1] = -1;
 	pipe_io->prev_read_end = STDIN_FILENO;
+}
+
+int	update_pipe_fd(t_pipe_io *pipe_io)
+{
+	close(pipe_io->pipe_fd[1]);
+	if (pipe_io->prev_read_end != 0)
+		close(pipe_io->prev_read_end);
+	pipe_io->prev_read_end = dup(pipe_io->pipe_fd[0]);
+	close(pipe_io->pipe_fd[0]);
+	return (pipe_io->prev_read_end);
+}
+
+void	setup_last_child_io(int prev_read_end)
+{
+	dup2(prev_read_end, STDIN_FILENO);
+	close(prev_read_end);
 }

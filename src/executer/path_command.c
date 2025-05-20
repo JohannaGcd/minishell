@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/25 21:19:03 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/18 12:57:05 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/19 14:22:55 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*find_path(char **list_of_paths, char *command)
 	return (NULL);
 }
 
-char	*return_cmd_with_path(char *command, t_minishell *mshell)
+char	*return_cmd_w_path(char *command, t_minishell *mshell)
 {
 	char	*paths;
 	char	**list_of_paths;
