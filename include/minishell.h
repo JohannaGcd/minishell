@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/19 14:12:59 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/20 13:24:26 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <unistd.h>
 # include <signal.h>
 
-extern volatile sig_atomic_t signal_received;
+extern volatile sig_atomic_t g_signal_received;
 
 typedef enum s_msh_state
 {

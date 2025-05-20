@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/18 17:51:53 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/19 14:05:38 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/20 13:28:26 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ pid_t	fork_child(t_minishell *mshell, t_command *curr_cmd, t_pipe_io *pipe_io, i
 	child_id = fork();
 	if (child_id == 0)
 	{
+		handle_signal(CHILD_SIG);
 		execute_child(mshell, curr_cmd, pipe_io, exit_status);
+		handle_signal(PARENT_SIG);
 	}
 	return (child_id);
 }

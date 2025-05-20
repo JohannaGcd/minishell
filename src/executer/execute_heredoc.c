@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/19 15:46:38 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/20 13:36:31 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,14 @@ int	read_heredoc(char *delimiter)
 		return (-1);
 	}
 	handle_signal(HEREDOC_SIG);
-	
-	// signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		if (signal_received)
+		if (g_signal_received)
 		{
-			signal_received = 0;
+			g_signal_received = 1;
 			break;  
 		}
-		//printf("HERE\n");
-		rl_catch_signals = 0;
+		//rl_catch_signals = 0;
 		line = readline("heredoc> ");
 		printf("line: %s\n", line);
 		if (!line || (strcmp(line, delimiter) == 0))
@@ -63,7 +60,6 @@ int	read_heredoc(char *delimiter)
 		free(line);
 	}
 	handle_signal(MAIN_SIG);
-	//printf("HERE2\n");
 	close(pipe_fd[1]);
 	return (pipe_fd[0]);
 }

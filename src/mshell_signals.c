@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 10:25:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/19 15:38:45 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/20 13:39:08 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ void	set_main_signal(void)
 
 void sig_heredoc(int signum)
 {
-    signal_received = signum;
+    g_signal_received = signum;
 	//printf("exit\n");
     //write(STDOUT_FILENO, "\0", 1);
-	// write(STDOUT_FILENO, "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
+    rl_replace_line("", 0);
+    rl_on_new_line();
+	rl_redisplay();
 	rl_done = 1;
-    // rl_replace_line("", 0);
-    // rl_on_new_line();
 }
 
 void set_heredoc_signal(void)
