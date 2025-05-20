@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/18 10:47:49 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/20 15:05:16 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,12 @@ void	handle_heredoc(t_minishell *mshell, t_command **command)
 		redir = redir->next;
 	}
 }
+
+// After the heredoc, checks whether it is not an empty command
+// before execve.
+// int	check_if_valid_command(t_minishell *mshell)
+// {
+// 	if (mshell->commands->command_args[0])
+
+
+// }

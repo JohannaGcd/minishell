@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/20 11:36:38 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/20 15:27:54 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ char	**prep_env_and_path(t_minishell *mshell, t_command *current)
 	char	*cmd_path;
 
 	envp = envs_to_envp(mshell->envs);
+	if (current->command_args[0] == NULL)
+	{
+		free(envp);
+		return (NULL);
+	}
 	cmd_path = return_cmd_w_path(current->command_args[0], mshell);
 	if (cmd_path)
 	{
