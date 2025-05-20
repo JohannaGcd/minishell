@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/18 20:47:50 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/19 14:51:30 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	is_builtin_cmd(char **command_args)
 	if (ft_strncmp(command_args[0], "cd", 3) == 0)
 		return (1);
 	if (ft_strncmp(command_args[0], "echo", 5) == 0)
+		return (1);
+	if (ft_strncmp(command_args[0], "pwd", 4) == 0)
 		return (1);
 	return (0);
 }
