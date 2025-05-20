@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/16 12:09:28 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/19 15:32:05 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_msh_state	mshell_readline(t_minishell *mshell, int *exit_status)
 
 	(void) exit_status;
 	rl_on_new_line();
+	rl_catch_signals = 0;
 	mshell->input_str = readline(prompt);
 	if (!mshell->input_str)
 	{
