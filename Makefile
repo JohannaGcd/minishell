@@ -55,7 +55,7 @@ OBJ_TEST = $(SRC_TEST:%.c=$(OBJDIR_TEST)/%.o) \
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ)  $(LIBFT) $(LDFLAGS) -o $@ 
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LDFLAGS) -o $@ 
 
 $(TEST): $(OBJ_TEST) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ_TEST) $(LIBFLAGS) $(LIBFT) -o $@ 
@@ -63,25 +63,25 @@ $(TEST): $(OBJ_TEST) $(LIBFT)
 $(LIBFT):
 	@make -s -C $(LIBFTDIR)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_LEXER)/%.o: $(SRCDIR_LEXER)/%.c $(OBJDIR_LEXER)
+$(OBJDIR_LEXER)/%.o: $(SRCDIR_LEXER)/%.c | $(OBJDIR_LEXER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_SYNTAXER)/%.o: $(SRCDIR_SYNTAXER)/%.c $(OBJDIR_SYNTAXER)
+$(OBJDIR_SYNTAXER)/%.o: $(SRCDIR_SYNTAXER)/%.c | $(OBJDIR_SYNTAXER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
-$(OBJDIR_PARSER)/%.o: $(SRCDIR_PARSER)/%.c $(OBJDIR_PARSER)
+$(OBJDIR_PARSER)/%.o: $(SRCDIR_PARSER)/%.c | $(OBJDIR_PARSER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_EXECUTER)/%.o: $(SRCDIR_EXECUTER)/%.c $(OBJDIR_EXECUTER)
+$(OBJDIR_EXECUTER)/%.o: $(SRCDIR_EXECUTER)/%.c | $(OBJDIR_EXECUTER)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_ENV)/%.o: $(SRCDIR_ENV)/%.c $(OBJDIR_ENV)
+$(OBJDIR_ENV)/%.o: $(SRCDIR_ENV)/%.c | $(OBJDIR_ENV)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
-$(OBJDIR_TEST)/%.o: $(SRCDIR_TEST)/%.c $(OBJDIR_TEST)
+$(OBJDIR_TEST)/%.o: $(SRCDIR_TEST)/%.c | $(OBJDIR_TEST)
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 
 
 $(OBJDIR):
@@ -116,3 +116,5 @@ fclean: clean
 	@printf "$(NAME) and $(TEST) are removed\n"
 
 re: fclean all
+
+.PHONY: re clean  fclean all
