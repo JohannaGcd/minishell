@@ -6,23 +6,23 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/18 20:29:21 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/19 13:49:24 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
 int	execute_child(t_minishell *mshell, t_command *curr_cmd,
-	int *pipe_fd, int prev_read_end, int *exit_status)
+	t_pipe_io *pipe_io, int *exit_status)
 {
 	char	*command_wp;
 	char	**envp;
 
 	envp = envs_to_envp(mshell->envs);
-	close(pipe_fd[0]);
-	dup2(prev_read_end, STDIN_FILENO);
-	dup2(pipe_fd[1], STDOUT_FILENO);
-	close(pipe_fd[1]);
+	close(pipe_io->pipe_fd[0]);
+	dup2(pipe_io->prev_read_end, STDIN_FILENO);
+	dup2(pipe_io->pipe_fd[1], STDOUT_FILENO);
+	close(pipe_io->pipe_fd[1]);
 	io_redirect(curr_cmd);
 	if (!is_builtin_cmd(curr_cmd->command_args))
 	{
@@ -71,7 +71,7 @@ void	handle_builtin(t_command *curr_cmd, t_minishell *mshell, int *exit_status)
 	exit(EXIT_SUCCESS);
 }
 
-int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, int prev_read_end, int *exit_status)
+int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, t_pipe_io *pipe_io, int *exit_status)
 {
 	pid_t	child_id;
 	char	*command_wp;
@@ -87,7 +87,7 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, int prev_read_end
 	}
 	if (child_id == 0)
 	{
-		setup_last_child_io(prev_read_end);
+		setup_last_child_io(pipe_io->prev_read_end);
 		io_redirect(curr_cmd);
 		if (!is_builtin_cmd(curr_cmd->command_args))
 		{
@@ -97,7 +97,7 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, int prev_read_end
 		else
 			handle_builtin(curr_cmd, mshell, exit_status);
 	}
-	close(prev_read_end);
+	close(pipe_io->prev_read_end);
 	free_array(envp);
 	return (child_id);
 }
@@ -142,14 +142,14 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, int prev_read_end
 // 	return (child_id);
 // }
 
-int	update_pipe_fd(int *pipe_fd, int prev_read_end)
+int	update_pipe_fd(t_pipe_io *pipe_io)
 {
-	close(pipe_fd[1]);
-	if (prev_read_end != 0)
-		close(prev_read_end);
-	prev_read_end = dup(pipe_fd[0]);
-	close(pipe_fd[0]);
-	return (prev_read_end);
+	close(pipe_io->pipe_fd[1]);
+	if (pipe_io->prev_read_end != 0)
+		close(pipe_io->prev_read_end);
+	pipe_io->prev_read_end = dup(pipe_io->pipe_fd[0]);
+	close(pipe_io->pipe_fd[0]);
+	return (pipe_io->prev_read_end);
 }
 
 void	wait_for_children(t_minishell *mshell, pid_t child_id, int nbr_children)
