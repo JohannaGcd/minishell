@@ -16,7 +16,7 @@ SRCS = ft_strlen.c \
 		ft_toupper.c \
 		ft_strrchr.c \
 		ft_strnstr.c \
-		ft_strncpm.c \
+		ft_strncmp.c \
 		ft_memset.c \
 		ft_bzero.c \
 		ft_memcpy.c \
@@ -57,16 +57,12 @@ SRC_BONUS = ft_lstnew_bonus.c \
 			ft_lstmap_bonus.c \
 			ft_lstclear_bonus.c
 
-OBJ_BONUS = $(SRC_BONUS:%.c=%.o)
+OBJS = $(SRCS:%.c=%.o) $(SRC_BONUS:%.c=%.o) 
 
-OBJS = $(SRCS:%.c=%.o)
-#OBJS = ft_strlen.o ft_isalpha.o ft_isalnum.o ft_atoi.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_strchr.o ft_tolower.o ft_toupper.o
+all: $(NAME)
 
-all: $(NAME) bonus
 %.o: %.c
 	@$(CC) $(CFLAG) -c $< -o $@
-
-all: $(NAME) bonus
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
@@ -76,9 +72,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	
-bonus: $(OBJ_BONUS)
-	$(AR) $(NAME) $(OBJ_BONUS)
 
 re: fclean all
 
