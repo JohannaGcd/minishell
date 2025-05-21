@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/03/06 13:52:31 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/19 14:51:30 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/21 17:49:46 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ void	execute_commands(t_minishell *mshell, int *exit_status)
 	t_command	*current;
 
 	current = mshell->commands;
+	// debug
+	// printf("current command_args[0] = %s\n", current->command_args[0]);
+	// printf("current command_args[1] = %s\n", current->command_args[1]);
+	// if (current->out->file)
+	// 	printf("current command redir file = %s\n", current->out->file);
+	// end debug
 	while (current)
 	{
 		if (current->command_args[0] && is_builtin_cmd(current->command_args)
