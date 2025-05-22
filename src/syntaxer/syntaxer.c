@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/18 10:37:38 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/22 18:06:54 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	syntaxer(t_token *token_list)
 	{
 		if (check_token_syntax(prev_token, curr_token) == 1)
 		{
-			perror("syntax error");
+			ft_putendl_fd("syntax error", 1);
 			return (2);
 		}
 		prev_token = curr_token;

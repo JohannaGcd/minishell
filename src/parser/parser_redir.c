@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 13:38:42 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/18 14:20:02 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/22 18:48:14 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,22 @@ void	fill_redirections(t_command **command, t_token *tokens)
 		}
 		tokens = tokens->next;
 	}
+}
+
+// Counts the number of arguments of the command, 
+// while ignoring redirection tokens
+void	handle_token_counter(t_token **token, int *counter, int *redir)
+{
+	if (*token && (*token)->type == WORD && *redir)
+	{
+		if ((*token)->next)
+			*token = (*token)->next;
+		*redir = 0;
+	}
+	else if (*token && ((*token)->type == WORD
+			|| (*token)->type == ENV) && !*redir)
+		(*counter)++;
+	else if (*token && ((*token)->type == REDIRECT_IN
+			|| (*token)->type == REDIRECT_OUT))
+		*redir = 1;
 }

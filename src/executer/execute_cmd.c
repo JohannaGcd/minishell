@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/19 16:30:36 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 18:16:28 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,7 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 	envp = envs_to_envp(mshell->envs);
 	child_id = fork();
 	if (child_id < 0)
-	{
-		perror("fork failed");
-		mshell->envs->status = 1;
-		return (-1);
-	}
+		return (perror("fork failed"), mshell->envs->status = 1, -1);
 	if (child_id == 0)
 	{
 		setup_last_child_io(pipe_io->prev_read_end);
@@ -96,46 +92,6 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 	free_array(envp);
 	return (child_id);
 }
-// int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd, char **envp,
-// 	int prev_read_end, int *exit_status)
-// {
-// 	pid_t	child_id;
-// 	char	*command_wp;
-
-// 	child_id = fork();
-// 	if (child_id < 0)
-// 	{
-// 		perror("fork did not work in execute_last_cmd");
-// 		mshell->envs->status = 1;
-// 		return (-1);
-// 	}
-// 	if (child_id == 0)
-// 	{
-// 		dup2(prev_read_end, STDIN_FILENO);
-// 		close(prev_read_end);
-// 		io_redirect(curr_cmd);
-// 		if (!is_builtin_cmd(curr_cmd->command_args))
-// 		{
-// 			command_wp = return_cmd_with_path(curr_cmd->command_args[0],
-// 					mshell);
-// 			if (execve(command_wp, curr_cmd->command_args, envp) == -1)
-// 			{
-// 				perror("execve failed");
-// 				if (errno == ENOENT)
-// 					exit(127);
-// 				else
-// 					exit(126);
-// 			}
-// 		}
-// 		else
-// 		{
-// 			execute_builtin(curr_cmd->command_args, mshell, exit_status);
-// 			exit(EXIT_SUCCESS);
-// 		}
-// 	}
-// 	close(prev_read_end);
-// 	return (child_id);
-// }
 
 void	wait_for_children(t_minishell *mshell, pid_t child_id, int nbr_children)
 {

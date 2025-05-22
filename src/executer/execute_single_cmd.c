@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 17:07:22 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 17:50:22 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 	int		status;	
 
 	if (!set_all_heredocs(mshell))
-	{
-		mshell->envs->status = 1;
-		return (1);
-	}
+		return (mshell->envs->status = 1, 1);
 	if (command->in && command->in->fd == -2)
 	{
 		mshell->envs->status = 130;
@@ -85,10 +82,7 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 	}
 	pid = fork();
 	if (pid == -1)
-	{
-		mshell->envs->status = 1;
-		return (perror("fork failed"), -1);
-	}
+		return (perror("fork failed"), mshell->envs->status = 1, -1);
 	else if (pid == 0)
 	{
 		handle_signal(CHILD_SIG);

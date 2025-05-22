@@ -6,14 +6,12 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/20 13:24:26 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/22 18:50:51 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-
 
 # include "../libft/libft.h"
 # include <readline/history.h>
@@ -25,9 +23,9 @@
 # include <unistd.h>
 # include <signal.h>
 
-extern volatile sig_atomic_t g_signal_received;
+extern volatile sig_atomic_t	g_signal_received;
 
-typedef enum s_msh_state
+typedef enum	s_msh_state
 {
 	MSH_START,
 	MSH_READLINE,

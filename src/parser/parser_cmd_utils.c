@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/18 15:06:33 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 14:55:18 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 18:48:07 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,24 @@ char	*handle_quoted_arg(t_token *token)
 	return (ft_substr(token->str, 1, len));
 }
 
-int	count_command_args(t_token *token_list)
+int	count_command_args(t_token *token)
 {
 	int	counter;
-	int	redir_flag;
+	int	redir;
 
-	if (!token_list)
+	if (!token)
 		return (-1);
-	if (token_list->type == PIPE)
-		token_list = token_list->next;
+	if (token->type == PIPE)
+		token = token->next;
 	counter = 0;
-	redir_flag = 0;
-	while (token_list && token_list->type != PIPE)
+	redir = 0;
+	while (token && token->type != PIPE)
 	{
-		while (token_list && token_list->type == M_SPACE)
-			token_list = token_list->next;
-		if (token_list && token_list->type == WORD && redir_flag == 1)
-		{
-			if (token_list->next)
-				token_list = token_list->next;
-			redir_flag = 0;
-		}
-		if (token_list && (token_list->type == WORD || token_list->type == ENV)
-			&& redir_flag == 0)
-			counter += 1;
-		if (token_list && (token_list->type == REDIRECT_IN
-				|| token_list->type == REDIRECT_OUT))
-		{
-			redir_flag = 1;
-		}
-		if (token_list)
-			token_list = token_list->next;
+		while (token && token->type == M_SPACE)
+			token = token->next;
+		handle_token_counter(&token, &counter, &redir);
+		if (token)
+			token = token->next;
 	}
 	return (counter);
 }

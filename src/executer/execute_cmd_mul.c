@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/18 17:51:53 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/20 13:28:26 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/22 18:12:05 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	setup_pipe(t_pipe_io *pipe_io)
 	return (0);
 }
 
-pid_t	fork_child(t_minishell *mshell, t_command *curr_cmd, t_pipe_io *pipe_io, int *exit_status)
+pid_t	fork_child(t_minishell *mshell, t_command *curr_cmd,
+			t_pipe_io *pipe_io, int *exit_status)
 {
 	pid_t	child_id;
 
@@ -60,7 +61,7 @@ void	execute_pipeline(t_minishell *mshell, int *exit_status,
 
 int	execute_multiple_cmd(t_minishell *mshell, int *exit_status)
 {
-	int	nbr_children;
+	int			nbr_children;
 	t_pipe_io	*pipe_io;
 
 	nbr_children = 0;
@@ -74,43 +75,3 @@ int	execute_multiple_cmd(t_minishell *mshell, int *exit_status)
 	free(pipe_io);
 	return (0);
 }
-
-// int	execute_multiple_cmd(char **envp, t_minishell *mshell, int *exit_status)
-// {
-// 	t_command	*curr_cmd;
-// 	int			pipe_fd[2];
-// 	int			nbr_children;
-// 	pid_t		child_id;
-// 	int			prev_read_end;
-
-// 	curr_cmd = mshell->commands;
-// 	prev_read_end = STDIN_FILENO;
-// 	nbr_children = 0;
-// 	if (!set_all_heredocs(mshell))
-// 		return (1);
-// 	while (curr_cmd->next != NULL)
-// 	{
-// 		nbr_children++;
-// 		if (pipe(pipe_fd) == -1)
-// 		{
-// 			mshell->envs->status = 1;
-// 			return (-1);
-// 		}
-// 		child_id = fork();
-// 		if (child_id == -1)
-// 		{
-// 			mshell->envs->status = 1;
-// 			return (-1);
-// 		}
-// 		if (child_id == 0)
-// 			execute_child(mshell, curr_cmd, envp, pipe_fd, 
-//				prev_read_end, exit_status);
-// 		prev_read_end = update_pipe_fd(pipe_fd, prev_read_end);
-// 		curr_cmd = curr_cmd->next;
-// 	}
-// 	child_id = execute_last_cmd(mshell, curr_cmd, envp,
-//	prev_read_end, exit_status);
-// 	wait_for_children(mshell, child_id, nbr_children);
-// 	mshell->envs->status = mshell->envs->status;
-// 	return (0);
-// }

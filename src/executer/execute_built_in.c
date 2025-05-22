@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 10:04:20 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/19 11:38:29 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 18:27:42 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ void	execute_builtin(char **args, t_minishell *mshell, int *exit_status)
 		exec_echo(args, mshell);
 }
 
+int	save_fd(int fd)
+{
+	int	saved_fd;
+
+	saved_fd = dup(fd);
+	if (saved_fd == -1)
+		exit(EXIT_FAILURE);
+	return (saved_fd);
+}
+
 void	execute_if_builtin(t_command *cmd, t_minishell *mshell,
 	int *exit_status)
 {
@@ -39,23 +49,9 @@ void	execute_if_builtin(t_command *cmd, t_minishell *mshell,
 	saved_stdout = 0;
 	saved_stdin = 0;
 	if (cmd->in)
-	{
-		saved_stdin = dup(STDIN_FILENO);
-		if (saved_stdin == -1)
-		{
-			perror("dup2 failed");
-			exit(EXIT_FAILURE);
-		}
-	}
+		saved_stdin = save_fd(STDIN_FILENO);
 	if (cmd->out)
-	{
-		saved_stdout = dup(STDOUT_FILENO);
-		if (saved_stdout == -1)
-		{
-			perror("dup2 failed");
-			exit(EXIT_FAILURE);
-		}
-	}
+		saved_stdout = save_fd(STDOUT_FILENO);
 	io_redirect(cmd);
 	execute_builtin(cmd->command_args, mshell, exit_status);
 	if (saved_stdout != 0)

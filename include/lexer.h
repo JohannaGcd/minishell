@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:07 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/18 16:54:01 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/22 18:49:04 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_command	*extract_commands(t_token *token_list);
 // parser_redir.c
 void		set_redirection(t_redirection **redir, t_token *tokens, int is_in);
 void		fill_redirections(t_command **command, t_token *tokens);
+void		handle_token_counter(t_token **token, int *counter, int *redir);
 
 // parser_utils.c
 t_token		*skip_spaces(t_token *token);
