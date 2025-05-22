@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 10:25:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 13:41:12 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/22 14:42:02 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,55 +33,24 @@ void	set_main_signal(void)
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
-//HEREDOC
 
-void sig_heredoc(int signum)
+void	sig_heredoc(int signum)
 {
-    g_signal_received = signum;
-	//printf("exit\n");
-    //write(STDOUT_FILENO, "\0", 1);
-	// write(STDOUT_FILENO, "\n", 1);
-    // rl_replace_line("", 0);
-    // rl_on_new_line();
-	// rl_redisplay();
+	g_signal_received = signum;
 	rl_done = 1;
 }
 
-void set_heredoc_signal(void)
+void	set_heredoc_signal(void)
 {
-    struct sigaction sa;
-    sa.sa_handler = sig_heredoc;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGINT, &sa, NULL);
-    signal(SIGQUIT, SIG_IGN);
+	struct sigaction	sa;
+
+	sa.sa_handler = sig_heredoc;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }
-//-----
-// void	sig_heredoc(int signum)
-// {
-// 	(void)signum;
-// 	write(STDOUT_FILENO, "\n", 1);
-// 	rl_replace_line("", 0);
-// 	rl_on_new_line();
-// 	exit(1);
-// }
 
-// void	set_heredoc_signal(void)
-// {
-// 	struct sigaction	sa;
-
-// 	sa.sa_handler = sig_heredoc;
-// 	sigemptyset(&sa.sa_mask);
-// 	sa.sa_flags = 0;
-// 	sigaction(SIGINT, &sa, NULL);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
-
-//SIG_DFL: This constant sets the signal handler to the default
-// action defined by the system. 
-//For both SIGINT and SIGQUIT, this usually means terminating the process.
-//SIG_IGN: This constant sets the signal handler to ignore the signal, 
-//meaning the process will not respond to the signal.
 void	handle_signal(int mode)
 {
 	if (mode == MAIN_SIG)

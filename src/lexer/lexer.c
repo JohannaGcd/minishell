@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:41 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/12 12:53:13 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 15:27:08 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 		get_full_token[new_token->type](current_pos, input_str,
 			input_str[*current_pos]);
 	length = *current_pos - start_pos;
-	new_token->str = ft_substr(input_str, start_pos, length);
+	if (length > 0)
+		new_token->str = ft_substr(input_str, start_pos, length);
+	else
+		new_token->str = NULL;
 }
 
 // To extract the complete list of tokens from the input string

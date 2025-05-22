@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/20 11:46:01 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 14:38:42 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 		return (MSH_EXIT);
 	}
 	init_env(envp, env);
-	//debug
-	//printf("debug\n");
-	//end debug
 	mshell->envs = env;
 	mshell->input_str = NULL;
 	mshell->commands = NULL;

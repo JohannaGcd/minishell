@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 13:51:19 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/22 15:06:52 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int	read_heredoc(char *delimiter)
 	int		pipe_fd[2];
 	char	*line;
 
+	if (!delimiter)
+	{
+		perror("syntax error");
+		return (-1);
+	}
 	if (pipe(pipe_fd) == -1)
 	{
 		perror("Error with pipe in handle heredoc.");

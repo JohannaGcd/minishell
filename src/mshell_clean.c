@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:49:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/20 11:42:49 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 14:51:01 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,34 +65,22 @@ t_msh_state	mshell_clean(t_minishell *mshell, int *exit_status)
 {
 	(void)exit_status;
 	if (mshell->input_str)
-	{
 		free(mshell->input_str);
-		mshell->input_str = NULL;
-	}
+	mshell->input_str = NULL;
 	if (mshell->tokens)
-	{
 		clean_tokens(mshell->tokens);
-		mshell->tokens = NULL;
-	}
+	mshell->tokens = NULL;
 	if (mshell->commands)
-	{
 		clean_commands(mshell->commands);
-		mshell->commands = NULL;
-	}
+	mshell->commands = NULL;
 	if (mshell->envs)
-	{
 		clean_env(&(mshell->envs));
-		mshell->envs = NULL;
-	}
+	mshell->envs = NULL;
 	if (mshell->old_pwd)
-	{
 		free(mshell->old_pwd);
-		mshell->old_pwd = NULL;
-	}
+	mshell->old_pwd = NULL;
 	if (mshell->pwd)
-	{
 		free(mshell->pwd);
-		mshell->pwd = NULL;
-	}
+	mshell->pwd = NULL;
 	return (MSH_EXIT);
 }
