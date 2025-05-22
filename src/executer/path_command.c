@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/25 21:19:03 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/20 15:20:00 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 16:08:08 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*return_cmd_w_path(char *command, t_minishell *mshell)
 	char	*command_with_path;
 
 	if (access(command, X_OK) == 0)
-		return (command);
+		return (ft_strdup(command));
 	paths = extract_env("$PATH", mshell->envs, 5);
 	if (!paths)
 		return (NULL);
