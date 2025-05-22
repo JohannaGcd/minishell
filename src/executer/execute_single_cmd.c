@@ -85,9 +85,16 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 		return (perror("fork failed"), -1);
 	}
 	else if (pid == 0)
+	{
+		handle_signal(CHILD_SIG);
 		execute_child_single_cmd(command, envp);
+		handle_signal(PARENT_SIG);
+	}
 	else
+	{
+		handle_signal(PARENT_SIG);
 		execute_parent_single_cmd(mshell, &status, pid);
+	}
 	return (0);
 }
 
