@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/20 13:36:31 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/22 13:51:19 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	read_heredoc(char *delimiter)
 	{
 		if (g_signal_received)
 		{
-			g_signal_received = 0;
+			//g_signal_received = 0;
 			break;  
 		}
 
 		//rl_catch_signals = 0;
-		line = readline("heredoc> ");
+		line = readline("> ");
 		//printf("line: %s\n", line);
 		if (!line || (strcmp(line, delimiter) == 0))
 		{
@@ -66,18 +66,18 @@ int	read_heredoc(char *delimiter)
 		write(pipe_fd[1], "\n", 1);
 		free(line);
 	}
-	handle_signal(MAIN_SIG);
+	handle_signal(PARENT_SIG);
 	close(pipe_fd[1]);
-	if (signal_received )
+	if (g_signal_received )
 	{
-	signal_received = 0;
-	//close(pipe_fd[0]);
-	//printf("HERE2.1\n");
-	//return (-2);
-	return (pipe_fd[0]);
+		g_signal_received = 0;
+		close(pipe_fd[0]);
+		//printf("HERE2.1\n");
+		//return (-2);
+		return (-2);
 	}
 	else
-	return (pipe_fd[0]);
+		return (pipe_fd[0]);
 }
 
 void	handle_heredoc(t_minishell *mshell, t_command **command)
@@ -90,7 +90,7 @@ void	handle_heredoc(t_minishell *mshell, t_command **command)
 		if (redir->type == HEREDOC)
 		{
 			redir->fd = read_heredoc(redir->file);
-			write(1,"HERE3\n",6);
+			//write(1,"HERE3\n",6);
 			if (redir->fd == -1)
 			{
 				perror("failed to set up heredoc\n");
