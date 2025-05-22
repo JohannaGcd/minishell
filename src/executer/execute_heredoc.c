@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/20 15:29:49 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 12:50:34 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ bool	set_all_heredocs(t_minishell *mshell)
 	}
 	return (true);
 }
+int event(void)
+{	
+	return (1);
+}
 
 // TODO: add a check if delimiter is empty
 int	read_heredoc(char *delimiter)
@@ -39,6 +43,7 @@ int	read_heredoc(char *delimiter)
 		perror("Error with pipe in handle heredoc.");
 		return (-1);
 	}
+	rl_event_hook = event;
 	handle_signal(HEREDOC_SIG);
 	
 	// signal(SIGQUIT, SIG_IGN);
@@ -46,18 +51,19 @@ int	read_heredoc(char *delimiter)
 	{
 		if (signal_received)
 		{
-			signal_received = 0;
+			//signal_received = 0;
 			break;  
 		}
 		//printf("HERE\n");
-		rl_catch_signals = 0;
+		//rl_catch_signals = 0;
 		line = readline("heredoc> ");
-		printf("line: %s\n", line);
+		//printf("line: %s\n", line);
 		if (!line || (strcmp(line, delimiter) == 0))
 		{
 			free(line);
 			break ;
 		}
+		//printf("HH\n");
 		write(pipe_fd[1], line, ft_strlen(line));
 		write(pipe_fd[1], "\n", 1);
 		free(line);
@@ -65,6 +71,15 @@ int	read_heredoc(char *delimiter)
 	handle_signal(MAIN_SIG);
 	//printf("HERE2\n");
 	close(pipe_fd[1]);
+	if (signal_received )
+	{
+	signal_received = 0;
+	//close(pipe_fd[0]);
+	//printf("HERE2.1\n");
+	//return (-2);
+	return (pipe_fd[0]);
+	}
+	else
 	return (pipe_fd[0]);
 }
 
@@ -78,6 +93,7 @@ void	handle_heredoc(t_minishell *mshell, t_command **command)
 		if (redir->type == HEREDOC)
 		{
 			redir->fd = read_heredoc(redir->file);
+			write(1,"HERE3\n",6);
 			if (redir->fd == -1)
 			{
 				perror("failed to set up heredoc\n");
