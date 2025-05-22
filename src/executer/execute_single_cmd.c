@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/20 15:27:54 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 13:56:22 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,15 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 
 	if (!set_all_heredocs(mshell))
 	{
+		//printf("we are here\n");
 		mshell->envs->status = 1;
 		return (1);
+	}
+	if (command->in && command->in->fd == -2)
+	{
+		//printf("we are here -2\n");
+		mshell->envs->status = 130;
+		return (0);
 	}
 	pid = fork();
 	if (pid == -1)
@@ -85,9 +92,16 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 		return (perror("fork failed"), -1);
 	}
 	else if (pid == 0)
+	{
+		handle_signal(CHILD_SIG);
 		execute_child_single_cmd(command, envp);
+		handle_signal(PARENT_SIG);
+	}
 	else
+	{
+		handle_signal(PARENT_SIG);
 		execute_parent_single_cmd(mshell, &status, pid);
+	}
 	return (0);
 }
 
