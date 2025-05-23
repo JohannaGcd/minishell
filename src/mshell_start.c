@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 14:38:42 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 19:37:02 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 	mshell->input_str = NULL;
 	mshell->commands = NULL;
 	mshell->tokens = NULL;
-	mshell->isExit = 0;
+	mshell->is_exit = 0;
 	mshell->pwd = ft_strdup(get_env_var(mshell->envs, "PWD"));
 	mshell->old_pwd = ft_strdup(get_env_var(mshell->envs, "OLDPWD"));
 	return (MSH_READLINE);

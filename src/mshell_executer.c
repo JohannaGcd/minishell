@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:01 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 11:15:04 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/22 19:37:02 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_msh_state	mshell_executer(t_minishell *mshell, int *exit_status)
 {
 	execute_commands(mshell, exit_status);
-	if (mshell->isExit == 1)
+	if (mshell->is_exit == 1)
 		return (MSH_CLEAN);
 	if (mshell->commands)
 	{

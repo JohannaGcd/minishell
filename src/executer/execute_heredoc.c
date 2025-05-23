@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 18:09:57 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 19:37:02 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	set_all_heredocs(t_minishell *mshell)
 	while (cmd)
 	{
 		handle_heredoc(mshell, &cmd);
-		if (mshell->isExit != 0)
+		if (mshell->is_exit != 0)
 			return (false);
 		cmd = cmd->next;
 	}
@@ -35,40 +35,16 @@ int	event(void)
 
 int	read_heredoc(char *delimiter)
 {
-	int		pipe_fd[2];
-	char	*line;
+	int		write_fd;
+	int		read_fd;
 
-	if (pipe(pipe_fd) == -1)
-	{
-		perror("Error with pipe in handle heredoc.");
+	write_fd = setup_heredoc_pipe();
+	if (write_fd == -1)
 		return (-1);
-	}
 	rl_event_hook = event;
 	handle_signal(HEREDOC_SIG);
-	while (1)
-	{
-		if (g_signal_received)
-			break ;
-		line = readline("> ");
-		if (!line || (strcmp(line, delimiter) == 0))
-		{
-			free(line);
-			break ;
-		}
-		write(pipe_fd[1], line, ft_strlen(line));
-		write(pipe_fd[1], "\n", 1);
-		free(line);
-	}
-	handle_signal(PARENT_SIG);
-	close(pipe_fd[1]);
-	if (g_signal_received)
-	{
-		g_signal_received = 0;
-		close(pipe_fd[0]);
-		return (-2);
-	}
-	else
-		return (pipe_fd[0]);
+	read_fd = process_heredoc_input(write_fd, delimiter);
+	return (read_fd);
 }
 
 void	handle_heredoc(t_minishell *mshell, t_command **command)

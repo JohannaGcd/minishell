@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/19 14:23:10 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 08:54:06 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ void	init_pipe_io(t_pipe_io *pipe_io);
 void	execute_pipeline(t_minishell *mshell, int *exit_status,
 			int *nbr_children, t_pipe_io *pipe_io);
 void	setup_last_child_io(int prev_read_end);
-
+void	write_line_to_pipe(int pipe_fd, char *line);
+int		setup_heredoc_pipe(void);
+int		process_heredoc_input(int write_fd, char *delimiter);
 #endif

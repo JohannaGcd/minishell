@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/19 21:32:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/15 11:00:29 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/22 19:37:02 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	exec_exit(char **command_args, t_minishell *mshell, int *exit_status)
 			*exit_status = 255;
 		}
 	}
-	mshell->isExit = 1;
+	mshell->is_exit = 1;
 	return (*exit_status);
 }

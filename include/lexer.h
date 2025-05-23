@@ -80,4 +80,11 @@ int			count_command_args(t_token *token_list);
 void		skip_initial_tokens(t_token **token_list);
 int			count_len(int len, t_token **token_list);
 int			correct_token(t_token **token_list);
+
+// parser_cmd_arg_utils.c
+void		perror_allocate_with_exit(void);
+char		*build_argument_string(t_token **token_list);
+void		skip_redirection_tokens(t_token **token_list);
+void		process_argument(t_token **token_list, char **command_args, int *i);
+
 #endif
