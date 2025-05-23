@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 08:54:06 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 13:41:38 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exec_pwd(char **command_args, t_minishell *mshell);
 void	exec_cd(char **command_args, t_minishell *mshell);
 void	exec_echo(char **command_args, t_minishell *mshell);
 int		is_builtin_cmd(char **command_args);
-void	execute_if_builtin(t_command *cmd, t_minishell *mshell,
+void	redirect_for_builtin(t_command *cmd, t_minishell *mshell,
 			int *exit_status);
 void	execute_builtin(char **command_args, t_minishell *mshell,
 			int *exit_status);
@@ -73,4 +73,8 @@ void	setup_last_child_io(int prev_read_end);
 void	write_line_to_pipe(int pipe_fd, char *line);
 int		setup_heredoc_pipe(void);
 int		process_heredoc_input(int write_fd, char *delimiter);
+void	set_up_child_fds(t_pipe_io *pipe_io);
+void	handle_builtin(t_command *curr_cmd, t_minishell *mshell,
+			int *exit_status);
+
 #endif

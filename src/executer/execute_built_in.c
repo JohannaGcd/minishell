@@ -6,12 +6,20 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 10:04:20 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 18:27:42 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 12:18:19 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
+void	handle_builtin(t_command *curr_cmd, t_minishell *mshell,
+	int *exit_status)
+{
+	execute_builtin(curr_cmd->command_args, mshell, exit_status);
+	exit(EXIT_SUCCESS);
+}
+
+// Launches the execution of the appropriate built-in command
 void	execute_builtin(char **args, t_minishell *mshell, int *exit_status)
 {
 	if (ft_strncmp(args[0], "export", 7) == 0)
@@ -30,6 +38,7 @@ void	execute_builtin(char **args, t_minishell *mshell, int *exit_status)
 		exec_echo(args, mshell);
 }
 
+// Saves the fd before dup2 redirects
 int	save_fd(int fd)
 {
 	int	saved_fd;
@@ -40,7 +49,8 @@ int	save_fd(int fd)
 	return (saved_fd);
 }
 
-void	execute_if_builtin(t_command *cmd, t_minishell *mshell,
+// Handles redirections of STDIN/OUT for built-in commands.
+void	redirect_for_builtin(t_command *cmd, t_minishell *mshell,
 	int *exit_status)
 {
 	int	saved_stdin;

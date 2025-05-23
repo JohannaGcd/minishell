@@ -6,28 +6,19 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 11:59:19 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 13:38:05 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-int	execute_child(t_minishell *mshell, t_command *curr_cmd,
-	t_pipe_io *pipe_io, int *exit_status)
+// Handles the actual execution of the command depending on the type
+void	use_exec_or_builtin(t_command *cmd, t_minishell *mshell,
+	char **envp, int *exit_status)
 {
-	char	**envp;
-
-	envp = prep_env_and_path(mshell, curr_cmd);
-	if (!envp && !is_builtin_cmd(curr_cmd->command_args))
-		exit(EXIT_FAILURE);
-	close(pipe_io->pipe_fd[0]);
-	dup2(pipe_io->prev_read_end, STDIN_FILENO);
-	dup2(pipe_io->pipe_fd[1], STDOUT_FILENO);
-	close(pipe_io->pipe_fd[1]);
-	io_redirect(curr_cmd);
-	if (!is_builtin_cmd(curr_cmd->command_args))
+	if (!is_builtin_cmd(cmd->command_args))
 	{
-		if (execve(curr_cmd->command_args[0], curr_cmd->command_args, envp) == -1)
+		if (execve(cmd->command_args[0], cmd->command_args, envp) == -1)
 		{
 			perror("execve failed");
 			free_array(envp);
@@ -36,43 +27,28 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 	}
 	else
 	{
-		execute_builtin(curr_cmd->command_args, mshell, exit_status);
+		execute_builtin(cmd->command_args, mshell, exit_status);
 		free_array(envp);
 		exit(EXIT_SUCCESS);
 	}
-	free_array(envp);
-	return (0);
 }
 
-// int	execute_child(t_minishell *mshell, t_command *curr_cmd,
-// 	t_pipe_io *pipe_io, int *exit_status)
-// {
-// 	char	*command_wp;
-// 	char	**envp;
+// Execution of each child process: gets the envp, the command_path
+// then handles the pipe fds and the redirections
+// before calling the function to execute either builtin command or execve.
+int	execute_child(t_minishell *mshell, t_command *curr_cmd,
+	t_pipe_io *pipe_io, int *exit_status)
+{
+	char	**envp;
 
-// 	envp = envs_to_envp(mshell->envs);
-// 	close(pipe_io->pipe_fd[0]);
-// 	dup2(pipe_io->prev_read_end, STDIN_FILENO);
-// 	dup2(pipe_io->pipe_fd[1], STDOUT_FILENO);
-// 	close(pipe_io->pipe_fd[1]);
-// 	io_redirect(curr_cmd);
-// 	if (!is_builtin_cmd(curr_cmd->command_args))
-// 	{
-// 		command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);
-// 		if (execve(command_wp, curr_cmd->command_args, envp) == -1)
-// 		{
-// 			perror("execve failed");
-// 			exit(EXIT_FAILURE);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		execute_builtin(curr_cmd->command_args, mshell, exit_status);
-// 		exit(EXIT_SUCCESS);
-// 	}
-// 	free_array(envp);
-// 	return (0);
-// }
+	envp = prep_env_and_path(mshell, curr_cmd);
+	if (!envp && !is_builtin_cmd(curr_cmd->command_args))
+		exit(EXIT_FAILURE);
+	set_up_child_fds(pipe_io);
+	io_redirect(curr_cmd);
+	use_exec_or_builtin(curr_cmd, mshell, envp, exit_status);
+	return (0);
+}
 
 void	execute_command(char *command_wp, char **command_args, char **envp)
 {
@@ -88,13 +64,6 @@ void	execute_command(char *command_wp, char **command_args, char **envp)
 			exit(126);
 		}
 	}
-}
-
-void	handle_builtin(t_command *curr_cmd, t_minishell *mshell,
-		int *exit_status)
-{
-	execute_builtin(curr_cmd->command_args, mshell, exit_status);
-	exit(EXIT_SUCCESS);
 }
 
 int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,

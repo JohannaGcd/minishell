@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:21:54 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 15:02:42 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 13:38:16 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,12 @@ void	io_redirect(t_command *command)
 {
 	handle_input_redirections(command);
 	handle_output_redirections(command);
+}
+
+void	set_up_child_fds(t_pipe_io *pipe_io)
+{
+	close(pipe_io->pipe_fd[0]);
+	dup2(pipe_io->prev_read_end, STDIN_FILENO);
+	dup2(pipe_io->pipe_fd[1], STDOUT_FILENO);
+	close(pipe_io->pipe_fd[1]);
 }

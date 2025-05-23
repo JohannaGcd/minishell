@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 09:05:55 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 13:51:21 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ t_msh_state			mshell_syntaxer(t_minishell *mshell, int *exit_status);
 t_msh_state			mshell_parser(t_minishell *mshell, int *exit_status);
 t_msh_state			mshell_executer(t_minishell *mshell, int *exit_status);
 t_msh_state			mshell_clean(t_minishell *mshell, int *exit_status);
+
 void				handle_signal(int mode);
 void				clean_commands(t_command *commands);
 

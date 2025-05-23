@@ -6,12 +6,14 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 11:47:29 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 12:22:05 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
+// Returns the envp and replaced the command stored in command_args[0]
+// with the appropriate executable path.
 char	**prep_env_and_path(t_minishell *mshell, t_command *current)
 {
 	char	**envp;
@@ -39,6 +41,7 @@ char	**prep_env_and_path(t_minishell *mshell, t_command *current)
 	return (envp);
 }
 
+// Handles redirections and launches execve.
 void	execute_child_single_cmd(t_command *command, char **envp)
 {
 	io_redirect(command);
@@ -52,6 +55,8 @@ void	execute_child_single_cmd(t_command *command, char **envp)
 	}
 }
 
+// Parent process waits for the execution of the child process
+// and retrieves the exit status.
 void	execute_parent_single_cmd(t_minishell *mshell, int *status, int pid)
 {
 	mshell->envs->status = 0;
@@ -68,6 +73,8 @@ void	execute_parent_single_cmd(t_minishell *mshell, int *status, int pid)
 	}
 }
 
+// Triggers the execution of the single command in the child process
+// and the handling by the parent.
 int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 {
 	pid_t	pid;
@@ -97,6 +104,7 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 	return (0);
 }
 
+// Gets the envp and triggers the execution of the command.
 int	execute_if_single_command(t_command *cmd, t_minishell *mshell)
 {
 	char	**envp;
