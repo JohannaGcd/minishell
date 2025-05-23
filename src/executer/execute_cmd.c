@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 18:16:28 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 11:59:19 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 	t_pipe_io *pipe_io, int *exit_status)
 {
-	char	*command_wp;
 	char	**envp;
 
-	envp = envs_to_envp(mshell->envs);
+	envp = prep_env_and_path(mshell, curr_cmd);
+	if (!envp && !is_builtin_cmd(curr_cmd->command_args))
+		exit(EXIT_FAILURE);
 	close(pipe_io->pipe_fd[0]);
 	dup2(pipe_io->prev_read_end, STDIN_FILENO);
 	dup2(pipe_io->pipe_fd[1], STDOUT_FILENO);
@@ -26,21 +27,52 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 	io_redirect(curr_cmd);
 	if (!is_builtin_cmd(curr_cmd->command_args))
 	{
-		command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);
-		if (execve(command_wp, curr_cmd->command_args, envp) == -1)
+		if (execve(curr_cmd->command_args[0], curr_cmd->command_args, envp) == -1)
 		{
 			perror("execve failed");
+			free_array(envp);
 			exit(EXIT_FAILURE);
 		}
 	}
 	else
 	{
 		execute_builtin(curr_cmd->command_args, mshell, exit_status);
+		free_array(envp);
 		exit(EXIT_SUCCESS);
 	}
 	free_array(envp);
 	return (0);
 }
+
+// int	execute_child(t_minishell *mshell, t_command *curr_cmd,
+// 	t_pipe_io *pipe_io, int *exit_status)
+// {
+// 	char	*command_wp;
+// 	char	**envp;
+
+// 	envp = envs_to_envp(mshell->envs);
+// 	close(pipe_io->pipe_fd[0]);
+// 	dup2(pipe_io->prev_read_end, STDIN_FILENO);
+// 	dup2(pipe_io->pipe_fd[1], STDOUT_FILENO);
+// 	close(pipe_io->pipe_fd[1]);
+// 	io_redirect(curr_cmd);
+// 	if (!is_builtin_cmd(curr_cmd->command_args))
+// 	{
+// 		command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);
+// 		if (execve(command_wp, curr_cmd->command_args, envp) == -1)
+// 		{
+// 			perror("execve failed");
+// 			exit(EXIT_FAILURE);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		execute_builtin(curr_cmd->command_args, mshell, exit_status);
+// 		exit(EXIT_SUCCESS);
+// 	}
+// 	free_array(envp);
+// 	return (0);
+// }
 
 void	execute_command(char *command_wp, char **command_args, char **envp)
 {
