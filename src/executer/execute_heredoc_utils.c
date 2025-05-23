@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 19:37:02 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 08:56:03 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,4 @@ int	process_heredoc_input(int write_fd, char *delimiter)
 		return (-2);
 	}
 	return (read_fd);
-} 
+}

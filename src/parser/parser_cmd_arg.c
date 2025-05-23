@@ -12,68 +12,17 @@
 
 #include "lexer.h"
 
-void	perror_allocate_with_exit(void)
-{
-	perror("Failed to allocate memory");
-	exit(EXIT_FAILURE);
-}
-
-char	*build_argument_string(t_token **token_list)
-{
-	char	*str;
-	char	*str_tmp;
-	char	*tmp_quotes;
-	size_t	len;
-
-	len = 0;
-	str = NULL;
-	while (correct_token(token_list))
-	{
-		len = count_len(len, token_list);
-		if ((*token_list)->type == D_QUOTE || (*token_list)->type == S_QUOTE)
-		{
-			tmp_quotes = handle_quoted_arg(*token_list);
-			str_tmp = ft_strjoin(str, tmp_quotes);
-			free(tmp_quotes);
-		}
-		else
-			str_tmp = ft_strjoin(str, (*token_list)->str);
-		free(str);
-		str = str_tmp;
-		*token_list = (*token_list)->next;
-	}
-	return (str);
-}
-
 void	copy_command_args(char **command_args, t_token *token_list)
 {
-	int		i;
-	char	*str;
+	int	i;
 
 	i = 0;
-	str = NULL;
 	skip_initial_tokens(&token_list);
 	while (token_list && token_list->type != PIPE)
 	{
 		if (token_list->type == REDIRECT_IN || token_list->type == REDIRECT_OUT)
-		{
-			token_list = token_list->next;
-			while (token_list && token_list->type == M_SPACE)
-				token_list = token_list->next;
-			if (token_list)
-				token_list = token_list->next;
-			while (token_list && token_list->type == M_SPACE)
-				token_list = token_list->next;
-		}
-		while (token_list && token_list->type == M_SPACE)
-			token_list = token_list->next;
-		if ((token_list) && (token_list->type == WORD
-				|| token_list->type == S_QUOTE || token_list->type == D_QUOTE
-				|| token_list->type == ENV))
-		{
-			str = build_argument_string(&token_list);
-			command_args[i++] = str;
-		}
+			skip_redirection_tokens(&token_list);
+		process_argument(&token_list, command_args, &i);
 	}
 	command_args[i] = NULL;
 }
