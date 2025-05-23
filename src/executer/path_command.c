@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/25 21:19:03 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 16:08:08 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 11:46:42 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*return_cmd_w_path(char *command, t_minishell *mshell)
 	char	**list_of_paths;
 	char	*command_with_path;
 
-	if (access(command, X_OK) == 0)
+	if (ft_strncmp(command, "./", 2) == 0 && access(command, X_OK) == 0)
 		return (ft_strdup(command));
 	paths = extract_env("$PATH", mshell->envs, 5);
 	if (!paths)
@@ -61,6 +61,8 @@ char	*return_cmd_w_path(char *command, t_minishell *mshell)
 	if (!list_of_paths)
 		return (free(paths), NULL);
 	command_with_path = find_path(list_of_paths, command);
+	if (!command_with_path)
+		return (NULL);
 	free(paths);
 	free_split(list_of_paths);
 	return (command_with_path);
