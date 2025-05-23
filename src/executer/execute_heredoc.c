@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 18:09:57 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 19:37:02 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	set_all_heredocs(t_minishell *mshell)
 	while (cmd)
 	{
 		handle_heredoc(mshell, &cmd);
-		if (mshell->isExit != 0)
+		if (mshell->is_exit != 0)
 			return (false);
 		cmd = cmd->next;
 	}
@@ -59,7 +59,6 @@ int	read_heredoc(char *delimiter)
 		write(pipe_fd[1], "\n", 1);
 		free(line);
 	}
-	handle_signal(PARENT_SIG);
 	close(pipe_fd[1]);
 	if (g_signal_received)
 	{

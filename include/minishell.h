@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 18:50:51 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/22 19:39:15 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 extern volatile sig_atomic_t	g_signal_received;
 
-typedef enum	s_msh_state
+typedef enum s_msh_state
 {
 	MSH_START,
 	MSH_READLINE,
@@ -100,7 +100,7 @@ typedef struct s_minishell
 	char		*input_str;
 	t_token		*tokens;
 	t_command	*commands;
-	int			isExit;
+	int			is_exit;
 	char		*pwd;
 	char		*old_pwd;
 }	t_minishell;
@@ -122,14 +122,14 @@ typedef struct s_pipe_io
 
 typedef t_msh_state	(*t_msh_function)(t_minishell *mshell, int *exit_status);
 
-t_msh_state		mshell_start(t_minishell *mshell, char **envp);
-t_msh_state		mshell_readline(t_minishell *mshell, int *exit_status);
-t_msh_state		mshell_lexer(t_minishell *mshell, int *exit_status);
-t_msh_state		mshell_syntaxer(t_minishell *mshell, int *exit_status);
-t_msh_state		mshell_parser(t_minishell *mshell, int *exit_status);
-t_msh_state		mshell_executer(t_minishell *mshell, int *exit_status);
-t_msh_state		mshell_clean(t_minishell *mshell, int *exit_status);
-void			handle_signal(int mode);
-void			clean_commands(t_command *commands);
+t_msh_state			mshell_start(t_minishell *mshell, char **envp);
+t_msh_state			mshell_readline(t_minishell *mshell, int *exit_status);
+t_msh_state			mshell_lexer(t_minishell *mshell, int *exit_status);
+t_msh_state			mshell_syntaxer(t_minishell *mshell, int *exit_status);
+t_msh_state			mshell_parser(t_minishell *mshell, int *exit_status);
+t_msh_state			mshell_executer(t_minishell *mshell, int *exit_status);
+t_msh_state			mshell_clean(t_minishell *mshell, int *exit_status);
+void				handle_signal(int mode);
+void				clean_commands(t_command *commands);
 
 #endif
