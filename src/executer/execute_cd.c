@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/11 21:46:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 19:33:42 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 12:26:18 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ bool	check_arg_count(char **command_args, t_minishell *mshell)
 
 void	change_old_path(char *path, t_minishell *mshell)
 {
-	free(mshell->old_pwd);
+	if (mshell->old_pwd)
+		free(mshell->old_pwd);
 	mshell->old_pwd = ft_strdup(path);
 	if (find_env_var(mshell->envs, "PWD")
 		&& find_env_var(mshell->envs, "OLDPWD"))
@@ -75,6 +76,8 @@ void	exec_cd(char **command_args, t_minishell *mshell)
 		return ;
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		old_path = ft_strdup(cwd);
+	else
+		old_path = ft_strdup(mshell->pwd);
 	if (command_args[1])
 		path = command_args[1];
 	else
@@ -84,5 +87,6 @@ void	exec_cd(char **command_args, t_minishell *mshell)
 			return (ft_putendl_fd("Error: HOME not set", 2));
 	}
 	change_dir(path, old_path, mshell);
-	free(old_path);
+	if (old_path)
+		free(old_path);
 }
