@@ -6,12 +6,11 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/22 19:37:02 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 14:58:24 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
-#include "minishell.h" 
 
 bool	set_all_heredocs(t_minishell *mshell)
 {
@@ -33,6 +32,8 @@ int	event(void)
 	return (1);
 }
 
+// Handles heredoc, setting up a pipe 
+// and writing the input of the user into the PIPE.
 int	read_heredoc(char *delimiter)
 {
 	int		write_fd;
@@ -47,6 +48,7 @@ int	read_heredoc(char *delimiter)
 	return (read_fd);
 }
 
+// Checks if there is a heredoc to handle
 void	handle_heredoc(t_minishell *mshell, t_command **command)
 {
 	t_redirection	*redir;

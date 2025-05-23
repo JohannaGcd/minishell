@@ -6,13 +6,13 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 08:56:03 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 14:57:21 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
-#include "minishell.h"
 
+// Writes the lines imputed from STDIN into the pipe for the heredoc
 void	write_line_to_pipe(int pipe_fd, char *line)
 {
 	write(pipe_fd, line, ft_strlen(line));
@@ -20,6 +20,7 @@ void	write_line_to_pipe(int pipe_fd, char *line)
 	free(line);
 }
 
+// Initialises a pipe for the heredoc
 int	setup_heredoc_pipe(void)
 {
 	int	pipe_fd[2];
@@ -32,6 +33,9 @@ int	setup_heredoc_pipe(void)
 	return (pipe_fd[1]);
 }
 
+// Prompts the user to write in STDIN
+// Reads from STDIN until the delimiter
+// Writes each line into the pipe
 int	process_heredoc_input(int write_fd, char *delimiter)
 {
 	char	*line;

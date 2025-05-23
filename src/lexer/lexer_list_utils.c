@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:30 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/01 15:54:17 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 14:41:46 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_token	*create_new_token(void)
 	return (new);
 }
 
+// Creates an empty token and initialises it with default values.
 t_token	*create_token(int type, char *str)
 {
 	t_token	*new;

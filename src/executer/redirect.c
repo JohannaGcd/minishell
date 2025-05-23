@@ -6,12 +6,13 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:21:54 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 13:38:16 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 14:48:50 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
+// Handles input redirections
 void	handle_input_redirections(t_command *command)
 {
 	t_redirection	*red_in;
@@ -31,6 +32,7 @@ void	handle_input_redirections(t_command *command)
 	}
 }
 
+// Handles output redirection
 void	handle_output_redirections(t_command *command)
 {
 	t_redirection	*red_out;
@@ -54,12 +56,14 @@ void	handle_output_redirections(t_command *command)
 	}
 }
 
+// Launches the appropriate redirection function depending on its type
 void	io_redirect(t_command *command)
 {
 	handle_input_redirections(command);
 	handle_output_redirections(command);
 }
 
+// Handles fd for the pipes, for multiple commands specifically.
 void	set_up_child_fds(t_pipe_io *pipe_io)
 {
 	close(pipe_io->pipe_fd[0]);

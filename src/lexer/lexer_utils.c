@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:38 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/01 16:01:49 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 14:41:21 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ void	pipe_token(int *current_pos, char *input_str, char c)
 }
 
 // To extract a single or double quote token
-// TODO: as of now, our minishell behaves so that if there is "hello'w'ord"
-// the token will be "hello'w'ord"
-// but maybe it should be "hello" 'w' "ord"  ?
 void	quote_token(int *current_pos, char *input_str, char c)
 {
 	if (input_str == NULL)

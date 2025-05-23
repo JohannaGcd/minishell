@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 22:28:11 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 15:02:56 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 14:53:49 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	set_or_update_env(t_minishell *mshell, char *var, char *value)
 		change_env_var(mshell->envs, var, value);
 }
 
+// Initialises t_pipe_io, a struct which holds 
+// the pipe read and write end was well as the previous read end.
+// Used for chaining multiple commands
 void	init_pipe_io(t_pipe_io *pipe_io)
 {
 	pipe_io->pipe_fd[0] = -1;
@@ -42,6 +45,8 @@ void	init_pipe_io(t_pipe_io *pipe_io)
 	pipe_io->prev_read_end = STDIN_FILENO;
 }
 
+// Closes unused fd, and saves the prev_read_end of the pipe to share with
+// the next command.
 int	update_pipe_fd(t_pipe_io *pipe_io)
 {
 	close(pipe_io->pipe_fd[1]);
@@ -52,6 +57,8 @@ int	update_pipe_fd(t_pipe_io *pipe_io)
 	return (pipe_io->prev_read_end);
 }
 
+// Handles fd for the last child, closing the prev_read_end and rehabilitating
+// STDIN
 void	setup_last_child_io(int prev_read_end)
 {
 	dup2(prev_read_end, STDIN_FILENO);

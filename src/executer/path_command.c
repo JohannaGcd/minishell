@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/25 21:19:03 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/23 11:46:42 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 14:49:46 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	free_split(char **split_str)
 	free(split_str);
 }
 
+// 
 char	*find_path(char **list_of_paths, char *command)
 {
 	int		i;
@@ -46,6 +47,7 @@ char	*find_path(char **list_of_paths, char *command)
 	return (NULL);
 }
 
+// Finds the command path for execve
 char	*return_cmd_w_path(char *command, t_minishell *mshell)
 {
 	char	*paths;
