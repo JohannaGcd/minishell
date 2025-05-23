@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/18 17:08:49 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/18 17:40:01 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/23 17:42:11 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void	split_and_insert_tokens(t_token *current_token, const char *var)
 	current_token->type = WORD;
 	while (parts_env[i])
 	{
+		new_token = create_token(M_SPACE, " ");
+		if (!new_token)
+			perror("Token creation failed");
+		last_inserted->next = new_token;
+		last_inserted = new_token;
 		new_token = create_token(WORD, parts_env[i]);
 		if (!new_token)
 			perror("Token creation failed");
