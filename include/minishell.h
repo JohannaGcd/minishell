@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:10 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 13:51:21 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 14:36:40 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ typedef struct s_pipe_io
 }	t_pipe_io;
 
 typedef t_msh_state	(*t_msh_function)(t_minishell *mshell, int *exit_status);
-
 t_msh_state			mshell_start(t_minishell *mshell, char **envp);
 t_msh_state			mshell_readline(t_minishell *mshell, int *exit_status);
 t_msh_state			mshell_lexer(t_minishell *mshell, int *exit_status);
