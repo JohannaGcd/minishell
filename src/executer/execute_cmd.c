@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 11:59:19 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 12:28:51 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 		free_array(envp);
 		exit(EXIT_SUCCESS);
 	}
-	free_array(envp);
-	return (0);
+	return (free_array(envp), 0);
 }
 
 // int	execute_child(t_minishell *mshell, t_command *curr_cmd,
