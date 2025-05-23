@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 15:35:34 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 13:15:26 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ t_msh_state	mshell_syntaxer(t_minishell *mshell, int *exit_status)
 t_msh_state	mshell_parser(t_minishell *mshell, int *exit_status)
 {
 	mshell->commands = extract_commands(mshell->tokens);
+	//debug
+	t_command *com;
+	com = mshell->commands;
+	while(com)
+	{
+		int i = 0;
+		while (com->command_args[i])
+		{
+			printf("command[%d]=%s\n",i, com->command_args[i]);
+			i++;
+		}
+		com = com->next;
+	}	
 	if (mshell->commands == NULL)
 	{
 		*exit_status = 1;
