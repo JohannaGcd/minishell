@@ -138,3 +138,32 @@ minishell>exit
 ==2498== For lists of detected and suppressed errors, rerun with: -s
 ==2498== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
 ```
+```shell
+minishell>cd $PWD
+minishell>
+==6152== 
+==6152== HEAP SUMMARY:
+==6152==     in use at exit: 232,897 bytes in 238 blocks
+==6152==   total heap usage: 608 allocs, 370 frees, 259,836 bytes allocated
+==6152==
+==6152== 46 bytes in 1 blocks are definitely lost in loss record 19 of 78
+==6152==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6152==    by 0x10EC80: ft_strdup (in /mnt/c/Users/storb/Documents/GitHub/minishell/minishell)
+==6152==    by 0x10E4C2: extract_env (extract_env.c:29)
+==6152==    by 0x10E896: process_dollar_sign (expand_env_utils.c:62)
+==6152==    by 0x10E62D: expand_env (expand_env.c:60)
+==6152==    by 0x10989A: mshell_lexer (mshell_parser.c:33)
+==6152==    by 0x10960C: main (main.c:39)
+==6152==
+==6152== LEAK SUMMARY:
+==6152==    definitely lost: 46 bytes in 1 blocks
+==6152==    indirectly lost: 0 bytes in 0 blocks
+==6152==      possibly lost: 0 bytes in 0 blocks
+==6152==    still reachable: 232,851 bytes in 237 blocks
+==6152==         suppressed: 0 bytes in 0 blocks
+==6152== Reachable blocks (those to which a pointer was found) are not shown.
+==6152== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==6152==
+==6152== For lists of detected and suppressed errors, rerun with: -s
+==6152== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+```

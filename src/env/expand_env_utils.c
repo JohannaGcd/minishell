@@ -64,6 +64,7 @@ void	process_dollar_sign(t_token *current_token, t_envs *envs)
 		if (var && ft_strchr(var, ' '))
 		{
 			split_and_insert_tokens(current_token, var);
+			free(var);
 		}
 		else
 		{

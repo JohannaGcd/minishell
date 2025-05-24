@@ -27,4 +27,5 @@ char	*extract_env(char *str, t_envs *envs, size_t len)
 	if (node == NULL)
 		return (NULL);
 	return (ft_strdup(node->value));
+	//return ((node->value));
 }
