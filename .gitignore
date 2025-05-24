@@ -2,18 +2,16 @@
 *.o
 *.out
 *.gch
+*.a
+minishell
 
 # Ignore editor/OS_specific files
 .vscode/
 .DS_Store
 
 # Ignore test files
-test.txt
+*.txt
 how_to_libft.c
-input.txt
-output.txt
-1.txt
-heredoc_behavior.txt
 
 # ignore tester
 minishell_tester
