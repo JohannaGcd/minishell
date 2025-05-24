@@ -15,6 +15,8 @@
 t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 {
 	t_envs	*env;
+	char	*old_pwd;
+	char	*pwd;
 
 	env = (t_envs *)malloc(sizeof(t_envs));
 	if (env == NULL)
@@ -28,8 +30,16 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 	mshell->commands = NULL;
 	mshell->tokens = NULL;
 	mshell->is_exit = 0;
-	mshell->pwd = ft_strdup(get_env_var(mshell->envs, "PWD"));
-	mshell->old_pwd = ft_strdup(get_env_var(mshell->envs, "OLDPWD"));
+	pwd = get_env_var(mshell->envs, "PWD");
+	if (pwd)
+		mshell->pwd = ft_strdup(pwd);
+	else
+		mshell->pwd = NULL;
+	old_pwd = get_env_var(mshell->envs, "OLDPWD");
+	if (old_pwd)
+		mshell->old_pwd = ft_strdup(old_pwd);
+	else 
+		mshell->old_pwd = NULL;
 	return (MSH_READLINE);
 }
 
