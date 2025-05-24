@@ -95,3 +95,46 @@ AddressSanitizer:DEADLYSIGNAL
 ### BUGS!!!!
 
 ### minishell>echo "jsjj" > ppp (1 builtin command with redirrect)
+
+### expand_env memory leak
+
+```shell
+ valgrind --leak-check=full ./minishell
+==2498== Memcheck, a memory error detector
+==2498== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==2498== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==2498== Command: ./minishell
+==2498==
+==2498== error calling PR_SET_PTRACER, vgdb might block
+minishell>cd $PWD
+minishell>pwd
+/mnt/c/Users/storb/Documents/GitHub/minishell
+minishell>env | grep PWD
+PWD=/mnt/c/Users/storb/Documents/GitHub/minishell
+minishell>exit
+==2498== 
+==2498== HEAP SUMMARY:
+==2498==     in use at exit: 233,029 bytes in 247 blocks
+==2498==   total heap usage: 674 allocs, 427 frees, 263,242 bytes allocated
+==2498==
+==2498== 46 bytes in 1 blocks are definitely lost in loss record 17 of 78
+==2498==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2498==    by 0x10EC64: ft_strdup (in /mnt/c/Users/storb/Documents/GitHub/minishell/minishell)
+==2498==    by 0x10E4B6: extract_env (extract_env.c:29)
+==2498==    by 0x10E886: process_dollar_sign (expand_env_utils.c:62)
+==2498==    by 0x10E621: expand_env (expand_env.c:60)
+==2498==    by 0x10989A: mshell_lexer (mshell_parser.c:33)
+==2498==    by 0x10960C: main (main.c:39)
+==2498==
+==2498== LEAK SUMMARY:
+==2498==    definitely lost: 46 bytes in 1 blocks
+==2498==    indirectly lost: 0 bytes in 0 blocks
+==2498==      possibly lost: 0 bytes in 0 blocks
+==2498==    still reachable: 232,983 bytes in 246 blocks
+==2498==         suppressed: 0 bytes in 0 blocks
+==2498== Reachable blocks (those to which a pointer was found) are not shown.
+==2498== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==2498==
+==2498== For lists of detected and suppressed errors, rerun with: -s
+==2498== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+```
