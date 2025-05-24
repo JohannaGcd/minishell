@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/23 14:43:46 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/23 18:01:32 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_msh_state	mshell_lexer(t_minishell *mshell, int *exit_status)
 	expand_env(mshell->tokens, mshell->envs);
 	// //debug
 	// printf("after expend\n");
+	// tmp = mshell->tokens;
 	// while(tmp)
 	// {
 	// 	printf("token->type=%d, token_str=%s\n", tmp->type, tmp->str);
