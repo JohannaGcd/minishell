@@ -167,3 +167,88 @@ minishell>
 ==6152== For lists of detected and suppressed errors, rerun with: -s
 ==6152== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
 ```
+### memory error
+``` shell
+valgrind --leak-check=full  ./minishell
+==6616== Memcheck, a memory error detector
+==6616== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==6616== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==6616== Command: ./minishell
+==6616==
+==6616== error calling PR_SET_PTRACER, vgdb might block
+minishell>echo "$PWD is pwd"
+token->type=6, token_str=echo
+token->type=7, token_str=
+token->type=3, token_str="$PWD is pwd"
+after expend
+token->type=6, token_str=echo
+token->type=7, token_str=
+token->type=3, token_str="/mnt/c/Users/storb/Documents/GitHub/minishell is pwd"
+==6616== Invalid write of size 8
+==6616==    at 0x10ACCB: copy_command_args (parser_cmd_arg.c:27)
+==6616==    by 0x10AD4C: fill_command (parser_cmd_arg.c:43)
+==6616==    by 0x10ADE0: extract_commands (parser_cmd_arg.c:64)
+==6616==    by 0x109A06: mshell_parser (mshell_parser.c:69)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==  Address 0x4b45cc0 is 0 bytes after a block of size 16 alloc'd
+==6616==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6616==    by 0x10AD1F: fill_command (parser_cmd_arg.c:38)
+==6616==    by 0x10ADE0: extract_commands (parser_cmd_arg.c:64)
+==6616==    by 0x109A06: mshell_parser (mshell_parser.c:69)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==
+command[0]=echo
+command[1]=/mnt/c/Users/storb/Documents/GitHub/minishell is pwd
+==6616== Invalid read of size 8
+==6616==    at 0x109A6E: mshell_parser (mshell_parser.c:76)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==  Address 0x4b45cc0 is 0 bytes after a block of size 16 alloc'd
+==6616==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6616==    by 0x10AD1F: fill_command (parser_cmd_arg.c:38)
+==6616==    by 0x10ADE0: extract_commands (parser_cmd_arg.c:64)
+==6616==    by 0x109A06: mshell_parser (mshell_parser.c:69)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==
+==6616== Invalid read of size 8
+==6616==    at 0x10D2C0: number_arguments (execute_utils.c:20)
+==6616==    by 0x10D235: exec_echo (execute_echo.c:43)
+==6616==    by 0x10C874: execute_builtin (execute_built_in.c:38)
+==6616==    by 0x10C928: redirect_for_builtin (execute_built_in.c:66)
+==6616==    by 0x10B966: execute_commands (executer.c:64)
+==6616==    by 0x109AFD: mshell_executer (mshell_executer.c:18)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==  Address 0x4b45cc0 is 0 bytes after a block of size 16 alloc'd
+==6616==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6616==    by 0x10AD1F: fill_command (parser_cmd_arg.c:38)
+==6616==    by 0x10ADE0: extract_commands (parser_cmd_arg.c:64)
+==6616==    by 0x109A06: mshell_parser (mshell_parser.c:69)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==
+==6616== Invalid read of size 8
+==6616==    at 0x10D2C0: number_arguments (execute_utils.c:20)
+==6616==    by 0x10D249: exec_echo (execute_echo.c:48)
+==6616==    by 0x10C874: execute_builtin (execute_built_in.c:38)
+==6616==    by 0x10C928: redirect_for_builtin (execute_built_in.c:66)
+==6616==    by 0x10B966: execute_commands (executer.c:64)
+==6616==    by 0x109AFD: mshell_executer (mshell_executer.c:18)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==  Address 0x4b45cc0 is 0 bytes after a block of size 16 alloc'd
+==6616==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6616==    by 0x10AD1F: fill_command (parser_cmd_arg.c:38)
+==6616==    by 0x10ADE0: extract_commands (parser_cmd_arg.c:64)
+==6616==    by 0x109A06: mshell_parser (mshell_parser.c:69)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==
+/mnt/c/Users/storb/Documents/GitHub/minishell is pwd
+==6616== Invalid read of size 8
+==6616==    at 0x109C31: clean_commands (mshell_clean.c:48)
+==6616==    by 0x109B2D: mshell_executer (mshell_executer.c:23)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==  Address 0x4b45cc0 is 0 bytes after a block of size 16 alloc'd
+==6616==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==6616==    by 0x10AD1F: fill_command (parser_cmd_arg.c:38)
+==6616==    by 0x10ADE0: extract_commands (parser_cmd_arg.c:64)
+==6616==    by 0x109A06: mshell_parser (mshell_parser.c:69)
+==6616==    by 0x10960C: main (main.c:39)
+==6616==
+```

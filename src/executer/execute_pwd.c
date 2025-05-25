@@ -14,10 +14,6 @@
 
 void	exec_pwd(char **command_args, t_minishell *mshell)
 {
-	if (command_args[1])
-		perror("two many arguments for pwd command");
-	else
-	{
-		printf("%s\n", mshell->pwd);
-	}
+	(void)command_args;
+	printf("%s\n", mshell->pwd);
 }

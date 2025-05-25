@@ -58,6 +58,7 @@ t_msh_state	mshell_syntaxer(t_minishell *mshell, int *exit_status)
 		mshell->input_str = NULL;
 		if (mshell->tokens)
 			clean_tokens(mshell->tokens);
+		mshell->envs->status = 1;
 		return (MSH_READLINE);
 	}
 	else
