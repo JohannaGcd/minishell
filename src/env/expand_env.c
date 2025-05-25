@@ -47,6 +47,12 @@ void	process_double_quotes(t_token *current_token, t_envs *envs)
 
 	if (ft_strchr(current_token->str, '$'))
 	{
+		if (ft_strncmp(current_token->str, "\"$\"", 4) == 0)
+		{
+			free(current_token->str);
+			current_token->str = ft_strdup("$");
+			return;
+		}
 		var = change_all_env(current_token->str, envs);
 		if (var)
 		{
@@ -78,6 +84,14 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 		else if (current_token->type == D_QUOTE)
 		{
 			process_double_quotes(current_token, envs);
+		}
+		else if (current_token->type == S_QUOTE)
+		{
+			if (ft_strncmp(current_token->str, "'$'", 4) == 0)
+			{
+				free(current_token->str);
+				current_token->str = ft_strdup("$");
+			}
 		}
 		current_token = current_token->next;
 	}
