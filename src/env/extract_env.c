@@ -15,6 +15,7 @@
 char	*extract_env(char *str, t_envs *envs, size_t len)
 {
 	t_env_node	*node;
+	char		*value;
 
 	if (str[1] == '?')
 	{
@@ -26,6 +27,8 @@ char	*extract_env(char *str, t_envs *envs, size_t len)
 		node = node->next;
 	if (node == NULL)
 		return (NULL);
-	return (ft_strdup(node->value));
-	//return ((node->value));
+	value = ft_strdup(node->value);
+	if (!value)
+		return (NULL);
+	return (value);
 }

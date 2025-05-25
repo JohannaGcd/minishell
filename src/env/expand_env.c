@@ -16,25 +16,34 @@
 void	expand_env_variable(t_token *current_token, t_envs *envs)
 {
 	char	*var;
+	char	*new_str;
 
 	var = extract_env(current_token->str, envs, strlen(current_token->str) - 1);
 	free(current_token->str);
 	if (var)
 	{
-		current_token->str = ft_strdup(var);
+		new_str = ft_strdup(var);
+		if (!new_str)
+		{
+			free(var);
+			current_token->str = NULL;
+			return;
+		}
+		current_token->str = new_str;
 		current_token->type = WORD;
+		free(var);
 	}
 	else
 	{
 		current_token->str = ft_strdup("");
 		current_token->type = WORD;
 	}
-	free(var);
 }
 
 void	process_double_quotes(t_token *current_token, t_envs *envs)
 {
 	char	*var;
+	char	*new_str;
 
 	if (ft_strchr(current_token->str, '$'))
 	{
@@ -42,7 +51,14 @@ void	process_double_quotes(t_token *current_token, t_envs *envs)
 		if (var)
 		{
 			free(current_token->str);
-			current_token->str = ft_strdup(var);
+			new_str = ft_strdup(var);
+			if (!new_str)
+			{
+				free(var);
+				current_token->str = NULL;
+				return;
+			}
+			current_token->str = new_str;
 			free(var);
 		}
 	}
