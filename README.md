@@ -252,3 +252,44 @@ command[1]=/mnt/c/Users/storb/Documents/GitHub/minishell is pwd
 ==6616==    by 0x10960C: main (main.c:39)
 ==6616==
 ```
+
+### memory leak $env in quotes
+``` shell
+valgrind --leak-check=full  ./minishell
+==30908== Memcheck, a memory error detector
+==30908== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==30908== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==30908== Command: ./minishell
+==30908==
+==30908== error calling PR_SET_PTRACER, vgdb might block
+minishell>echo "PWD is $PWD"
+PWD is /mnt/c/Users/storb/Documents/GitHub/minishell
+minishell>exit
+==30908== 
+==30908== HEAP SUMMARY:
+==30908==     in use at exit: 232,949 bytes in 241 blocks
+==30908==   total heap usage: 623 allocs, 382 frees, 260,091 bytes allocated
+==30908==
+==30908== 46 bytes in 1 blocks are definitely lost in loss record 18 of 78
+==30908==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30908==    by 0x10ECAB: ft_strdup (in /mnt/c/Users/storb/Documents/GitHub/minishell/minishell)
+==30908==    by 0x10E4E6: extract_env (extract_env.c:29)
+==30908==    by 0x10DEDE: fill_result (expansion.c:83)
+==30908==    by 0x10DFE7: change_all_env (expansion.c:109)
+==30908==    by 0x10E5D7: process_double_quotes (expand_env.c:41)
+==30908==    by 0x10E671: expand_env (expand_env.c:64)
+==30908==    by 0x10989A: mshell_lexer (mshell_parser.c:33)
+==30908==    by 0x10960C: main (main.c:39)
+==30908==
+==30908== LEAK SUMMARY:
+==30908==    definitely lost: 46 bytes in 1 blocks
+==30908==    indirectly lost: 0 bytes in 0 blocks
+==30908==      possibly lost: 0 bytes in 0 blocks
+==30908==    still reachable: 232,903 bytes in 240 blocks
+==30908==         suppressed: 0 bytes in 0 blocks
+==30908== Reachable blocks (those to which a pointer was found) are not shown.
+==30908== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==30908==
+==30908== For lists of detected and suppressed errors, rerun with: -s
+==30908== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+```
