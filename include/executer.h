@@ -80,4 +80,5 @@ void	exec_export_print(t_minishell *mshell);
 int		equal_in_mid(char *str);
 int		equal_is_last(char *str);
 void	not_valid(char *str, t_minishell *mshell);
+void	handle_equal_in_mid(char *arg, char **var, char **value);
 #endif

@@ -57,3 +57,9 @@ void	not_valid(char *str, t_minishell *mshell)
 	ft_putendl_fd(" \': not a valid identifier", 2);
 	mshell->envs->status = 1;
 }
+
+void	handle_equal_in_mid(char *arg, char **var, char **value)
+{
+	*var = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
+	*value = ft_substr(arg, (ft_strchr(arg, '=') - arg) + 1, ft_strlen(arg));
+}

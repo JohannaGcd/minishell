@@ -66,12 +66,25 @@ size_t	calculate_new_length(char *str, t_envs *envs)
 	return (new_len);
 }
 
+static void	handle_env_var(char *result, size_t *j, char *str, t_envs *envs)
+{
+	int		var_len;
+	char	*env_value;
+
+	var_len = env_var_length(str + 1);
+	env_value = extract_env(str, envs, var_len);
+	if (env_value)
+	{
+		strcpy(result + *j, env_value);
+		*j += strlen(env_value);
+		free(env_value);
+	}
+}
+
 void	fill_result(char *result, char *str, t_envs *envs)
 {
 	size_t	i;
 	size_t	j;
-	int		var_len;
-	char	*env_value;
 
 	i = 0;
 	j = 0;
@@ -79,15 +92,8 @@ void	fill_result(char *result, char *str, t_envs *envs)
 	{
 		if (check_is_env(str, i))
 		{
-			var_len = env_var_length(str + i + 1);
-			env_value = extract_env(str + i, envs, var_len);
-			if (env_value)
-			{
-				strcpy(result + j, env_value);
-				j += strlen(env_value);
-				free(env_value);
-			}
-			i += 1 + var_len;
+			handle_env_var(result + j, &j, str + i, envs);
+			i += 1 + env_var_length(str + i + 1);
 		}
 		else
 			result[j++] = str[i++];
