@@ -85,6 +85,7 @@ void	fill_result(char *result, char *str, t_envs *envs)
 			{
 				strcpy(result + j, env_value);
 				j += strlen(env_value);
+				free(env_value);
 			}
 			i += 1 + var_len;
 		}
