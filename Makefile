@@ -37,7 +37,7 @@ SRC_PARSER = parser_cmd_arg.c parser_redir.c parser_utils.c parser_cmd_utils.c p
 SRC_EXECUTER = executer.c redirect.c execute_env.c execute_export.c execute_unset.c \
 			execute_exit.c execute_heredoc.c path_command.c clean_in_exec.c execute_built_in.c \
 			execute_cmd.c execute_pwd.c execute_cd.c execute_echo.c execute_utils.c \
-			execute_single_cmd.c execute_cmd_mul.c execute_heredoc_utils.c
+			execute_single_cmd.c execute_cmd_mul.c execute_heredoc_utils.c execute_export_utils.c
 SRC_ENV = init_env.c expansion.c remove_env.c envs_to_envp.c clean_env.c find_env.c extract_env.c \
 			expand_env.c expand_env_utils.c 
 SRC_SYNTAXER = syntaxer.c syntaxer_utils.c

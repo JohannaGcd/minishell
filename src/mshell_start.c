@@ -38,7 +38,7 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 	old_pwd = get_env_var(mshell->envs, "OLDPWD");
 	if (old_pwd)
 		mshell->old_pwd = ft_strdup(old_pwd);
-	else 
+	else
 		mshell->old_pwd = NULL;
 	return (MSH_READLINE);
 }

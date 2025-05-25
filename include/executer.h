@@ -76,5 +76,8 @@ int		process_heredoc_input(int write_fd, char *delimiter);
 void	set_up_child_fds(t_pipe_io *pipe_io);
 void	handle_builtin(t_command *curr_cmd, t_minishell *mshell,
 			int *exit_status);
-
+void	exec_export_print(t_minishell *mshell);
+int		equal_in_mid(char *str);
+int		equal_is_last(char *str);
+void	not_valid(char *str, t_minishell *mshell);
 #endif

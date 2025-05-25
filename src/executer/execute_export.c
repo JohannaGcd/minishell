@@ -12,50 +12,17 @@
 
 #include "executer.h"
 
-void	exec_export_print(t_minishell *mshell)
-{
-	t_env_node	*node;
-
-	node = mshell->envs->env;
-	while (node)
-	{
-		printf ("declare -x %s=\"%s\"\n", node->var, node->value);
-		node = node->next;
-	}
-}
-
-int	equal_in_mid(char *str)
-{
-	int	len;
-	int	i;
-
-	i = 1;
-	len = ft_strlen(str);
-	while (i < len - 1)
-	{
-		if (str[i] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	equal_is_last(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (str[len - 1] == '=')
-		return (1);
-	return (0);
-}
-
 void	handle_export_argument(char **args, t_minishell *mshell, int *i)
 {
 	char		*var;
 	char		*value;
 
-	if (equal_in_mid(args[*i]))
+	if (args[*i][0] == '=')
+	{
+		not_valid(args[*i], mshell);
+		return ;
+	}
+	else if (equal_in_mid(args[*i]))
 	{
 		var = ft_substr(args[*i], 0, ft_strchr(args[*i], '=') - args[*i]);
 		value = ft_substr(args[*i], (ft_strchr(args[*i], '=')
@@ -67,8 +34,18 @@ void	handle_export_argument(char **args, t_minishell *mshell, int *i)
 				- args[*i]);
 		value = ft_substr(args[*i + 1], 0, ft_strlen(args[*i + 1]));
 	}
+	else if (ft_strrchr(args[*i], '-') || ft_is_number(args[*i]))
+	{
+		not_valid(args[*i], mshell);
+		return ;
+	}
 	else
 		return ;
+	if (ft_strrchr(var, '-'))
+	{
+		not_valid(var, mshell);
+		return ;
+	}
 	set_or_update_env(mshell, var, value);
 	free(var);
 	free(value);

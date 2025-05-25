@@ -38,13 +38,13 @@ void	fill_command(t_command **new_command, t_token *token_list)
 	if (nbr_args < 0)
 	{
 		perror("Failed to count command arguments");
-		return;
+		return ;
 	}
 	commands = (char **)malloc(sizeof(char *) * (nbr_args + 1));
 	if (!commands)
 	{
 		perror("Failed to allocate memory for new_command->command_args");
-		return;
+		return ;
 	}
 	copy_command_args(commands, token_list);
 	(*new_command)->command_args = commands;
