@@ -51,6 +51,7 @@ void	process_double_quotes(t_token *current_token, t_envs *envs)
 		{
 			free(current_token->str);
 			current_token->str = ft_strdup("$");
+			current_token->type = WORD;
 			return;
 		}
 		var = change_all_env(current_token->str, envs);
@@ -91,6 +92,7 @@ int	expand_env(t_token *list_tokens, t_envs *envs)
 			{
 				free(current_token->str);
 				current_token->str = ft_strdup("$");
+				current_token->type = WORD;
 			}
 		}
 		current_token = current_token->next;

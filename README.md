@@ -57,8 +57,6 @@ AddressSanitizer:DEADLYSIGNAL
     #4 0x104d4dbcc in main main.c:34
     #5 0x19b9cf150  (<unknown module>)
 
-## TODO
-
 ### HEREDOC: 1. handle env expansion 2. handle signals 3. handle exit status 4. modify calling function so that heredoc is only called when needed.
 
 ### handle multiply command in executer
@@ -252,6 +250,8 @@ command[1]=/mnt/c/Users/storb/Documents/GitHub/minishell is pwd
 ==6616==    by 0x10960C: main (main.c:39)
 ==6616==
 ```
+
+### TODO
 
 ### memory leak $env in quotes
 ``` shell
