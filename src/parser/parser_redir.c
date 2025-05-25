@@ -86,7 +86,9 @@ void	handle_token_counter(t_token **token, int *counter, int *redir)
 		*redir = 0;
 	}
 	else if (*token && ((*token)->type == WORD
-			|| (*token)->type == ENV) && !*redir)
+			|| (*token)->type == ENV
+			|| (*token)->type == S_QUOTE
+			|| (*token)->type == D_QUOTE) && !*redir)
 		(*counter)++;
 	else if (*token && ((*token)->type == REDIRECT_IN
 			|| (*token)->type == REDIRECT_OUT))
