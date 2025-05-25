@@ -32,7 +32,7 @@ void	handle_export_argument(char **args, t_minishell *mshell, int *i)
 	{
 		var = ft_substr(args[*i], 0, ft_strchr(args[*i], '=')
 				- args[*i]);
-		value = ft_substr(args[*i + 1], 0, ft_strlen(args[*i + 1]));
+		value = ft_strdup("");
 	}
 	else if (ft_strrchr(args[*i], '-') || ft_is_number(args[*i]))
 	{
