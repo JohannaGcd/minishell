@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:47 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/23 18:01:32 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/26 12:33:11 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,12 @@
 t_msh_state	mshell_lexer(t_minishell *mshell, int *exit_status)
 {
 	mshell->tokens = extract_tokens(mshell->input_str);
-	// //debug
-	// t_token* tmp;
-	// tmp = mshell->tokens;
-	// while(tmp)
-	// {
-	// 	printf("token->type=%d, token_str=%s\n", tmp->type, tmp->str);
-	// 	tmp= tmp->next;
-	// }
-	// //end debug
 	if (mshell->tokens == NULL)
 	{
 		*exit_status = 1;
 		return (MSH_CLEAN);
 	}
 	expand_env(mshell->tokens, mshell->envs);
-	// //debug
-	// printf("after expend\n");
-	// tmp = mshell->tokens;
-	// while(tmp)
-	// {
-	// 	printf("token->type=%d, token_str=%s\n", tmp->type, tmp->str);
-	// 	tmp= tmp->next;
-	// }
-	// //end debug
 	if (mshell->input_str)
 	{
 		free(mshell->input_str);
@@ -68,6 +50,36 @@ t_msh_state	mshell_syntaxer(t_minishell *mshell, int *exit_status)
 t_msh_state	mshell_parser(t_minishell *mshell, int *exit_status)
 {
 	mshell->commands = extract_commands(mshell->tokens);
+	if (mshell->commands == NULL)
+	{
+		*exit_status = 1;
+		return (MSH_CLEAN);
+	}
+	if (mshell->tokens)
+	{
+		clean_tokens(mshell->tokens);
+		mshell->tokens = NULL;
+	}
+	return (MSH_EXECUTER);
+}
+// //debug
+	// t_token* tmp;
+	// tmp = mshell->tokens;
+	// while(tmp)
+	// {
+	// 	printf("token->type=%d, token_str=%s\n", tmp->type, tmp->str);
+	// 	tmp= tmp->next;
+	// }
+	// //end debug
+	// //debug
+	// printf("after expend\n");
+	// tmp = mshell->tokens;
+	// while(tmp)
+	// {
+	// 	printf("token->type=%d, token_str=%s\n", tmp->type, tmp->str);
+	// 	tmp= tmp->next;
+	// }
+	// //end debug
 	// //debug
 	// t_command *com;
 	// com = mshell->commands;
@@ -82,15 +94,3 @@ t_msh_state	mshell_parser(t_minishell *mshell, int *exit_status)
 	// 	com = com->next;
 	// }
 	// //end debug
-	if (mshell->commands == NULL)
-	{
-		*exit_status = 1;
-		return (MSH_CLEAN);
-	}
-	if (mshell->tokens)
-	{
-		clean_tokens(mshell->tokens);
-		mshell->tokens = NULL;
-	}
-	return (MSH_EXECUTER);
-}
