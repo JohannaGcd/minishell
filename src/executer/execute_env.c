@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:12:35 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/18 08:11:18 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/26 22:08:50 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ void	exec_env(char **command_args, t_minishell *mshell)
 
 	only_equal = 1;
 	i = 1;
+	mshell->envs->status = 0;
 	while (command_args[i])
 	{
 		if (!ft_strchr(command_args[i], '='))
 		{
 			only_equal = 0;
+			ft_putstr_fd(command_args[i], 2);
 			break ;
 		}
 		i++;
@@ -53,5 +55,8 @@ void	exec_env(char **command_args, t_minishell *mshell)
 	if (only_equal == 1)
 		print_env_and_args(node, command_args);
 	else
-		perror("no such file or dir");
+	{
+		ft_putendl_fd(": No such file or dir", 2);
+		mshell->envs->status = 127;
+	}
 }

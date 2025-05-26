@@ -293,3 +293,68 @@ minishell>exit
 ==30908== For lists of detected and suppressed errors, rerun with: -s
 ==30908== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
 ```
+### CTRL+D after syntax error
+
+``` shell
+minishell>echo " '
+syntax error
+minishell>
+=================================================================
+==5805==ERROR: AddressSanitizer: heap-use-after-free on address 0x603000002750 at pc 0x0001002850c8 bp 0x00016fb7ec10 sp 0x00016fb7ec08
+READ of size 8 at 0x603000002750 thread T0
+    #0 0x0001002850c4 in clean_tokens lexer_clean.c:30
+    #1 0x0001002823e0 in mshell_clean mshell_clean.c:71
+    #2 0x000100280af0 in main main.c:39
+    #3 0x00019904ab94 in start+0x17b8 (dyld:arm64e+0xfffffffffff3ab94)
+
+0x603000002750 is located 16 bytes inside of 24-byte region [0x603000002740,0x603000002758)
+freed by thread T0 here:
+    #0 0x000100ae9480 in free+0x7c (libclang_rt.asan_osx_dynamic.dylib:arm64e+0x3d480)
+    #1 0x00010028515c in clean_tokens lexer_clean.c:33
+    #2 0x000100281914 in mshell_syntaxer mshell_parser.c:60
+    #3 0x000100280af0 in main main.c:39
+    #4 0x00019904ab94 in start+0x17b8 (dyld:arm64e+0xfffffffffff3ab94)
+
+previously allocated by thread T0 here:
+    #0 0x000100ae938c in malloc+0x78 (libclang_rt.asan_osx_dynamic.dylib:arm64e+0x3d38c)
+    #1 0x000100282d78 in create_new_token lexer_list_utils.c:20
+    #2 0x0001002848e0 in extract_tokens lexer.c:75
+    #3 0x000100281548 in mshell_lexer mshell_parser.c:18
+    #4 0x000100280af0 in main main.c:39
+    #5 0x00019904ab94 in start+0x17b8 (dyld:arm64e+0xfffffffffff3ab94)
+
+SUMMARY: AddressSanitizer: heap-use-after-free lexer_clean.c:30 in clean_tokens
+Shadow bytes around the buggy address:
+  0x603000002480: 00 fa fa fa 00 00 05 fa fa fa fd fd fd fa fa fa
+  0x603000002500: 00 00 00 fa fa fa 00 00 04 fa fa fa fd fd fd fd
+  0x603000002580: fa fa 00 00 00 fa fa fa 00 00 00 02 fa fa 00 00
+  0x603000002600: 00 fa fa fa 00 00 00 01 fa fa fd fd fd fd fa fa
+  0x603000002680: fd fd fd fd fa fa fd fd fd fd fa fa fd fd fd fd
+=>0x603000002700: fa fa 00 00 00 fa fa fa fd fd[fd]fa fa fa fd fd
+  0x603000002780: fd fa fa fa fd fd fd fa fa fa fa fa fa fa fa fa
+  0x603000002800: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x603000002880: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x603000002900: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x603000002980: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==5805==ABORTING
+zsh: abort      ./minishell
+```

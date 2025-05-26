@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/06 16:51:50 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 16:29:03 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 21:58:56 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	exec_echo(char **command_args, t_minishell *mshell)
 		printf("%s", command_args[i]);
 	if (is_n == 0)
 		printf("\n");
+	mshell->envs->status = 0;
 }
