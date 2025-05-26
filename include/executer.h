@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 13:41:38 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 13:49:53 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	io_redirect(t_command *command);
 int		execute_if_single_command(t_command *cmd, t_minishell *mshell);
 int		execute_single_command(t_minishell *mshell, t_command *command,
 			char **envp);
-void	exec_export(char **command_args, t_minishell *mshell);
+void	exec_export(char **args, t_minishell *mshell);
 void	exec_env(char **command_args, t_minishell *mshell);
 void	exec_unset(char **command_args, t_minishell *mshell);
 void	exec_pwd(char **command_args, t_minishell *mshell);
