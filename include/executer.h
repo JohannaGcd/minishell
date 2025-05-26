@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/26 14:28:18 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 14:42:09 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ void	exec_export_print(t_minishell *mshell);
 int		equal_in_mid(char *str);
 int		equal_is_last(char *str);
 void	not_valid(char *str, t_minishell *mshell);
+void	checker_io_redirect(t_command *cmd, t_minishell *mshell);
 #endif

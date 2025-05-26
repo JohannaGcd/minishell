@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:21:54 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/26 13:32:15 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 14:42:01 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	handle_output_redirections(t_command *command, t_minishell *mshell)
 			perror("Error opening output file");
 			mshell->envs->status = 1;
 			return (1);
-			// exit(EXIT_FAILURE);
 		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
@@ -81,4 +80,13 @@ void	set_up_child_fds(t_pipe_io *pipe_io)
 	dup2(pipe_io->prev_read_end, STDIN_FILENO);
 	dup2(pipe_io->pipe_fd[1], STDOUT_FILENO);
 	close(pipe_io->pipe_fd[1]);
+}
+
+void	checker_io_redirect(t_command *cmd, t_minishell *mshell)
+{
+	if (io_redirect(cmd, mshell) == 1)
+	{
+		mshell->envs->status = 1;
+		exit(EXIT_FAILURE);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/26 13:40:20 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 14:35:32 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char	**prep_env_and_path(t_minishell *mshell, t_command *current)
 }
 
 // Handles redirections and launches execve.
-void	execute_child_single_cmd(t_command *command, char **envp, t_minishell *mshell)
+void	execute_child_single_cmd(t_command *command, char **envp,
+		t_minishell *mshell)
 {
 	if (io_redirect(command, mshell) == 1)
 	{

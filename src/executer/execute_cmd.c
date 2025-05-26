@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/26 14:33:52 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 14:40:54 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,7 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 	if (child_id == 0)
 	{
 		setup_last_child_io(pipe_io->prev_read_end);
-		if (io_redirect(curr_cmd, mshell) == 1)
-		{
-			mshell->envs->status = 1;
-			exit(EXIT_FAILURE);
-		}
+		checker_io_redirect(curr_cmd, mshell);
 		if (!is_builtin_cmd(curr_cmd->command_args))
 		{
 			command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);
