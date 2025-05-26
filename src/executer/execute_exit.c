@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/19 21:32:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/26 14:30:29 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 18:27:46 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	exec_exit(char **command_args, t_minishell *mshell, int *exit_status)
 	if (command_args[1])
 	{
 		if (ft_is_number(command_args[1]))
+		{
 			*exit_status = ft_atoi(command_args[1]);
+			printf("%d", *exit_status);
+		}
 		else
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);
