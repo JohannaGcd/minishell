@@ -12,17 +12,15 @@
 
 #include "../include/env.h"
 
-t_msh_state	mshell_start(t_minishell *mshell, char **envp)
+int	init_mshell(t_minishell *mshell, char **envp)
 {
 	t_envs	*env;
-	char	*old_pwd;
-	char	*pwd;
 
 	env = (t_envs *)malloc(sizeof(t_envs));
 	if (env == NULL)
 	{
 		perror("Failed to allocate memory for envs");
-		return (MSH_EXIT);
+		return (0);
 	}
 	init_env(envp, env);
 	mshell->envs = env;
@@ -30,6 +28,16 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 	mshell->commands = NULL;
 	mshell->tokens = NULL;
 	mshell->is_exit = 0;
+	return (1);
+}
+
+t_msh_state	mshell_start(t_minishell *mshell, char **envp)
+{
+	char	*old_pwd;
+	char	*pwd;
+
+	if (init_mshell(mshell, envp) == 0)
+		return (MSH_EXIT);
 	pwd = get_env_var(mshell->envs, "PWD");
 	if (pwd)
 		mshell->pwd = ft_strdup(pwd);
