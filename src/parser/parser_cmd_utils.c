@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/18 15:06:33 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 18:48:07 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 18:48:46 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*handle_quoted_arg(t_token *token)
 	size_t	len;
 
 	len = ft_strlen(token->str) - 2;
-	if (len < 2)
+	if (len < 1)
 		len = 0;
 	return (ft_substr(token->str, 1, len));
 }
