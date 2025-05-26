@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 12:22:05 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 13:40:20 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**prep_env_and_path(t_minishell *mshell, t_command *current)
 	else
 	{
 		mshell->envs->status = 127;
-		ft_putendl_fd("command not found", 2);
+		ft_putendl_fd(" command not found", 2);
 		free_array(envp);
 		return (NULL);
 	}
@@ -42,9 +42,13 @@ char	**prep_env_and_path(t_minishell *mshell, t_command *current)
 }
 
 // Handles redirections and launches execve.
-void	execute_child_single_cmd(t_command *command, char **envp)
+void	execute_child_single_cmd(t_command *command, char **envp, t_minishell *mshell)
 {
-	io_redirect(command);
+	if (io_redirect(command, mshell) == 1)
+	{
+		mshell->envs->status = 1;
+		exit(EXIT_FAILURE);
+	}
 	if (execve(command->command_args[0], command->command_args, envp) == -1)
 	{
 		perror("execve failed");
@@ -85,7 +89,7 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 	if (command->in && command->in->fd == -2)
 	{
 		mshell->envs->status = 130;
-		return (0);
+		return (130);
 	}
 	pid = fork();
 	if (pid == -1)
@@ -93,7 +97,7 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 	else if (pid == 0)
 	{
 		handle_signal(CHILD_SIG);
-		execute_child_single_cmd(command, envp);
+		execute_child_single_cmd(command, envp, mshell);
 		handle_signal(PARENT_SIG);
 	}
 	else
@@ -101,7 +105,7 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 		handle_signal(PARENT_SIG);
 		execute_parent_single_cmd(mshell, &status, pid);
 	}
-	return (0);
+	return (mshell->envs->status);
 }
 
 // Gets the envp and triggers the execution of the command.
