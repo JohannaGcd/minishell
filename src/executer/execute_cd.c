@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/11 21:46:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/23 12:26:18 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/26 22:36:36 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,11 @@ void	exec_cd(char **command_args, t_minishell *mshell)
 	{
 		path = get_env_var(mshell->envs, "HOME");
 		if (path == NULL)
+		{
+			mshell->envs->status = 1;
 			return (ft_putendl_fd("Error: HOME not set", 2));
+		}
+			
 	}
 	change_dir(path, old_path, mshell);
 	if (old_path)
