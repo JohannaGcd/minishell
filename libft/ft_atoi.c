@@ -6,7 +6,7 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 12:18:53 by spanfilo      #+#    #+#                 */
-/*   Updated: 2025/05/26 18:26:00 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 22:54:29 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,33 @@ int	ft_atoi(const char *str)
 	int	i;
 	int	min_count;
 	int	res;
+
+	i = 0;
+	res = 0;
+	min_count = 0;
+	while (str[i] != '\0' && ft_isspace(str[i]))
+		i++;
+	if (str[i] != '\0' && (str[i] == '+' || str[i] == '-'))
+	{
+		if (str[i] == '-')
+			min_count++;
+		i++;
+	}
+	while (str[i] != '\0' && str[i] <= '9' && str[i] >= '0')
+	{
+		res = res * 10 + char_to_int(str[i]);
+		i++;
+	}
+	if (min_count % 2 == 1)
+		res = -1 * res;
+	return (res);
+}
+
+long int ft_atoi_long(const char *str)
+{
+	int	i;
+	int	min_count;
+	long int	res;
 
 	i = 0;
 	res = 0;
