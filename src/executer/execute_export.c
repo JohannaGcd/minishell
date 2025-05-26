@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:10:48 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/26 13:52:51 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/26 22:31:08 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	exec_export(char **args, t_minishell *mshell)
 	int			i;
 
 	i = 1;
+	mshell->envs->status = 0;
 	count = number_arguments(args);
 	if (count == 1)
 		exec_export_print(mshell);
