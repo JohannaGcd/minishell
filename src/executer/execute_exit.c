@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/19 21:32:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 19:37:02 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/26 12:28:16 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ int	exec_exit(char **command_args, t_minishell *mshell, int *exit_status)
 	if (command_args[1] && command_args[2])
 	{
 		ft_putendl_fd("exit: too many arguments", 2);
+		*exit_status = 1;
+		mshell->is_exit = 1;
 		return (1);
 	}
 	if (command_args[1])
 	{
 		if (ft_is_number(command_args[1]))
-		{
 			*exit_status = ft_atoi(command_args[1]);
-		}
 		else
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);

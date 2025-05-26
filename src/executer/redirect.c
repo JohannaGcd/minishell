@@ -6,14 +6,14 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:21:54 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 14:48:50 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 13:32:15 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
 // Handles input redirections
-void	handle_input_redirections(t_command *command)
+int	handle_input_redirections(t_command *command, t_minishell *mshell)
 {
 	t_redirection	*red_in;
 
@@ -24,16 +24,21 @@ void	handle_input_redirections(t_command *command)
 		{
 			red_in->fd = open(red_in->file, O_RDONLY);
 			if (red_in->fd == -1)
-				return (perror("Error opening input file"), exit(EXIT_FAILURE));
+			{
+				mshell->envs->status = 1;
+				perror("Error opening input file");
+				return (1);
+			}
 		}
 		dup2(command->in->fd, STDIN_FILENO);
 		close(command->in->fd);
 		red_in = red_in->next;
 	}
+	return (0);
 }
 
 // Handles output redirection
-void	handle_output_redirections(t_command *command)
+int	handle_output_redirections(t_command *command, t_minishell *mshell)
 {
 	t_redirection	*red_out;
 	int				out_fd;
@@ -48,19 +53,25 @@ void	handle_output_redirections(t_command *command)
 		if (out_fd == -1)
 		{
 			perror("Error opening output file");
-			exit(EXIT_FAILURE);
+			mshell->envs->status = 1;
+			return (1);
+			// exit(EXIT_FAILURE);
 		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 		red_out = red_out->next;
 	}
+	return (0);
 }
 
 // Launches the appropriate redirection function depending on its type
-void	io_redirect(t_command *command)
+int	io_redirect(t_command *command, t_minishell *mshell)
 {
-	handle_input_redirections(command);
-	handle_output_redirections(command);
+	if (handle_input_redirections(command, mshell) == 1)
+		return (1);
+	if (handle_output_redirections(command, mshell) == 1)
+		return (1);
+	return (0);
 }
 
 // Handles fd for the pipes, for multiple commands specifically.
