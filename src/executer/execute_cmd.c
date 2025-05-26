@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 14:37:47 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 14:33:52 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 	if (!envp && !is_builtin_cmd(curr_cmd->command_args))
 		exit(EXIT_FAILURE);
 	set_up_child_fds(pipe_io);
-	io_redirect(curr_cmd);
+	if (io_redirect(curr_cmd, mshell) == 1)
+	{
+		mshell->envs->status = 1;
+		exit(EXIT_FAILURE);
+	}
 	use_exec_or_builtin(curr_cmd, mshell, envp, exit_status);
 	return (0);
 }
@@ -80,7 +84,11 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 	if (child_id == 0)
 	{
 		setup_last_child_io(pipe_io->prev_read_end);
-		io_redirect(curr_cmd);
+		if (io_redirect(curr_cmd, mshell) == 1)
+		{
+			mshell->envs->status = 1;
+			exit(EXIT_FAILURE);
+		}
 		if (!is_builtin_cmd(curr_cmd->command_args))
 		{
 			command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);

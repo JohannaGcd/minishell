@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/19 21:32:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/26 12:28:16 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 14:30:29 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_exit(char **command_args, t_minishell *mshell, int *exit_status)
 		else
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);
-			*exit_status = 255;
+			*exit_status = 2;
 		}
 	}
 	mshell->is_exit = 1;

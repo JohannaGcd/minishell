@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 10:04:20 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/23 12:18:19 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/26 14:32:30 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ void	redirect_for_builtin(t_command *cmd, t_minishell *mshell,
 		saved_stdin = save_fd(STDIN_FILENO);
 	if (cmd->out)
 		saved_stdout = save_fd(STDOUT_FILENO);
-	io_redirect(cmd);
+	if (io_redirect(cmd, mshell) == 1)
+	{
+		mshell->envs->status = 1;
+		exit(EXIT_FAILURE);
+	}
 	execute_builtin(cmd->command_args, mshell, exit_status);
 	if (saved_stdout != 0)
 	{
