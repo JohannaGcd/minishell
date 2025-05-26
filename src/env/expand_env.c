@@ -59,17 +59,19 @@ void	process_double_quotes(t_token *current_token, t_envs *envs)
 		{
 			free(current_token->str);
 			new_str = ft_strdup(var);
-			if (!new_str)
-			{
-				free(var);
-				current_token->str = NULL;
-				return ;
-			}
 			current_token->str = new_str;
 			free(var);
 		}
 	}
 }
+// if (!new_str)
+// {
+// 	free(var);
+// 	current_token->str = NULL;
+// 	return ;
+// }
+// current_token->str = new_str;
+// free(var);
 
 int	expand_env(t_token *list_tokens, t_envs *envs)
 {
