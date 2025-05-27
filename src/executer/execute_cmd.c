@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/26 14:40:54 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/27 18:22:56 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 		return (perror("fork failed"), mshell->envs->status = 1, -1);
 	if (child_id == 0)
 	{
+		handle_signal(CHILD_SIG);
 		setup_last_child_io(pipe_io->prev_read_end);
 		checker_io_redirect(curr_cmd, mshell);
 		if (!is_builtin_cmd(curr_cmd->command_args))
@@ -93,6 +94,7 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 		else
 			handle_builtin(curr_cmd, mshell, exit_status);
 	}
+	handle_signal(PARENT_SIG);
 	close(pipe_io->prev_read_end);
 	free_array(envp);
 	return (child_id);
