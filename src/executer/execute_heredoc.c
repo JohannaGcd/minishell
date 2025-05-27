@@ -20,7 +20,7 @@ bool	set_all_heredocs(t_minishell *mshell)
 	while (cmd)
 	{
 		handle_heredoc(mshell, &cmd);
-		if (mshell->is_exit != 0)
+		if (mshell->envs->status == 130)
 			return (false);
 		cmd = cmd->next;
 	}
@@ -45,6 +45,9 @@ int	read_heredoc(char *delimiter)
 	rl_event_hook = event;
 	handle_signal(HEREDOC_SIG);
 	read_fd = process_heredoc_input(write_fd, delimiter);
+	handle_signal(MAIN_SIG);
+	rl_on_new_line();
+	rl_replace_line("", 0);
 	return (read_fd);
 }
 
@@ -59,6 +62,11 @@ void	handle_heredoc(t_minishell *mshell, t_command **command)
 		if (redir->type == HEREDOC)
 		{
 			redir->fd = read_heredoc(redir->file);
+			if (redir->fd == -2)
+			{
+				mshell->envs->status = 130;
+				return ;
+			}
 			if (redir->fd == -1)
 			{
 				perror("failed to set up heredoc\n");

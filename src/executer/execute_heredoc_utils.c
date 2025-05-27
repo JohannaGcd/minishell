@@ -45,7 +45,12 @@ int	process_heredoc_input(int write_fd, char *delimiter)
 	while (1)
 	{
 		if (g_signal_received)
-			break ;
+		{
+			g_signal_received = 0;
+			close(write_fd);
+			close(read_fd);
+			return (-2);
+		}
 		line = readline("> ");
 		if (!line || (strcmp(line, delimiter) == 0))
 		{
@@ -55,11 +60,5 @@ int	process_heredoc_input(int write_fd, char *delimiter)
 		write_line_to_pipe(write_fd, line);
 	}
 	close(write_fd);
-	if (g_signal_received)
-	{
-		g_signal_received = 0;
-		close(read_fd);
-		return (-2);
-	}
 	return (read_fd);
 }
