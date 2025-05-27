@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/25 21:19:03 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/26 18:20:20 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/27 22:19:45 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*return_cmd_w_path(char *command, t_minishell *mshell)
 	char	**list_of_paths;
 	char	*command_with_path;
 
-	if (ft_strncmp(command, "/", 1) == 0 && access(command, X_OK) == 0)
+	if (ft_strrchr(command, '/') && access(command, X_OK) == 0)
 		return (ft_strdup(command));
 	else if (ft_strncmp(command, "./", 2) == 0 && access(command, X_OK) == 0)
 		return (ft_strdup(command));
