@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 10:04:20 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/26 14:32:30 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/27 17:20:43 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	redirect_for_builtin(t_command *cmd, t_minishell *mshell,
 	}
 	if (saved_stdin != 0)
 	{
-		dup2(saved_stdout, STDOUT_FILENO);
-		close(saved_stdout);
+		dup2(saved_stdin, STDIN_FILENO);
+		close(saved_stdin);
 	}
 }
