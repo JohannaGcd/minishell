@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/27 18:15:16 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/27 18:34:44 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_msh_state	mshell_readline(t_minishell *mshell, int *exit_status)
 {
 	const char	prompt[] = "minishell>";
 
-	//handle_signal(MAIN_SIG);
 	(void) exit_status;
 	rl_on_new_line();
 	rl_catch_signals = 0;
