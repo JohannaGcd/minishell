@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:10:48 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/26 22:31:08 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/27 13:25:56 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	handle_arg_with_equal(char *argsi, char **var, char **value)
 				- argsi);
 		*value = ft_strdup("");
 	}
+}
+void free_var_value (char *var, char * value)
+{
+	free(var);
+	free(value);	
 }
 
 void	handle_export_argument(char **args, t_minishell *mshell, int *i)
@@ -50,11 +55,11 @@ void	handle_export_argument(char **args, t_minishell *mshell, int *i)
 	if (ft_strrchr(var, '-'))
 	{
 		not_valid(var, mshell);
+		free_var_value(var, value);
 		return ;
 	}
 	set_or_update_env(mshell, var, value);
-	free(var);
-	free(value);
+	free_var_value(var, value);
 }
 
 void	exec_export(char **args, t_minishell *mshell)
