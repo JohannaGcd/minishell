@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 10:25:54 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/22 14:42:02 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/27 18:13:23 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	handle_signal(int mode)
 	if (mode == MAIN_SIG)
 	{
 		set_main_signal();
+		rl_done = 0;
 		rl_event_hook = NULL;
 	}
 	else if (mode == HEREDOC_SIG)
