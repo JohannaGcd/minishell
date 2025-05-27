@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "executer.h"
+#include "env.h"
 
 // Writes the lines imputed from STDIN into the pipe for the heredoc
 void	write_line_to_pipe(int pipe_fd, char *line)
@@ -36,9 +37,10 @@ int	setup_heredoc_pipe(void)
 // Prompts the user to write in STDIN
 // Reads from STDIN until the delimiter
 // Writes each line into the pipe
-int	process_heredoc_input(int write_fd, char *delimiter)
+int	process_heredoc_input(int write_fd, t_heredoc *hd, t_envs *envs)
 {
 	char	*line;
+	char	*expanded_line;
 	int		read_fd;
 
 	read_fd = write_fd - 1;
@@ -52,12 +54,24 @@ int	process_heredoc_input(int write_fd, char *delimiter)
 			return (-2);
 		}
 		line = readline("> ");
-		if (!line || (strcmp(line, delimiter) == 0))
+		if (!line || (strcmp(line, hd->delimiter) == 0))
 		{
 			free(line);
 			break ;
 		}
-		write_line_to_pipe(write_fd, line);
+		if (hd->expand && ft_strchr(line, '$'))
+		{
+			expanded_line = change_all_env(line, envs);
+			if (expanded_line)
+			{
+				write_line_to_pipe(write_fd, expanded_line);
+				free(line);
+			}
+			else
+				write_line_to_pipe(write_fd, line);
+		}
+		else
+			write_line_to_pipe(write_fd, line);
 	}
 	close(write_fd);
 	return (read_fd);
