@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:14 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/26 14:42:09 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/27 07:24:06 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@
 # include "minishell.h"
 # include <limits.h>
 # include <stdbool.h>
+
+typedef struct s_heredoc
+{
+	char	*delimiter;
+	int		expand;
+}	t_heredoc;
 
 void	execute_commands(t_minishell *mshell, int *exit_status);
 int		io_redirect(t_command *command, t_minishell *mshell);
@@ -62,7 +68,7 @@ void	free_array(char **args);
 int		execute_child(t_minishell *mshell, t_command *curr_cmd,
 			t_pipe_io *pipe_io, int *exit_status);
 void	handle_heredoc(t_minishell *mshell, t_command **command);
-int		read_heredoc(char *delimiter);
+int		read_heredoc(char *delimiter, t_minishell *mshell);
 int		number_arguments(char **command_args);
 bool	set_all_heredocs(t_minishell *mshell);
 void	set_or_update_env(t_minishell *mshell, char *var, char *value);
@@ -72,7 +78,7 @@ void	execute_pipeline(t_minishell *mshell, int *exit_status,
 void	setup_last_child_io(int prev_read_end);
 void	write_line_to_pipe(int pipe_fd, char *line);
 int		setup_heredoc_pipe(void);
-int		process_heredoc_input(int write_fd, char *delimiter);
+int		process_heredoc_input(int write_fd, t_heredoc *hd, t_envs *envs);
 void	set_up_child_fds(t_pipe_io *pipe_io);
 void	handle_builtin(t_command *curr_cmd, t_minishell *mshell,
 			int *exit_status);
