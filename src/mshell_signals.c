@@ -16,7 +16,6 @@
 void	sig_ctrl_c(int signum)
 {
 	(void)signum;
-	rl_done = 1;
 	write(2, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -29,7 +28,7 @@ void	set_main_signal(void)
 
 	sa.sa_handler = sig_ctrl_c;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
+	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
@@ -56,6 +55,7 @@ void	handle_signal(int mode)
 	if (mode == MAIN_SIG)
 	{
 		set_main_signal();
+		rl_event_hook = NULL;
 	}
 	else if (mode == HEREDOC_SIG)
 	{
