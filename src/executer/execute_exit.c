@@ -6,15 +6,42 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/19 21:32:27 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/26 23:03:01 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/27 18:06:15 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
+int	is_valid_long(char *str)
+{
+	long int	num;
+	char		*str_new;
+
+	num = ft_atoi_long(str);
+	str_new = ft_long_itoa(num);
+	if (str[0] == '+')
+	{
+		if (ft_strncmp(str + 1, str_new, ft_strlen(str)))
+		{
+			free(str_new);
+			return (0);
+		}
+	}
+	else
+	{
+		if (ft_strncmp(str, str_new, ft_strlen(str)))
+		{
+			free(str_new);
+			return (0);
+		}
+	}
+	free(str_new);
+	return (1);
+}
+
 int	is_valid_exit_number(char *str)
 {
-	int	i;
+	int			i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -27,6 +54,8 @@ int	is_valid_exit_number(char *str)
 			return (0);
 		i++;
 	}
+	if (is_valid_long(str) == 0)
+		return (0);
 	return (1);
 }
 
