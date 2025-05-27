@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/27 13:17:15 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/27 17:45:05 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ int	setup_heredoc_pipe(void)
 	return (pipe_fd[1]);
 }
 
-void	handle_heredoc_line(char *line, int write_fd, t_heredoc *hd, t_envs *envs)
+void	handle_heredoc_line(char *line, int write_fd, t_heredoc *hd,
+		t_envs *envs)
 {
-	char *expanded;
+	char	*expanded;
 
 	if (hd->expand && ft_strchr(line, '$'))
 	{
@@ -45,7 +46,7 @@ void	handle_heredoc_line(char *line, int write_fd, t_heredoc *hd, t_envs *envs)
 		{
 			write_line_to_pipe(write_fd, expanded);
 			free(line);
-			return;
+			return ;
 		}
 	}
 	write_line_to_pipe(write_fd, line);
@@ -70,7 +71,8 @@ int	process_heredoc_input(int write_fd, t_heredoc *hd, t_envs *envs)
 			return (-2);
 		}
 		line = readline("> ");
-		if (!line || (ft_strncmp(line, hd->delimiter, ft_strlen(hd->delimiter)) == 0))
+		if (!line || (ft_strncmp(line, hd->delimiter,
+					ft_strlen(hd->delimiter)) == 0))
 		{
 			free(line);
 			break ;
