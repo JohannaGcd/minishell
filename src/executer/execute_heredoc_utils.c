@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/23 14:57:21 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/27 13:17:15 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,29 @@ int	setup_heredoc_pipe(void)
 	return (pipe_fd[1]);
 }
 
+void	handle_heredoc_line(char *line, int write_fd, t_heredoc *hd, t_envs *envs)
+{
+	char *expanded;
+
+	if (hd->expand && ft_strchr(line, '$'))
+	{
+		expanded = change_all_env(line, envs);
+		if (expanded)
+		{
+			write_line_to_pipe(write_fd, expanded);
+			free(line);
+			return;
+		}
+	}
+	write_line_to_pipe(write_fd, line);
+}
+
 // Prompts the user to write in STDIN
 // Reads from STDIN until the delimiter
 // Writes each line into the pipe
 int	process_heredoc_input(int write_fd, t_heredoc *hd, t_envs *envs)
 {
 	char	*line;
-	char	*expanded_line;
 	int		read_fd;
 
 	read_fd = write_fd - 1;
@@ -54,24 +70,12 @@ int	process_heredoc_input(int write_fd, t_heredoc *hd, t_envs *envs)
 			return (-2);
 		}
 		line = readline("> ");
-		if (!line || (strcmp(line, hd->delimiter) == 0))
+		if (!line || (ft_strncmp(line, hd->delimiter, ft_strlen(hd->delimiter)) == 0))
 		{
 			free(line);
 			break ;
 		}
-		if (hd->expand && ft_strchr(line, '$'))
-		{
-			expanded_line = change_all_env(line, envs);
-			if (expanded_line)
-			{
-				write_line_to_pipe(write_fd, expanded_line);
-				free(line);
-			}
-			else
-				write_line_to_pipe(write_fd, line);
-		}
-		else
-			write_line_to_pipe(write_fd, line);
+		handle_heredoc_line(line, write_fd, hd, envs);
 	}
 	close(write_fd);
 	return (read_fd);

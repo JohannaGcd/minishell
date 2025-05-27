@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 22:10:48 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/27 13:25:56 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/27 17:26:24 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void	handle_arg_with_equal(char *argsi, char **var, char **value)
 		*value = ft_strdup("");
 	}
 }
-void free_var_value (char *var, char * value)
+
+void	free_var_value(char *var, char *value)
 {
 	free(var);
-	free(value);	
+	free(value);
 }
 
 void	handle_export_argument(char **args, t_minishell *mshell, int *i)
