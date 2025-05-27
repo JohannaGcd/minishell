@@ -65,8 +65,6 @@ char	*return_cmd_w_path(char *command, t_minishell *mshell)
 	if (!list_of_paths)
 		return (free(paths), NULL);
 	command_with_path = find_path(list_of_paths, command);
-	if (!command_with_path)
-		return (NULL);
 	free(paths);
 	free_split(list_of_paths);
 	return (command_with_path);
