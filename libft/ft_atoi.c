@@ -6,7 +6,7 @@
 /*   By: spanfilo <spanfilo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/09 12:18:53 by spanfilo      #+#    #+#                 */
-/*   Updated: 2025/05/26 22:54:29 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/27 12:56:38 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	ft_atoi(const char *str)
 	return (res);
 }
 
-long int ft_atoi_long(const char *str)
+long int	ft_atoi_long(const char *str)
 {
-	int	i;
-	int	min_count;
+	int			i;
+	int			min_count;
 	long int	res;
 
 	i = 0;

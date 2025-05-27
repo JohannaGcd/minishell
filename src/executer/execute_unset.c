@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/10 20:35:46 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/26 22:20:55 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/27 12:54:56 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exec_unset(char **command_args, t_minishell *mshell)
 	while (command_args[i])
 	{
 		var = command_args[i];
-		if (var[0] == '\0' ||  ft_strrchr(var, '-') || ft_is_number(var))
+		if (var[0] == '\0' || ft_strrchr(var, '-') || ft_is_number(var))
 		{
 			ft_putstr_fd("unset: `", 2);
 			ft_putstr_fd(var, 2);
