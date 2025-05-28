@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:21:54 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/26 14:42:01 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/28 14:11:23 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	handle_input_redirections(t_command *command, t_minishell *mshell)
 				return (1);
 			}
 		}
-		dup2(command->in->fd, STDIN_FILENO);
-		close(command->in->fd);
+		dup2(red_in->fd, STDIN_FILENO);
+		close(red_in->fd);
 		red_in = red_in->next;
 	}
 	return (0);
@@ -41,23 +41,22 @@ int	handle_input_redirections(t_command *command, t_minishell *mshell)
 int	handle_output_redirections(t_command *command, t_minishell *mshell)
 {
 	t_redirection	*red_out;
-	int				out_fd;
 
 	red_out = command->out;
 	while (red_out)
 	{
 		if (red_out->type == APPEND)
-			out_fd = open(red_out->file, O_RDWR | O_CREAT | O_APPEND, 0644);
+			red_out->fd = open(red_out->file, O_RDWR | O_CREAT | O_APPEND, 0644);
 		else
-			out_fd = open(red_out->file, O_RDWR | O_CREAT | O_TRUNC, 0644);
-		if (out_fd == -1)
+			red_out->fd = open(red_out->file, O_RDWR | O_CREAT | O_TRUNC, 0644);
+		if (red_out->fd == -1)
 		{
 			perror("Error opening output file");
 			mshell->envs->status = 1;
 			return (1);
 		}
-		dup2(out_fd, STDOUT_FILENO);
-		close(out_fd);
+		dup2(red_out->fd, STDOUT_FILENO);
+		close(red_out->fd);
 		red_out = red_out->next;
 	}
 	return (0);

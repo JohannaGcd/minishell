@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/20 13:35:52 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/27 22:12:26 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/28 14:11:00 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	process_heredoc_input(int write_fd, t_heredoc *hd, t_envs *envs)
 			close(read_fd);
 			return (-2);
 		}
-		line = readline("> ");
+		line = readline("heredoc> ");
 		if (!line || (ft_strncmp(line, hd->delimiter,
 					ft_strlen(hd->delimiter)) == 0))
 		{
