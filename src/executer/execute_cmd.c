@@ -41,8 +41,19 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 {
 	char	**envp;
 
+	if (is_builtin_cmd(curr_cmd->command_args))
+	{
+		set_up_child_fds(pipe_io);
+		if (io_redirect(curr_cmd, mshell) == 1)
+		{
+			mshell->envs->status = 1;
+			exit(EXIT_FAILURE);
+		}
+		execute_builtin(curr_cmd->command_args, mshell, exit_status);
+		exit(EXIT_SUCCESS);
+	}
 	envp = prep_env_and_path(mshell, curr_cmd);
-	if (!envp && !is_builtin_cmd(curr_cmd->command_args))
+	if (!envp)
 		exit(EXIT_FAILURE);
 	set_up_child_fds(pipe_io);
 	if (io_redirect(curr_cmd, mshell) == 1)
@@ -50,7 +61,12 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 		mshell->envs->status = 1;
 		exit(EXIT_FAILURE);
 	}
-	use_exec_or_builtin(curr_cmd, mshell, envp, exit_status);
+	if (execve(curr_cmd->command_args[0], curr_cmd->command_args, envp) == -1)
+	{
+		perror("execve failed");
+		free_array(envp);
+		exit(EXIT_FAILURE);
+	}
 	return (0);
 }
 
@@ -77,7 +93,6 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 	char	*command_wp;
 	char	**envp;
 
-	envp = envs_to_envp(mshell->envs);
 	child_id = fork();
 	if (child_id < 0)
 		return (perror("fork failed"), mshell->envs->status = 1, -1);
@@ -85,18 +100,36 @@ int	execute_last_cmd(t_minishell *mshell, t_command *curr_cmd,
 	{
 		handle_signal(CHILD_SIG);
 		setup_last_child_io(pipe_io->prev_read_end);
-		checker_io_redirect(curr_cmd, mshell);
-		if (!is_builtin_cmd(curr_cmd->command_args))
+		if (io_redirect(curr_cmd, mshell) == 1)
 		{
-			command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);
-			execute_command(command_wp, curr_cmd->command_args, envp);
+			mshell->envs->status = 1;
+			exit(EXIT_FAILURE);
 		}
-		else
-			handle_builtin(curr_cmd, mshell, exit_status);
+		if (is_builtin_cmd(curr_cmd->command_args))
+		{
+			execute_builtin(curr_cmd->command_args, mshell, exit_status);
+			exit(EXIT_SUCCESS);
+		}
+		envp = envs_to_envp(mshell->envs);
+		command_wp = return_cmd_w_path(curr_cmd->command_args[0], mshell);
+		if (!command_wp)
+		{
+			ft_putendl_fd("command not found", 2);
+			exit(127);
+		}
+		if (execve(command_wp, curr_cmd->command_args, envp) == -1)
+		{
+			perror("execve failed");
+			free(command_wp);
+			free_array(envp);
+			if (errno == ENOENT)
+				exit(127);
+			else
+				exit(126);
+		}
 	}
 	handle_signal(PARENT_SIG);
 	close(pipe_io->prev_read_end);
-	free_array(envp);
 	return (child_id);
 }
 
