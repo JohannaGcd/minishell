@@ -44,7 +44,8 @@ SRCS = ft_strlen.c \
 		ft_atoi_base.c \
 		ft_max.c\
 		ft_is_number.c \
-		ft_strjoin_with_char.c
+		ft_strjoin_with_char.c\
+		ft_strcpy.c
 
 
 SRC_BONUS = ft_lstnew_bonus.c \
