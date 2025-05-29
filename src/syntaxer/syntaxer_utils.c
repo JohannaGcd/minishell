@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:49 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/27 13:08:09 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/29 12:37:32 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	pipe_syntaxer(t_token *prev_token, t_token *curr_token)
 		if ((ft_strncmp(curr_token->str, "|", 1) == 0)
 			&& (ft_strncmp(next_token->str, "|", 1) == 0))
 			return (1);
-	if (next_token->type != WORD && next_token->type != ENV)
+	if (next_token->type == PIPE)
 		return (1);
 	return (0);
 }
@@ -73,6 +73,7 @@ int	redir_syntaxer(t_token *prev_token, t_token *curr_token)
 {
 	t_token	*next_token;
 
+	(void)prev_token;
 	if (!curr_token && !curr_token->str)
 		return (1);
 	next_token = skip_space_token(curr_token);
@@ -83,8 +84,8 @@ int	redir_syntaxer(t_token *prev_token, t_token *curr_token)
 	if (next_token->type != S_QUOTE && next_token->type != D_QUOTE
 		&& next_token->type != WORD && next_token->type != ENV)
 		return (1);
-	if (ft_strncmp(curr_token->str, "<<", 2) == 0 && !prev_token)
-		return (1);
+	// if (ft_strncmp(curr_token->str, "<<", 2) == 0)
+	// 	return (1);
 	return (0);
 }
 

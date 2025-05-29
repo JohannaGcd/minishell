@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/27 18:22:56 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/29 12:46:08 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 	if (io_redirect(curr_cmd, mshell) == 1)
 	{
 		mshell->envs->status = 1;
+		free_array(envp);
 		exit(EXIT_FAILURE);
 	}
 	use_exec_or_builtin(curr_cmd, mshell, envp, exit_status);

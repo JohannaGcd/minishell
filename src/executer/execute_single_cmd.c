@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/27 22:08:54 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/29 12:47:47 by jguacide      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**prep_env_and_path(t_minishell *mshell, t_command *current)
 	envp = envs_to_envp(mshell->envs);
 	if (current->command_args[0] == NULL)
 	{
-		free(envp);
+		free_array(envp);
 		return (NULL);
 	}
 	cmd_path = return_cmd_w_path(current->command_args[0], mshell);
@@ -85,8 +85,8 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 	pid_t	pid;
 	int		status;	
 
-	if (!set_all_heredocs(mshell))
-		return (mshell->envs->status = 130, 130);
+	// if (!set_all_heredocs(mshell))
+	// 	return (mshell->envs->status = 130, 130);
 	if (command->in && command->in->fd == -2)
 	{
 		mshell->envs->status = 130;
@@ -114,6 +114,8 @@ int	execute_if_single_command(t_command *cmd, t_minishell *mshell)
 {
 	char	**envp;
 
+	if (!set_all_heredocs(mshell))
+		return (mshell->envs->status = 130, 130);
 	envp = prep_env_and_path(mshell, cmd);
 	if (!envp)
 		return (1);
