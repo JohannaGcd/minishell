@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:25:46 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/29 12:46:08 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/29 15:45:53 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ int	execute_child(t_minishell *mshell, t_command *curr_cmd,
 {
 	char	**envp;
 
-	envp = prep_env_and_path(mshell, curr_cmd);
-	if (!envp && !is_builtin_cmd(curr_cmd->command_args))
-		exit(EXIT_FAILURE);
+	if (!is_builtin_cmd(curr_cmd->command_args))
+	{
+		envp = prep_env_and_path(mshell, curr_cmd);
+		if (!envp)
+			exit(EXIT_FAILURE);
+	}
 	set_up_child_fds(pipe_io);
 	if (io_redirect(curr_cmd, mshell) == 1)
 	{
