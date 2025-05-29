@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:21:54 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/28 14:11:23 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/29 05:46:07 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	handle_output_redirections(t_command *command, t_minishell *mshell)
 	while (red_out)
 	{
 		if (red_out->type == APPEND)
-			red_out->fd = open(red_out->file, O_RDWR | O_CREAT | O_APPEND, 0644);
+			red_out->fd = open(red_out->file, O_RDWR | O_CREAT | O_APPEND,
+					0644);
 		else
 			red_out->fd = open(red_out->file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 		if (red_out->fd == -1)
