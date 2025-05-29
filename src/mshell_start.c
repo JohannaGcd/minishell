@@ -41,7 +41,14 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 		return (MSH_EXIT);
 	pwd = get_env_var(mshell->envs, "PWD");
 	if (pwd)
+	{
 		mshell->pwd = ft_strdup(pwd);
+		if (mshell->pwd == NULL)
+		{
+			ft_putendl_fd("error malloc memory", 2);
+			return (MSH_CLEAN);
+		}		
+	}
 	else
 		mshell->pwd = NULL;
 	old_pwd = get_env_var(mshell->envs, "OLDPWD");

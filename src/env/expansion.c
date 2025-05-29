@@ -53,7 +53,7 @@ size_t	calculate_new_length(char *str, t_envs *envs)
 			var_len = env_var_length(str + i + 1);
 			env_value = extract_env(str + i, envs, var_len);
 			if (env_value)
-				new_len += strlen(env_value);
+				new_len += ft_strlen(env_value);
 			free(env_value);
 			i += 1 + var_len;
 		}
@@ -83,8 +83,8 @@ void	fill_result(char *result, char *str, t_envs *envs)
 			env_value = extract_env(str + i, envs, var_len);
 			if (env_value)
 			{
-				strcpy(result + j, env_value);
-				j += strlen(env_value);
+				ft_strcpy(result + j, env_value);
+				j += ft_strlen(env_value);
 				free(env_value);
 			}
 			i += 1 + var_len;

@@ -60,7 +60,7 @@ void	process_dollar_sign(t_token *current_token, t_envs *envs)
 				|| current_token->next->type == M_SPACE)))
 	{
 		var = extract_env(current_token->str, envs,
-				strlen(current_token->str) - 1);
+				ft_strlen(current_token->str) - 1);
 		if (var && ft_strchr(var, ' '))
 		{
 			split_and_insert_tokens(current_token, var);
