@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/27 18:34:44 by spanfilo      ########   odam.nl         */
+/*   Updated: 2025/05/29 05:48:15 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	init_mshell(t_minishell *mshell, char **envp)
 		perror("Failed to allocate memory for envs");
 		return (0);
 	}
-	init_env(envp, env);
+	if (init_env(envp, env) == 0)
+		return (0);
 	mshell->envs = env;
 	mshell->input_str = NULL;
 	mshell->commands = NULL;

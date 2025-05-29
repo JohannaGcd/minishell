@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/02/24 20:32:25 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/18 07:59:49 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/29 05:48:14 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ size_t	find_equals(char *str)
 	return (-1);
 }
 
-void	init_env(char **envp, t_envs *envs)
+int	init_env(char **envp, t_envs *envs)
 {
 	int			i;
 	size_t		j;
@@ -73,11 +73,14 @@ void	init_env(char **envp, t_envs *envs)
 		var = ft_substr(envp[i], 0, j);
 		value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
 		node = create_new_env_node(var, value);
+		if (var == NULL || value == NULL || node == NULL)
+			return (0);
 		add_env_to_list(&(envs->env), node);
 		free(var);
 		free(value);
 		i++;
 	}
+	return (1);
 }
 
 // void	init_env(char **envp, t_envs *envs)

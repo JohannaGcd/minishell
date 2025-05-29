@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/16 15:41:06 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/24 11:04:43 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/29 05:48:12 by sveta         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "minishell.h"
 # include "lexer.h"
 
-void		init_env(char **envp, t_envs *envs);
+int			init_env(char **envp, t_envs *envs);
 int			expand_env(t_token *list_tokens, t_envs *envs);
 char		*extract_env(char *str, t_envs *envs, size_t len);
 t_env_node	*create_new_env_node(char *var, char *value);
