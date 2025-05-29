@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/15 12:27:55 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/29 12:47:47 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/29 12:59:59 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	execute_single_command(t_minishell *mshell, t_command *command, char **envp)
 	pid_t	pid;
 	int		status;	
 
-	// if (!set_all_heredocs(mshell))
-	// 	return (mshell->envs->status = 130, 130);
 	if (command->in && command->in->fd == -2)
 	{
 		mshell->envs->status = 130;

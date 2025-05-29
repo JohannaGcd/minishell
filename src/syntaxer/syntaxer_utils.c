@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/08 15:22:49 by jguacide      #+#    #+#                 */
-/*   Updated: 2025/05/29 12:37:32 by jguacide      ########   odam.nl         */
+/*   Updated: 2025/05/29 13:00:12 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ int	redir_syntaxer(t_token *prev_token, t_token *curr_token)
 	if (next_token->type != S_QUOTE && next_token->type != D_QUOTE
 		&& next_token->type != WORD && next_token->type != ENV)
 		return (1);
-	// if (ft_strncmp(curr_token->str, "<<", 2) == 0)
-	// 	return (1);
 	return (0);
 }
 
