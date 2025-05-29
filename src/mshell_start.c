@@ -6,7 +6,7 @@
 /*   By: sveta <sveta@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/26 08:53:36 by sveta         #+#    #+#                 */
-/*   Updated: 2025/05/29 05:48:15 by sveta         ########   odam.nl         */
+/*   Updated: 2025/05/29 12:55:46 by spanfilo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ int	init_mshell(t_minishell *mshell, char **envp)
 	return (1);
 }
 
-t_msh_state	mshell_start(t_minishell *mshell, char **envp)
+int	init_pwd(t_minishell *mshell)
 {
-	char	*old_pwd;
 	char	*pwd;
 
-	if (init_mshell(mshell, envp) == 0)
-		return (MSH_EXIT);
 	pwd = get_env_var(mshell->envs, "PWD");
 	if (pwd)
 	{
@@ -46,16 +43,39 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 		if (mshell->pwd == NULL)
 		{
 			ft_putendl_fd("error malloc memory", 2);
-			return (MSH_CLEAN);
+			return (0);
 		}
 	}
 	else
 		mshell->pwd = NULL;
+	return (1);
+}
+
+int	init_old_pwd(t_minishell *mshell)
+{
+	char	*old_pwd;
+
 	old_pwd = get_env_var(mshell->envs, "OLDPWD");
 	if (old_pwd)
+	{
 		mshell->old_pwd = ft_strdup(old_pwd);
+		if (mshell->old_pwd == NULL)
+		{
+			ft_putendl_fd("error malloc memory", 2);
+			return (0);
+		}
+	}
 	else
 		mshell->old_pwd = NULL;
+	return (1);
+}
+
+t_msh_state	mshell_start(t_minishell *mshell, char **envp)
+{
+	if (init_mshell(mshell, envp) == 0)
+		return (MSH_EXIT);
+	if (init_pwd(mshell) == 0 || init_old_pwd(mshell) == 0)
+		return (MSH_EXIT);
 	return (MSH_READLINE);
 }
 
