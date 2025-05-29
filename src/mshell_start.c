@@ -47,7 +47,7 @@ t_msh_state	mshell_start(t_minishell *mshell, char **envp)
 		{
 			ft_putendl_fd("error malloc memory", 2);
 			return (MSH_CLEAN);
-		}		
+		}
 	}
 	else
 		mshell->pwd = NULL;
