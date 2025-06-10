@@ -1,12 +1,6 @@
 # minishell
 42 project minishell
 
-Sure! Here’s a polished and clear README draft for the **minishell** project by JohannaGcd based on the GitHub repo you shared:
-
----
-
-# minishell
-
 A simple Unix shell implemented in C, designed as a project to understand and practice basic shell functionalities such as parsing commands, managing environment variables, handling redirections, and implementing built-in commands.
 
 ---
